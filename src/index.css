@@ -1,3 +1,20 @@
+:root {
+  --primary: #FFA96A;
+  --secondary: #CEB700;
+  --accent: #CEB700;
+  --background: #FBEAAB;
+}
+
+@font-face {
+  font-family: 'Staatliches Regular';
+  src: url('\\styles\\fonts\\StaatlichesRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Underdog Regular';
+  src: url('\\styles\\fonts\\UnderdogRegular.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
