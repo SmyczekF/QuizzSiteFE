@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
-function App() {
+function CollapseDesktop() {
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{
+        width: 300,
+        breakpoint: 'sm',
+        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+      }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <Group h="100%" px="md">
+          <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
+          <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
+        </Group>
+      </AppShell.Header>
+      <AppShell.Navbar p="md">
+        Navbar
+        {Array(15)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} h={28} mt="sm" animate={false} />
+          ))}
+      </AppShell.Navbar>
+      <AppShell.Main>Main</AppShell.Main>
+    </AppShell>
   );
 }
 
-export default App;
+export default CollapseDesktop;
