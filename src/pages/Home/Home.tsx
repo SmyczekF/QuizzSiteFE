@@ -9,7 +9,7 @@ const Home = () => {
                 <h2 className={styles.topicTitle}>Tv Shows</h2>
             </div>
             <div className={styles.topicBoxTwo}>
-                <h2 className={styles.topicTitle}>Trivia</h2>
+                <h2 className={styles.topicTitle}>Music</h2>
             </div>
             <div className={styles.topicBoxThree}>
                 <h2 className={styles.topicTitle}>Movies</h2>
