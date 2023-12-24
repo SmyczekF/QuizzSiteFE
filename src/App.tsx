@@ -3,7 +3,8 @@ import { useDisclosure } from '@mantine/hooks';
 import Main from './Main';
 import styles from './App.module.scss';
 import 'primeicons/primeicons.css';
-import CustomNavLink from './Navbar/CustomNavLink';
+import CustomNavLink from './navbar/CustomNavLink';
+import Login from './public/login/Login';
 
 function CollapseDesktop() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -38,9 +39,7 @@ function CollapseDesktop() {
             ></TextInput>
           </div>
           <div className={styles.headerSection}>
-            <Button variant="outline" color="gray" size="sm">
-              Login
-            </Button>
+            <Login />
           </div>
         </Group>
       </AppShell.Header>

@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MantineProvider>
-      <App />
+        <App />
     </MantineProvider>
   </React.StrictMode>
   

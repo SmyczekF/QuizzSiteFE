@@ -4,6 +4,7 @@
   --accent: #CEB700;
   --accent-hover: #FFA96A;
   --background: #f5ea9f;
+  --background-main: #f8eaa681;
 }
 
 @font-face {
@@ -20,7 +21,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif, 'Staatliches Regular', 'Underdog Regular';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
