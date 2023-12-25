@@ -1,9 +1,11 @@
 import { Button, Flex, Group, PasswordInput, Text, TextInput } from '@mantine/core';
 import { UseFormReturnType, useForm } from '@mantine/form';
 import styles from '../Login.module.scss';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 interface RegisterFormData {
-    login: string;
+    username: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -11,17 +13,28 @@ interface RegisterFormData {
 
 interface RegisterProps {
     onAccountClick: () => void;
+    closeModal: () => void;
 }
 
 const RegisterForm = (props: RegisterProps) => {
 
-    const { onAccountClick } = props;
+    const { onAccountClick, closeModal } = props;
+
+    const registerMutation = useMutation({
+        mutationFn: (values: RegisterFormData) => {
+            return axios.post(`/auth/register`, values)
+        },
+        onSuccess: (data) => {
+            closeModal();
+            console.log(data);
+        }
+    });
 
     const form: UseFormReturnType<RegisterFormData> = useForm({
-        initialValues: { login: '', email: '', password: '', confirmPassword: ''},
+        initialValues: { username: '', email: '', password: '', confirmPassword: ''},
         
         validate: {
-            login: (value) => (/^\w{3,}$/.test(value) ? null : 'Username is too short'),
+            username: (value) => (/^\w{3,}$/.test(value) ? null : 'Username is too short'),
             password: (value) => {
                 if(!(/^.{8,}$/.test(value))) return 'Password is too short';
                 if(!(/[a-z]/.test(value))) return 'Password must contain at least one lowercase letter';
@@ -35,14 +48,14 @@ const RegisterForm = (props: RegisterProps) => {
     });
 
     return(
-        <form onSubmit={form.onSubmit((values: RegisterFormData) => console.log(values))}>
+        <form onSubmit={form.onSubmit((values: RegisterFormData) => registerMutation.mutate(values))}>
             <Text classNames={{root: styles.label}}>Register</Text>
             <Flex direction={'column'} gap={'20px'}>
                 <TextInput
                     required
                     placeholder="Username"
                     leftSection={<i className='pi pi-user'></i>}
-                    {...form.getInputProps('login')}
+                    {...form.getInputProps('username')}
                 />
                 <TextInput
                     required

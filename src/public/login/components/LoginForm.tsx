@@ -1,32 +1,48 @@
 import { Button, Flex, Group, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from "@mantine/form";
 import styles from '../Login.module.scss';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
+interface LoginValues {
+    username: string;
+    password: string;
+}
 interface LoginFormProps {
     onNoAccountClick: () => void;
+    closeModal: () => void;
 }
 
 const LoginForm = (props: LoginFormProps) => {
 
-    const { onNoAccountClick } = props;
+    const { onNoAccountClick, closeModal } = props;
 
     const form = useForm({
-        initialValues: { login: '', password: '' },
+        initialValues: { username: '', password: '' },
         
         validate: {
-            login: (value) => (/^\w{3,}$/.test(value) ? null : 'Username is too short'),
+            username: (value) => (/^\w{3,}$/.test(value) ? null : 'Username is too short'),
         },
     });
 
+    const loginMutation = useMutation({
+        mutationFn: (values: LoginValues) => {
+            return axios.post(`/auth/login`, values)
+        },
+        onSuccess: (data) => {
+            closeModal();
+        }
+    });
+
     return(
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit((values) => loginMutation.mutate(values))}>
                     <Text classNames={{root: styles.label}}>Login</Text>
                     <Flex direction={'column'} gap={'20px'}>
                         <TextInput
                             required
                             placeholder="Username"
                             leftSection={<i className='pi pi-user'></i>}
-                            {...form.getInputProps('login')}
+                            {...form.getInputProps('username')}
                         />
                         <PasswordInput
                             required

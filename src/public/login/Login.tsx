@@ -17,8 +17,8 @@ const Login = () => {
             <Modal opened={opened} onClose={close} classNames={{root: styles.loginModal}}>
                 {
                     register 
-                    ? <RegisterForm onAccountClick={() => setRegister(false)}/>
-                    : <LoginForm onNoAccountClick={() => setRegister(true)}/>
+                    ? <RegisterForm onAccountClick={() => setRegister(false)} closeModal={close}/>
+                    : <LoginForm onNoAccountClick={() => setRegister(true)} closeModal={close}/>
                 }
             </Modal>
             <Button color="yellow" onClick={open}>
