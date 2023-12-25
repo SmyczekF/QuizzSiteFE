@@ -1,10 +1,14 @@
-import { AppShell, Burger, Button, Group, NavLink, TextInput } from '@mantine/core';
+import { AppShell, Burger, Group, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Main from './Main';
 import styles from './App.module.scss';
 import 'primeicons/primeicons.css';
 import CustomNavLink from './navbar/CustomNavLink';
 import Login from './public/login/Login';
+import axios from 'axios';
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.withCredentials = true;
 
 function CollapseDesktop() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
