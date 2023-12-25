@@ -1,11 +1,23 @@
 import { Image } from '@mantine/core';
 import styles from './Home.module.scss';
+import { useEffect } from 'react';
+import { notifications } from '@mantine/notifications';
 
 interface HomeProps {
     startNotification?: () => void;
 }
 
 const Home = (props: HomeProps) => {
+
+    const { startNotification } = props;
+
+    useEffect(() => {
+        notifications.clean();
+        if (startNotification) {
+            startNotification();
+        }
+    }, [startNotification]);
+
     return (
         <div className={styles.hero}>
             <Image src='/logo-no-background.svg' alt='Quizz World' className={styles.logoMainPage}/>
