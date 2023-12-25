@@ -7,6 +7,7 @@ const Main = () => {
             <Routes>
                 <Route path="*" element={<Home />} /> {/* TODO: change to 404 page */}
                 <Route path="/" element={<Home />} />
+                <Route path="/email-confirmed" element={<Home />} />
             </Routes>
         </Router>
         

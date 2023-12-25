@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +18,7 @@ root.render(
   <React.StrictMode>
     <MantineProvider>
         <QueryClientProvider client={queryClient}>
+          <Notifications />
           <App />
         </QueryClientProvider>
     </MantineProvider>

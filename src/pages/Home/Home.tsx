@@ -1,7 +1,11 @@
 import { Image } from '@mantine/core';
 import styles from './Home.module.scss';
 
-const Home = () => {
+interface HomeProps {
+    startNotification?: () => void;
+}
+
+const Home = (props: HomeProps) => {
     return (
         <div className={styles.hero}>
             <Image src='/logo-no-background.svg' alt='Quizz World' className={styles.logoMainPage}/>

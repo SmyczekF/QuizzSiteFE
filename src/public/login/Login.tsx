@@ -1,11 +1,10 @@
 import { Button, Modal } from "@mantine/core"
-import { useForm } from "@mantine/form";
 import "primeicons/primeicons.css";
 import styles from './Login.module.scss';
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
+import Register from "../register/Register";
 
 const Login = () => {
 
@@ -17,7 +16,7 @@ const Login = () => {
             <Modal opened={opened} onClose={close} classNames={{root: styles.loginModal}}>
                 {
                     register 
-                    ? <RegisterForm onAccountClick={() => setRegister(false)} closeModal={close}/>
+                    ? <Register onAccountClick={() => setRegister(false)}/>
                     : <LoginForm onNoAccountClick={() => setRegister(true)} closeModal={close}/>
                 }
             </Modal>

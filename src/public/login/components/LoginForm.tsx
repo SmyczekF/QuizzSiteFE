@@ -3,6 +3,7 @@ import { useForm } from "@mantine/form";
 import styles from '../Login.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { notifications } from '@mantine/notifications';
 
 interface LoginValues {
     username: string;
@@ -30,7 +31,25 @@ const LoginForm = (props: LoginFormProps) => {
             return axios.post(`/auth/login`, values)
         },
         onSuccess: (data) => {
+            notifications.show({
+                title: 'Success',
+                message: 'You have logged in successfully',
+                color: 'teal',
+                icon: <i className="pi pi-check"></i>,
+                autoClose: 2000,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
             closeModal();
+        },
+        onError: (error) => {
+            notifications.show({
+                title: 'Error',
+                message: 'Incorrect username or password',
+                color: 'red',
+                icon: <i className="pi pi-times"></i>,
+                autoClose: 2500,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
         }
     });
 

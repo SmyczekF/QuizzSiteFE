@@ -1,8 +1,9 @@
-import { Button, Flex, Group, PasswordInput, Text, TextInput } from '@mantine/core';
+import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { UseFormReturnType, useForm } from '@mantine/form';
-import styles from '../Login.module.scss';
+import styles from '../Register.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { RegisterProps } from '../Register';
 
 interface RegisterFormData {
     username: string;
@@ -11,22 +12,22 @@ interface RegisterFormData {
     confirmPassword: string;
 }
 
-interface RegisterProps {
-    onAccountClick: () => void;
-    closeModal: () => void;
+interface RegisterFormProps extends RegisterProps {
+    onRegistered: () => void;
+    setEmail: (email: string) => void;
 }
 
-const RegisterForm = (props: RegisterProps) => {
+const RegisterForm = (props: RegisterFormProps) => {
 
-    const { onAccountClick, closeModal } = props;
+    const { onAccountClick, onRegistered, setEmail } = props;
 
     const registerMutation = useMutation({
         mutationFn: (values: RegisterFormData) => {
             return axios.post(`/auth/register`, values)
         },
         onSuccess: (data) => {
-            closeModal();
-            console.log(data);
+            setEmail(data.data.email);
+            onRegistered();
         }
     });
 

@@ -7,9 +7,8 @@ import CustomNavLink from './navbar/CustomNavLink';
 import Login from './public/login/Login';
 import axios from 'axios';
 
-console.log(process.env.REACT_APP_API_URL);
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 function CollapseDesktop() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
