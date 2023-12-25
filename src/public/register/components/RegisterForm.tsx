@@ -4,6 +4,7 @@ import styles from '../Register.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { RegisterProps } from '../Register';
+import { notifications } from '@mantine/notifications';
 
 interface RegisterFormData {
     username: string;
@@ -26,8 +27,26 @@ const RegisterForm = (props: RegisterFormProps) => {
             return axios.post(`/auth/register`, values)
         },
         onSuccess: (data) => {
+            notifications.show({
+                title: 'Success',
+                message: 'You have registered successfully',
+                color: 'teal',
+                icon: <i className="pi pi-check"></i>,
+                autoClose: 2500,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
             setEmail(data.data.email);
             onRegistered();
+        },
+        onError: (error) => {
+            notifications.show({
+                title: 'Error',
+                message: 'This username or email is already taken',
+                color: 'red',
+                icon: <i className="pi pi-times"></i>,
+                autoClose: 2500,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
         }
     });
 

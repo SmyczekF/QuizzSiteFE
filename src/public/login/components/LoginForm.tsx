@@ -36,7 +36,7 @@ const LoginForm = (props: LoginFormProps) => {
                 message: 'You have logged in successfully',
                 color: 'teal',
                 icon: <i className="pi pi-check"></i>,
-                autoClose: 2000,
+                autoClose: 2500,
                 classNames: {description: styles.notification, title: styles.notification}
             });
             closeModal();

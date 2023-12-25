@@ -3,6 +3,7 @@ import styles from '../Register.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { notifications } from '@mantine/notifications';
 
 interface VerifyEmailProps {
     onGoToLogin: () => void;
@@ -23,7 +24,24 @@ const VerifyEmail = (props: VerifyEmailProps) => {
             return axios.post(`/auth/sendActivationEmail`, {email: email})
         },
         onSuccess: (data) => {
-            console.log(data);
+            notifications.show({
+                title: 'Success',
+                message: 'Verification email has been sent successfully',
+                color: 'teal',
+                icon: <i className="pi pi-check"></i>,
+                autoClose: 2500,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
+        },
+        onError: (error) => {
+            notifications.show({
+                title: 'Error',
+                message: 'There was an error while sending the verification email',
+                color: 'red',
+                icon: <i className="pi pi-times"></i>,
+                autoClose: 2500,
+                classNames: {description: styles.notification, title: styles.notification}
+            });
         }
     });
 
