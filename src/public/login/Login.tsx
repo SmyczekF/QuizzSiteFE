@@ -14,6 +14,11 @@ const Login = () => {
     const [register, setRegister] = useState(false);
     const credentialsContext = useContext(CredentialsContext);
     
+    const handleModalOpen = () => {
+        setRegister(false);
+        open();
+    }
+
     return (
         <>
             <Modal opened={opened} onClose={close} classNames={{root: styles.loginModal}}>
@@ -24,10 +29,11 @@ const Login = () => {
                 }
             </Modal>
             {
-                credentialsContext.username === ''
-                ? <Button color="yellow" onClick={open}>Login</Button>
-                : <LoggedUser />
-                
+                credentialsContext.isLoading
+                ? null
+                : !credentialsContext.username 
+                ? <Button color="yellow" onClick={handleModalOpen}>Login</Button>
+                : <LoggedUser />   
             }
         </>
     )

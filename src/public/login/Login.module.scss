@@ -36,3 +36,8 @@
     cursor: pointer;
     user-select: none;
 }
+
+.loggedUserDropdown{
+    background-color: var(--background);
+    border: 1px solid var(--primary);
+}

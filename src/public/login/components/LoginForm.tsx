@@ -36,8 +36,10 @@ const LoginForm = (props: LoginFormProps) => {
         },
         onSuccess: (data) => {
             showSuccessNotification('You have logged in successfully');
-            credentialsContext.setUsername(data.data.username);
             localStorage.setItem('loggedIn', JSON.stringify(true));
+            if (credentialsContext.refetch) {
+                credentialsContext.refetch();
+            }
             closeModal();
         },
         onError: (error) => {

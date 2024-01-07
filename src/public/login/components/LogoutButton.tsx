@@ -16,7 +16,9 @@ const LogoutButton = () => {
         },
         onSuccess: (data) => {
             showSuccessNotification('Logged out successfully');
-            credentialsContext.setUsername('');
+            if (credentialsContext.refetch) {
+                credentialsContext.refetch();
+            }
             localStorage.removeItem('loggedIn');
         },
         onError: (error) => {

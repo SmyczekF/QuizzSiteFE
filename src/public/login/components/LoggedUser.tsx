@@ -9,7 +9,7 @@ const LoggedUser = () => {
     const credentialsContext = useContext(CredentialsContext);
     
     return (
-        <Popover position="bottom" withArrow shadow="md">
+        <Popover position="bottom" withArrow shadow="md" classNames={{dropdown: styles.loggedUserDropdown}}>
             <Popover.Target>
                 <Group className={styles.loggedUserButton}>
                     <p>{credentialsContext.username}</p>

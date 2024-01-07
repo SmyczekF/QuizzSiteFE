@@ -1,38 +1,38 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { createContext, useState, ReactNode, useEffect } from 'react';
-import { showErrorNotification } from '../notifications/showErrorNotification';
-import { showSuccessNotification } from '../notifications/showSuccessNotification';
+import { createContext, useState, ReactNode } from 'react';
 
 interface CredentialsContextProps {
     username: string;
-    setUsername: (username: string) => void;
+    isLoading?: boolean;
+    isFetched?: boolean;
+    refetch?: () => void;
 }
 
 export const CredentialsContext = createContext<CredentialsContextProps>({
     username: '',
-    setUsername: () => {},
+    isLoading: false,
+    refetch: () => {},
+    isFetched: false,
 });
 
 export const CredentialsContextProvider = ({ children }: { children: ReactNode }) => {
-    const [username, setUsername] = useState('');
 
-    useEffect(() => {
-        const loggedIn = localStorage.getItem('loggedIn');
-        if(loggedIn === 'true') {
+    const [enabled, setEnabled] = useState(!!localStorage.getItem('loggedIn'));
+
+    const { data: username, isLoading, refetch, isFetched} = useQuery({
+        queryKey: ['credentials'],
+        queryFn: () => 
             axios.get(`/auth/getLoggedUser`)
-            .then((response) => {
-                setUsername(response.data.username);
-            })
-            .catch((error) => {
-                showErrorNotification(error.response.data.message);
-                localStorage.removeItem('loggedIn');
-            })
-        }
-    }, []);
+            .then((res) => res.data?.username || '').catch((err) => {
+                setEnabled(false);
+                return '';
+            }),
+        enabled: enabled,
+    });
 
     return (
-        <CredentialsContext.Provider value={{ username, setUsername }}>
+        <CredentialsContext.Provider value={{ username, isLoading, refetch, isFetched }}>
             {children}
         </CredentialsContext.Provider>
     );

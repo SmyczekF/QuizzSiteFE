@@ -26,7 +26,7 @@ function CollapseDesktop() {
       bg={'#fefbed'}
     >
       <AppShell.Header bg={'var(--background)'} style={{borderBottom: '1px solid var(--primary)'}}>
-        <Group h="100%" px="md" justify='space-between'>
+        <Group h="100%" px="md" justify='space-between' className={styles.header}>
           <div className={styles.headerSection}>
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
