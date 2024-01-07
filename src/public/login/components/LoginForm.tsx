@@ -3,7 +3,10 @@ import { useForm } from "@mantine/form";
 import styles from '../Login.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { notifications } from '@mantine/notifications';
+import { useContext } from 'react';
+import { CredentialsContext } from '../../../shared/providers/credentialsProvider';
+import { showSuccessNotification } from '../../../shared/notifications/showSuccessNotification';
+import { showErrorNotification } from '../../../shared/notifications/showErrorNotification';
 
 interface LoginValues {
     username: string;
@@ -17,6 +20,7 @@ interface LoginFormProps {
 const LoginForm = (props: LoginFormProps) => {
 
     const { onNoAccountClick, closeModal } = props;
+    const credentialsContext = useContext(CredentialsContext);
 
     const form = useForm({
         initialValues: { username: '', password: '' },
@@ -28,28 +32,16 @@ const LoginForm = (props: LoginFormProps) => {
 
     const loginMutation = useMutation({
         mutationFn: (values: LoginValues) => {
-            return axios.post(`/auth/login`, values)
+            return axios.post(`/auth/login`, values, {withCredentials: true})
         },
         onSuccess: (data) => {
-            notifications.show({
-                title: 'Success',
-                message: 'You have logged in successfully',
-                color: 'teal',
-                icon: <i className="pi pi-check"></i>,
-                autoClose: 2500,
-                classNames: {description: styles.notification, title: styles.notification}
-            });
+            showSuccessNotification('You have logged in successfully');
+            credentialsContext.setUsername(data.data.username);
+            localStorage.setItem('loggedIn', JSON.stringify(true));
             closeModal();
         },
         onError: (error) => {
-            notifications.show({
-                title: 'Error',
-                message: 'Incorrect username or password',
-                color: 'red',
-                icon: <i className="pi pi-times"></i>,
-                autoClose: 2500,
-                classNames: {description: styles.notification, title: styles.notification}
-            });
+            showErrorNotification('Incorrect username or password');
         }
     });
 

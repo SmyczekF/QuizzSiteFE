@@ -1,17 +1,12 @@
 import { notifications } from "@mantine/notifications"
 import Home from "../../pages/Home/Home"
+import { showSuccessNotification } from "../../shared/notifications/showSuccessNotification"
 
 const EmailConfirmed = () => {
     return (
         <Home startNotification={
-            () => notifications.show({
-                title: 'Success',
-                message: 'Your email has been confirmed successfully, you can now log in',
-                color: 'teal',
-                icon: <i className="pi pi-check"></i>,
-                autoClose: 2500,
-                classNames: {description: 'notification', title: 'notification'}
-            })}
+            () => showSuccessNotification('Your email has been confirmed successfully, you can now log in')
+        }
         />
     )
 }

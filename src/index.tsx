@@ -8,6 +8,7 @@ import '@mantine/core/styles.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
+import { CredentialsContextProvider } from './shared/providers/credentialsProvider';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,9 @@ root.render(
     <MantineProvider>
         <QueryClientProvider client={queryClient}>
           <Notifications />
-          <App />
+          <CredentialsContextProvider>
+            <App />
+          </CredentialsContextProvider>
         </QueryClientProvider>
     </MantineProvider>
   </React.StrictMode>
