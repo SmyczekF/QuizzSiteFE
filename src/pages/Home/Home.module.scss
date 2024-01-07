@@ -7,7 +7,7 @@
     justify-content: center;
     color: white;
     font-family: 'Staatliches Regular';
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 500;
     background-color: var(--background-main);
     align-items: center;
@@ -59,7 +59,7 @@
         
         .topicTitle{
             writing-mode:vertical-rl;
-            transform: rotate(180deg);
+            transform: skew(30deg) rotate(210deg);
             letter-spacing: 0;
             font-family: 'Underdog Regular';
             text-shadow: black 0.1em 0.1em 0.2em;

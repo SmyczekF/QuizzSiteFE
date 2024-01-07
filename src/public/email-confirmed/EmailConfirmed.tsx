@@ -1,4 +1,3 @@
-import { notifications } from "@mantine/notifications"
 import Home from "../../pages/Home/Home"
 import { showSuccessNotification } from "../../shared/notifications/showSuccessNotification"
 

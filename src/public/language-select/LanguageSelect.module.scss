@@ -1,0 +1,26 @@
+.languageSelect{
+    background-color: var(--background) !important;
+    border: none !important;
+    width: 100px !important;
+    font-family: 'Staatliches Regular' !important;
+    font-size: 1rem;
+    min-width: 0;
+}
+
+.languageSelectDropdown{
+    @extend .languageSelect;
+    border: 1px solid var(--accent) !important;
+}
+
+.flag{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.languageSelectWithFlag{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

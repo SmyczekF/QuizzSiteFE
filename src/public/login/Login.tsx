@@ -7,9 +7,11 @@ import LoginForm from "./components/LoginForm";
 import Register from "../register/Register";
 import { CredentialsContext } from "../../shared/providers/credentialsProvider";
 import LoggedUser from "./components/LoggedUser";
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
 
+    const { t } = useTranslation('app');
     const [opened, { open, close }] = useDisclosure(false);
     const [register, setRegister] = useState(false);
     const credentialsContext = useContext(CredentialsContext);
@@ -32,7 +34,7 @@ const Login = () => {
                 credentialsContext.isLoading
                 ? null
                 : !credentialsContext.username 
-                ? <Button color="yellow" onClick={handleModalOpen}>Login</Button>
+                ? <Button color="yellow" onClick={handleModalOpen}>{t('login')}</Button>
                 : <LoggedUser />   
             }
         </>

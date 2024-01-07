@@ -6,11 +6,14 @@ import 'primeicons/primeicons.css';
 import CustomNavLink from './navbar/CustomNavLink';
 import Login from './public/login/Login';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import LanguageSelect from './public/language-select/LanguageSelect';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
 function CollapseDesktop() {
+  const { t } = useTranslation('app');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
 
@@ -39,10 +42,11 @@ function CollapseDesktop() {
               root: styles.searchBar,
               input: styles.searchBarInput,
             }} 
-            placeholder='Search...'
+            placeholder={`${t('search')}...`}
             ></TextInput>
           </div>
           <div className={styles.headerSection}>
+            <LanguageSelect />
             <Login />
           </div>
         </Group>
@@ -50,63 +54,63 @@ function CollapseDesktop() {
       <AppShell.Navbar p="md" bg={'var(--background)'} style={{borderRight: '1px solid var(--primary)'}}>
         <CustomNavLink
           href='/'
-          label='Home'
+          label={t('home')}
           leftSection={<i className='pi pi-home'></i>}
         ></CustomNavLink>
         <CustomNavLink
           href='/quizz'
-          label='Quizzes'
+          label={t('quizzes')}
           leftSection={<i className='pi pi-question-circle'></i>}
         >
           <CustomNavLink
             href='/quizz/popular'
-            label='Popular'
+            label={t('popular')}
             leftSection={<i className='pi pi-star'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/tv-shows'
-            label='Tv Shows'
+            label={t('tvShows')}
             leftSection={<i className='pi pi-desktop'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/music'
-            label='Music'
+            label={t('music')}
             leftSection={<i className='pi pi-volume-up'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/movies'
-            label='Movies'
+            label={t('movies')}
             leftSection={<i className='pi pi-ticket'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/games'
-            label='Games'
+            label={t('games')}
             leftSection={<i className='pi pi-prime'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/trivia'
-            label='Trivia'
+            label={t('trivia')}
             leftSection={<i className='pi pi-question'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/books'
-            label='Books'
+            label={t('books')}
             leftSection={<i className='pi pi-book'></i>}
           ></CustomNavLink>
           <CustomNavLink
             href='/quizz/other'
-            label='Other'
+            label={t('other')}
             leftSection={<i className='pi pi-ellipsis-h'></i>}
           ></CustomNavLink>
         </CustomNavLink>
         <CustomNavLink
           href='/about'
-          label='About'
+          label={t('about')}
           leftSection={<i className='pi pi-info-circle'></i>}
         ></CustomNavLink>
         <CustomNavLink
           href='/contact'
-          label='Contact'
+          label={t('contact')}
           leftSection={<i className='pi pi-envelope'></i>}
         ></CustomNavLink>
       </AppShell.Navbar>

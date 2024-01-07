@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import EmailConfirmed from './public/email-confirmed/EmailConfirmed';
+import "./i18n";
 
 const Main = () => {
     return (
