@@ -1,0 +1,175 @@
+.view{
+    text-align: center;
+    padding: 80px 15% 0 15% ;
+
+    .quizzListTitle{
+        font-family: 'Underdog Regular';
+        font-size: 7rem;
+        color: var(--primary);
+        margin: 0;
+    }
+    
+    .quizzList{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    .listOperations{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .listOperation{
+        padding: 10px;
+        font-size: 1.2rem;
+        color: white;
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        background-color: var(--accent);
+        transition: transform 0.2s ease-in-out;
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.05);
+            background-color: var(--mantine-color-yellow-7);
+        }
+    }
+}
+
+.quizzListElement{
+    position: relative;
+    border: 1px solid var(--primary);
+    background-color: var(--accent);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+    border-radius: var(--mantine-radius-default);
+
+    .quizzListElementTitle{
+        font-family: 'Underdog Regular';
+        font-size: 1.7rem;
+        color: white;
+        margin: 0;
+        text-shadow: 2px 2px 2px black;
+        letter-spacing: 0.1rem;
+        z-index: 11;
+    }
+
+    .quizzListElementDescription{
+        font-family: 'Underdog Regular';
+        font-size: 1.2rem;
+        color: white;
+        margin: 0;
+        text-shadow: 2px 2px 2px black;
+        z-index: 11;
+    }
+
+    .quizzListElementAuthorSection{
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+    }
+
+    .quizzListElementAuthorName{
+        margin: 0;
+        padding: 0;
+        font-family: 'Staatliches Regular';
+        font-size: 1rem;
+        color: white;
+        text-shadow: 2px 2px 2px black;
+        z-index: 11;
+    }
+
+    .quizzListElementAuthorAvatar{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .quizzListElementInfoSection{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+    .quizzListElementInfoIcon{
+        width: 20px;
+        height: 20px;
+        color: white;
+        z-index: 11;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    .quizzListElementInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .quizzListElementInfoData{
+        padding: 0;
+        margin: 0;
+        color: white;
+        font-family: 'Staatliches Regular';
+        font-size: 1rem;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    &::before{
+        content: '';
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        background-color: black;
+        transition: opacity 0.1s ease-in-out;
+    }
+
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.02);
+        z-index: 10;
+        &::before{
+            opacity: 0.1;
+        }
+    }
+}
+
+.listOperationDropdown{
+    background: var(--background) !important;
+    border: 1px solid var(--primary) !important;
+    padding: 0 !important;
+}
+
+.listOperationDropdownText{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Staatliches Regular';
+    margin: 0;
+}

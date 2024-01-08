@@ -26,7 +26,7 @@ function CollapseDesktop() {
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
       padding="md"
-      bg={'#fefbed'}
+      bg={'var(--background)'}
     >
       <AppShell.Header bg={'var(--background)'} style={{borderBottom: '1px solid var(--primary)'}}>
         <Group h="100%" px="md" justify='space-between' className={styles.header}>

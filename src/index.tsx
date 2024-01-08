@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -21,7 +21,9 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <Notifications />
           <CredentialsContextProvider>
-            <App />
+            <Suspense fallback="loading">
+              <App />
+            </Suspense>
           </CredentialsContextProvider>
         </QueryClientProvider>
     </MantineProvider>
