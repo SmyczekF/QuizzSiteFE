@@ -16,7 +16,7 @@ const QuizzList = (props: QuizzListProps) => {
         <QuizzListElement title="Światowe Smaki" description="Test Twojej kulinarności" color="#35682D" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Historia Muzycznych Rewolucji" description="Przeżyj historię muzyki" color="#20603D" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Rozpoznawanie Flag" description="Czy potrafisz rozpoznać kraje po flagach?" color="#999950" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Technologie Przyszłości" description="Wiedza z zakresu nowoczesnych technologii" color="#403A3A" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement title="Technologie Przyszłości" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m" color="#403A3A" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Ciekawostki Naukowe" description="Zaskakujące fakty o świecie" color="#C7B446" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Test Ortograficzny" description="Mistrzostwo w poprawnej pisowni" color="#D53032" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Gdzie na Świecie To Znajdziesz?" description="Test geograficzny" color="#3B83BD" author="admin" finished={1395138} liked={21784612} />,

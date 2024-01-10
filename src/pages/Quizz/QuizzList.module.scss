@@ -59,86 +59,6 @@
     transition: transform 0.2s ease-in-out;
     border-radius: var(--mantine-radius-default);
 
-    .quizzListElementTitle{
-        font-family: 'Underdog Regular';
-        font-size: 1.7rem;
-        color: white;
-        margin: 0;
-        text-shadow: 2px 2px 2px black;
-        letter-spacing: 0.1rem;
-        z-index: 11;
-    }
-
-    .quizzListElementDescription{
-        font-family: 'Underdog Regular';
-        font-size: 1.2rem;
-        color: white;
-        margin: 0;
-        text-shadow: 2px 2px 2px black;
-        z-index: 11;
-    }
-
-    .quizzListElementAuthorSection{
-        position: absolute;
-        left: 10px;
-        bottom: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 0;
-    }
-
-    .quizzListElementAuthorName{
-        margin: 0;
-        padding: 0;
-        font-family: 'Staatliches Regular';
-        font-size: 1rem;
-        color: white;
-        text-shadow: 2px 2px 2px black;
-        z-index: 11;
-    }
-
-    .quizzListElementAuthorAvatar{
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .quizzListElementInfoSection{
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-        margin: 0;
-    }
-
-    .quizzListElementInfoIcon{
-        width: 20px;
-        height: 20px;
-        color: white;
-        z-index: 11;
-        text-shadow: 2px 2px 2px black;
-    }
-
-    .quizzListElementInfo{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .quizzListElementInfoData{
-        padding: 0;
-        margin: 0;
-        color: white;
-        font-family: 'Staatliches Regular';
-        font-size: 1rem;
-        text-shadow: 2px 2px 2px black;
-    }
-
     &::before{
         content: '';
         top: 0;
@@ -161,6 +81,87 @@
     }
 }
 
+.quizzListElementDescription{
+    font-family: 'Underdog Regular';
+    font-size: 1.2rem;
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
+    z-index: 11;
+}
+
+.quizzListElementAuthorSection{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+}
+
+.quizzListElementAuthorName{
+    margin: 0;
+    padding: 0;
+    font-family: 'Staatliches Regular';
+    font-size: 1rem;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+    z-index: 11;
+}
+
+.quizzListElementAuthorAvatar{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.quizzListElementInfoSection{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.quizzListElementInfoIcon{
+    width: 20px;
+    height: 20px;
+    color: white;
+    z-index: 11;
+    text-shadow: 2px 2px 2px black;
+}
+
+.quizzListElementInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizzListElementInfoData{
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: 'Staatliches Regular';
+    font-size: 1rem;
+    text-shadow: 2px 2px 2px black;
+}
+
+.quizzListElementTitle{
+    font-family: 'Underdog Regular';
+    font-size: 1.7rem;
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
+    letter-spacing: 0.1rem;
+    z-index: 11;
+    padding: 10px;
+}
+
 .listOperationDropdown{
     background: var(--background) !important;
     border: 1px solid var(--primary) !important;
@@ -172,4 +173,167 @@
     text-transform: uppercase;
     font-family: 'Staatliches Regular';
     margin: 0;
+}
+
+.quizzListElementModalContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+
+    &::before{
+        content: '';
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-color: black;
+        transition: opacity 0.1s ease-in-out;
+    }
+}
+
+.quizzListElementModalClose{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    color: white;
+    z-index: 11;
+    text-shadow: 2px 2px 2px black;
+    transition: transform 0.2s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        background-color: var(--background) !important;
+    }
+}
+
+.modalTitle{
+    @extend .quizzListElementTitle;
+    margin-top: 30px;
+    font-size: 2.5rem;
+    position: relative;
+    z-index: 11;
+}
+
+.modalDescription{
+    @extend .quizzListElementDescription;
+    font-size: 1.5rem;
+    position: relative;
+    z-index: 11;
+    word-wrap: break-word;
+}
+
+.modalStatisticsSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    z-index: 11;
+
+
+}
+
+.modalStatistics{
+    @extend .quizzListElementDescription;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    gap: 20px;
+    position: relative;
+    z-index: 11;
+}
+
+.modalButtonSection{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.modalContent{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.modalDescriptionContainer{
+    width: 40%;
+}
+
+
+.modalButton{
+    height: 80px !important;
+    border: 3px solid var(--primary);
+    border-radius: (var(--mantine-radius-default));
+    background-color: var(--background) !important;
+    color: var(--primary) !important;
+    font-size: 2rem !important;
+    font-family: 'Underdog Regular';
+    letter-spacing: .15rem;
+    transition: all 0.2s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        background-color: var(--secondary) !important;
+        color: white !important;
+        transform: scale(1.03);
+    }
+}
+
+.modalAdditionalOperations{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalAdditionalOperationsIcon{
+    font-size: 1.5rem;
+    color: white;
+    z-index: 11;
+    text-shadow: 2px 2px 2px black;
+    border-radius: 50%;
+    padding: 10px;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+.modalReturnButton{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    z-index: 11;
+    text-shadow: 2px 2px 2px black;
+    transition: transform 0.2s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 }
