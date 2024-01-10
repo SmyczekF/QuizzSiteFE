@@ -3,14 +3,22 @@
     border: none !important;
     width: 100px !important;
     font-family: 'Staatliches Regular' !important;
-    font-size: 1rem;
+    font-size: 1rem !important;
     min-width: 0;
 }
 
 .languageSelectDropdown{
     @extend .languageSelect;
     border: 1px solid var(--accent) !important;
+    background-color: var(--background-light) !important;
 }
+
+.languageSelectOption{
+    font-family: 'Staatliches Regular' !important;
+    font-size: 0.9rem !important;
+    color: black !important;
+}
+
 
 .flag{
     width: 25px;

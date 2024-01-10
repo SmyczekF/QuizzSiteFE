@@ -28,7 +28,7 @@ const LogoutButton = () => {
     });
 
     return (
-        <Button color="yellow" onClick={() => logoutMutation.mutate()}>
+        <Button color="yellow" onClick={() => logoutMutation.mutate()} fullWidth style={{marginTop: '10px'}}>
             Logout
         </Button>
     );

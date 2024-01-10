@@ -6,11 +6,12 @@ interface CustomNavLinkProps {
     label: string;
     leftSection: React.ReactNode;
     children?: React.ReactNode;
+    accountLink?: boolean;
 }
 
 const CustomNavLink = (props: CustomNavLinkProps) => {
 
-    const { href, label, leftSection, children } = props;
+    const { href, label, leftSection, children, accountLink } = props;
 
     return (
         <NavLink 
@@ -19,7 +20,7 @@ const CustomNavLink = (props: CustomNavLinkProps) => {
           leftSection={leftSection} 
           classNames={{
             root: styles.navLink,
-            label: styles.navLinkLabel,
+            label: accountLink ? styles.navLinkLabelAccount : styles.navLinkLabel,
             section: styles.navLinkSection,
           }}
         >{children}</NavLink>

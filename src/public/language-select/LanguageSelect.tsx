@@ -20,7 +20,8 @@ const LanguageSelect = () => {
             ]}
             classNames={{
                 input: styles.languageSelect,
-                dropdown: styles.languageSelectDropdown
+                dropdown: styles.languageSelectDropdown,
+                option: styles.languageSelectOption,
             }}
             rightSection={<DetermineFlag />}
             leftSectionWidth={0}

@@ -26,7 +26,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             </div>
             <div className={styles.quizzListElementInfoSection}>
                 <div className={styles.quizzListElementInfo}>
-                    <i className={`pi pi-flag ${styles.quizzListElementInfoIcon}`}></i>
+                    <i className={`pi pi-check ${styles.quizzListElementInfoIcon}`} style={{color: 'lightgreen'}}></i>
                     <p className={styles.quizzListElementInfoData}>{getShortenedNumberData(finished)}</p>
                 </div>
                 <div className={styles.quizzListElementInfo}>
