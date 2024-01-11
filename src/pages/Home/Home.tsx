@@ -23,19 +23,19 @@ const Home = (props: HomeProps) => {
     return (
         <div className={styles.hero}>
             <Image src='/logo-no-background.svg' alt='Quizz World' className={styles.logoMainPage}/>
-            <div className={styles.topicBox}>
+            <div className={styles.topicBox} onClick={() => window.location.href = '/quizz/tv-shows'}>
                 <h2 className={styles.topicTitle}>{t("tvShows")}</h2>
             </div>
-            <div className={styles.topicBoxTwo}>
+            <div className={styles.topicBoxTwo} onClick={() => window.location.href = '/quizz/music'}>
                 <h2 className={styles.topicTitle}>{t("music")}</h2>
             </div>
-            <div className={styles.topicBoxThree}>
+            <div className={styles.topicBoxThree} onClick={() => window.location.href = '/quizz/movies'}>
                 <h2 className={styles.topicTitle}>{t("movies")}</h2>
             </div>
-            <div className={styles.topicBoxFour}>
+            <div className={styles.topicBoxFour} onClick={() => window.location.href = '/quizz/games'}>
                 <h2 className={styles.topicTitle}>{t("games")}</h2>
             </div>
-            <div className={styles.topicBoxFive}>
+            <div className={styles.topicBoxFive} onClick={() => window.location.href = '/quizz/other'}>
                 <h2 className={styles.topicTitle}>{t("more")}</h2>
             </div>
         </div>

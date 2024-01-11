@@ -21,6 +21,7 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <Notifications />
           <CredentialsContextProvider>
+            {/* TODO Suspense should look normal not just plain loading text */}
             <Suspense fallback="loading">
               <App />
             </Suspense>

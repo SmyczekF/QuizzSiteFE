@@ -8,6 +8,7 @@ import Login from './public/login/Login';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import LanguageSelect from './public/language-select/LanguageSelect';
+import { useMediaQuery } from 'react-responsive'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -16,6 +17,8 @@ function CollapseDesktop() {
   const { t } = useTranslation('app');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
+  const [searchBarVisible, { toggle: toggleSearchBar }] = useDisclosure(false);
+  const isXS = useMediaQuery({ query: '(max-width: 450px)' })
 
   return (
     <AppShell
@@ -28,24 +31,32 @@ function CollapseDesktop() {
       padding="md"
       bg={'var(--background)'}
     >
-      <AppShell.Header bg={'var(--background)'} style={{borderBottom: '1px solid var(--primary)'}}>
-        <Group h="100%" px="md" justify='space-between' className={styles.header}>
-          <div className={styles.headerSection}>
+      <AppShell.Header bg={'var(--background)'} style={{borderBottom: '1px solid var(--primary)'}} >
+        <Group h="100%" px="md" justify='space-between' className={styles.header} gap={'xs'} grow>
+          <div className={styles.headerSection} style={isXS ? {display: searchBarVisible ? 'none' : 'flex'} : {}}>
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
             <a href="/" className={styles.logoLink}>
               <img src="/logoIcon.png" alt='Logo Quizz World' className={styles.logo}/>
             </a>
           </div>
-          <div className={`${styles.headerSection} ${styles.searchBarContainer}`}>
+          <div className={`${styles.headerSectionMiddle} ${styles.searchBarContainer}`} style={isXS ? {maxWidth: searchBarVisible ? '100%' : '0px'} : {}}>
+            <i className={`pi pi-arrow-left ${styles.disableSearch}`} onClick={toggleSearchBar} style={isXS ? {display: searchBarVisible ? 'flex' : 'none'} : {display: 'none'}}></i>
             <TextInput classNames={{
               root: styles.searchBar,
               input: styles.searchBarInput,
             }} 
+            styles={
+              isXS ? {
+              root: {
+                display: searchBarVisible ? 'initial' : 'none',
+              }
+            }: {}}
             placeholder={`${t('search')}...`}
             ></TextInput>
           </div>
-          <div className={styles.headerSection}>
+          <div className={styles.headerSectionRight} style={isXS ? {display: searchBarVisible ? 'none' : 'flex'} : {}}>
+            <i className={`pi pi-search ${styles.searchIcon}`} onClick={toggleSearchBar}></i>
             <LanguageSelect />
             <Login />
           </div>

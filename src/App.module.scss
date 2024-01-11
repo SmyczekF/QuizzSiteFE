@@ -37,9 +37,25 @@
 .headerSection{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 20px;
     height: 100%;
+    width: 25%;
+}
+
+.headerSectionRight{
+    @extend .headerSection;
+    justify-content: flex-end;
+}
+
+.headerSectionMiddle{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    height: 100%;
+    width: 25%;
+    justify-content: center;
 }
 
 .searchBar{
@@ -49,9 +65,9 @@
 .searchBarInput{
     width: 100%;
     height: 100%;
-    border: none;
+    border: 1px solid var(--primary) !important;
     padding: 10px;
-    font-family: 'Staatliches Regular';
+    font-family: 'Staatliches Regular' !important;
     font-size: 1rem;
     &:focus{
         outline: none;
@@ -60,4 +76,47 @@
 
 .searchBarContainer{
     width: 40vw;
+}
+
+.searchIcon{
+    font-size: 1rem;
+    display: none !important;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .headerSection{
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .searchIcon{
+        display: initial !important;
+    }
+
+    .disableSearch{
+        max-width: fit-content !important;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    .searchBar{
+        width: 80% !important;
+    }
+
+    .headerSection{
+        max-width: fit-content !important;
+    }
+    
+    .headerSectionRight{
+        max-width: 100% !important;
+    }
+    
+    .headerSectionMiddle{
+        max-width: 0px;
+    }
 }
