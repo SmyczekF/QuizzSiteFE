@@ -3,6 +3,7 @@
     padding: 100px 15% 0 15% ;
     background-color: var(--background-main);
     overflow: auto;
+    height: 100vh;
 
     .quizzListTitle{
         font-family: 'Underdog Regular';
@@ -15,14 +16,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-
-    .pagination{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 50px;
     }
 
     .listOperations{
@@ -337,5 +330,108 @@
     &:hover{
         cursor: pointer;
         transform: scale(1.1);
+    }
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginationControl{
+    font-family: 'Staatliches Regular';
+    border: 1px solid var(--primary);
+    transition: transform 0.2s ease-in-out;
+    
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.paginationControls{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin: 50px 0;
+}
+
+.pagePicker{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagePickerText{
+    font-family: 'Staatliches Regular';
+    font-size: 1.2rem;
+}
+
+.pagePickerInput{
+    border: 1px solid var(--primary);
+    font-family: 'Staatliches Regular';
+    font-size: 1.2rem;
+
+}
+
+@media only screen and (max-width: 780px) {    
+    .navigation{
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .modalContent{
+        flex-direction: column;
+    }
+
+    .modalTitle{
+        font-size: 2rem;
+    }
+
+    .modalDescription{
+        font-size: 1.2rem;
+    }
+
+    .modalStatistics{
+        font-size: 1rem;
+    }
+
+    .modalDescriptionContainer{
+        width: 100%;
+    }
+
+    .quizzListElementModalContent{
+        padding: 0;
+    }
+
+    
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .view{
+        padding: 100px 7px 0 7px;
+
+        .listOperations{
+            justify-content: center;
+        }
+
+        .quizzListTitle{
+            font-size: 4rem;
+        }
     }
 }

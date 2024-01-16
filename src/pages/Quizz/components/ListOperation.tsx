@@ -7,7 +7,7 @@ const ListOperation = (props: ListOperationProps) => {
     const { target, text } = props;
 
     return (
-        <HoverCard width={100} shadow="md" closeDelay={0} classNames={{
+        <HoverCard width={100} shadow="md" openDelay={500} closeDelay={0} classNames={{
             dropdown: styles.listOperationDropdown,
         }}>
             <HoverCard.Target>

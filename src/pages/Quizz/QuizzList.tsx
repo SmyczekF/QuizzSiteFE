@@ -1,15 +1,17 @@
-import { Grid, Group, List, Pagination } from '@mantine/core';
+import { Grid, Group, NumberInput, Pagination, Text } from '@mantine/core';
 import styles from './QuizzList.module.scss';
 import { QuizzListProps } from './quizzes.types';
 import { useState } from 'react';
 import QuizzListElement from './components/QuizzListElement';
 import ListOperation from './components/ListOperation';
+import { useMediaQuery } from 'react-responsive';
 
 const QuizzList = (props: QuizzListProps) => {
 
     const [activePage, setPage] = useState(1);
     const { title } = props;
-
+    const isMd = useMediaQuery({ query: '(min-width: 780px)' });
+    
     const data = [
         <QuizzListElement title="Wielka Bitwa Mózgów" description="Tajny test na największe umysły" color="#C93C20" author="admin" finished={1395138} liked={21784612} />,
         <QuizzListElement title="Tajemnice Kosmosu" description="Czy znasz sekrety wszechświata?" color="#6C4675" author="admin" finished={1395138} liked={21784612} />,
@@ -23,6 +25,18 @@ const QuizzList = (props: QuizzListProps) => {
         <QuizzListElement title="Quiz Kolorów" description="Rozpoznawanie kolorów na ekranie" color="#CDA434" author="admin" finished={1395138} liked={21784612} />,
 
     ]
+
+    const handlePagePicker = (value: number) => {
+        if (value > data.length) {
+            setPage(data.length);
+        } else if(value === 0) {
+            return null;
+        } else if (value < 1) {
+            setPage(1);
+        } else {
+            setPage(value);
+        }
+    }
 
     return(
         <div className={styles.view}>
@@ -49,11 +63,64 @@ const QuizzList = (props: QuizzListProps) => {
             </div>
             <Grid>
                 {data.map((element, index) => {
-                    return <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>{element}</Grid.Col>;
+                    return <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>{element}</Grid.Col>;
                 })}
             </Grid>
-            <div className={styles.pagination}>
-                <Pagination value={activePage} onChange={setPage} total={data.length} color='yellow'/>
+            <div className={styles.navigation}>
+                {
+                    !isMd 
+                    ? <ListOperation
+                        target={
+                            <i className={`pi pi-arrow-left ${styles.listOperation}`} onClick={() => handlePagePicker(activePage - 1)}></i>
+                        }
+                        text='Last page'
+                    /> 
+                    : null
+                }
+                <div className={styles.pagePicker}>
+                    {/* <Text className={styles.pagePickerText}>Page</Text> */}
+                    <NumberInput
+                        min={1} 
+                        max={data.length} 
+                        value={activePage} 
+                        onChange={value => handlePagePicker(+value)} 
+                        classNames={{
+                            root: styles.pagePickerRoot,
+                            input: styles.pagePickerInput,
+                        }} 
+                        w={60}
+                        allowNegative={false}
+                        allowDecimal={false}
+                        size='sm'
+                        rightSection={<></>}
+                        rightSectionWidth={8}
+                    />
+                    <Text className={styles.pagePickerText}> / {data.length}</Text>
+                </div>
+                {
+                    isMd 
+                    ? <div className={styles.pagination}>
+                        <Pagination 
+                            value={activePage} 
+                            onChange={setPage} 
+                            total={data.length} 
+                            color='yellow'
+                            classNames={{
+                                root: styles.paginationRoot,
+                                control: styles.paginationControl,
+                                dots: styles.paginationDots,
+                            }}
+                            size={'md'}
+                        />
+                    </div> 
+                    : <ListOperation
+                        target={
+                            <i className={`pi pi-arrow-right ${styles.listOperation}`} onClick={() => handlePagePicker(activePage + 1)}></i>
+                        }
+                        text='Next page'
+                    /> 
+                }
+                
             </div>
         </div>
     )
