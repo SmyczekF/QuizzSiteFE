@@ -21,14 +21,14 @@
     .listOperations{
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         padding: 20px;
     }
 
     .listOperation{
         padding: 10px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: white;
         border: 1px solid var(--primary);
         border-radius: 50%;
@@ -41,6 +41,7 @@
         }
     }
 }
+
 
 .quizzListElement{
     position: relative;
@@ -340,12 +341,19 @@
 
 .paginationControl{
     font-family: 'Staatliches Regular';
-    border: 1px solid var(--primary);
+    border: 1px solid var(--primary) !important;
     transition: transform 0.2s ease-in-out;
-    
+    background-color: var(--accent) !important;
+    color: white !important;
+
     &:hover{
         cursor: pointer;
         transform: scale(1.05);
+        background-color: var(--accent-hover) !important;
+    }
+
+    &[data-active]{
+        background-color: var(--primary) !important;
     }
 }
 
@@ -363,7 +371,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 17px;
     margin: 50px 0;
 }
 
@@ -372,18 +380,22 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    // background-color: var(--accent);
+    // padding: 3px;
+    // border-radius: var(--mantine-radius-default);
     gap: 10px;
 }
 
 .pagePickerText{
     font-family: 'Staatliches Regular';
-    font-size: 1.2rem;
+    font-size: var(--mantine-font-size-lg) !important;
+    // color: white !important;
 }
 
 .pagePickerInput{
-    border: 1px solid var(--primary);
-    font-family: 'Staatliches Regular';
-    font-size: 1.2rem;
+    border: 1px solid var(--primary) !important;
+    font-family: 'Staatliches Regular' !important;
+    font-size: var(--mantine-font-size-lg) !important;
 
 }
 
@@ -394,6 +406,15 @@
 }
 
 @media only screen and (max-width: 700px) {
+
+    .view{
+        padding: 100px 7px 0 7px;
+
+        .quizzListTitle{
+            font-size: 4rem;
+        }
+    }
+
     .modalContent{
         flex-direction: column;
     }
@@ -417,9 +438,6 @@
     .quizzListElementModalContent{
         padding: 0;
     }
-
-    
-    
 }
 
 @media only screen and (max-width: 600px) {
@@ -427,7 +445,8 @@
         padding: 100px 7px 0 7px;
 
         .listOperations{
-            justify-content: center;
+            flex-direction: column-reverse;
+            gap: 20px;
         }
 
         .quizzListTitle{
