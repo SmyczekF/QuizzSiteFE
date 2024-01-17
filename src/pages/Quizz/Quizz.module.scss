@@ -1,0 +1,14 @@
+.view{
+    text-align: center;
+    padding: 100px 15% 0 15% ;
+    background-color: var(--background-main);
+    overflow: auto;
+    height: 100vh;
+
+    .quizzTitle{
+        font-family: 'Underdog Regular';
+        font-size: 7rem;
+        color: var(--primary);
+        margin: 0;
+    }
+}

@@ -3,6 +3,7 @@ export interface QuizzListProps {
 }
 
 export interface QuizzListElementProps {
+    id: number;
     title: string;
     description: string;
     color: string;

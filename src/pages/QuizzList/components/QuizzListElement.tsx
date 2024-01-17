@@ -17,7 +17,7 @@ const getShortenedNumberData = (number: number) => {
 const QuizzListElement = (props: QuizzListElementProps) => {
     
     const [opened, { open, close }] = useDisclosure(false);
-    const { title, description, color, author, finished, liked } = props;
+    const { id, title, description, color, author, finished, liked } = props;
     
     return (
         <>
@@ -75,7 +75,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
                     </div>
                 </div>
                 <div className={styles.modalButtonSection}>
-                    <Button color="yellow" fullWidth className={styles.modalButton}>Play</Button>
+                    <Button color="yellow" fullWidth className={styles.modalButton} onClick={() => window.location.href = `/quizz/${id}`}>Play</Button>
                 </div>
                 <div className={styles.modalAdditionalOperations}>
                     <i className={`pi pi-flag ${styles.modalAdditionalOperationsIcon}`}></i>

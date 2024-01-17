@@ -69,47 +69,47 @@ function CollapseDesktop() {
           leftSection={<i className='pi pi-home'></i>}
         ></CustomNavLink>
         <CustomNavLink
-          href='/quizz'
+          href='/quizz-list'
           label={t('quizzes')}
           leftSection={<i className='pi pi-question-circle'></i>}
         >
           <CustomNavLink
-            href='/quizz/popular'
+            href='/quizz-list/popular'
             label={t('popular')}
             leftSection={<i className='pi pi-star'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/tv-shows'
+            href='/quizz-list/tv-shows'
             label={t('tvShows')}
             leftSection={<i className='pi pi-desktop'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/music'
+            href='/quizz-list/music'
             label={t('music')}
             leftSection={<i className='pi pi-volume-up'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/movies'
+            href='/quizz-list/movies'
             label={t('movies')}
             leftSection={<i className='pi pi-ticket'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/games'
+            href='/quizz-list/games'
             label={t('games')}
             leftSection={<i className='pi pi-prime'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/trivia'
+            href='/quizz-list/trivia'
             label={t('trivia')}
             leftSection={<i className='pi pi-question'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/books'
+            href='/quizz-list/books'
             label={t('books')}
             leftSection={<i className='pi pi-book'></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href='/quizz/other'
+            href='/quizz-list/other'
             label={t('other')}
             leftSection={<i className='pi pi-ellipsis-h'></i>}
           ></CustomNavLink>

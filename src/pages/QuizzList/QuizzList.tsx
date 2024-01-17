@@ -12,16 +12,16 @@ const QuizzList = (props: QuizzListProps) => {
     const { title } = props;
     
     const data = [
-        <QuizzListElement title="Wielka Bitwa Mózgów" description="Tajny test na największe umysły" color="#C93C20" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Tajemnice Kosmosu" description="Czy znasz sekrety wszechświata?" color="#6C4675" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Światowe Smaki" description="Test Twojej kulinarności" color="#35682D" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Historia Muzycznych Rewolucji" description="Przeżyj historię muzyki" color="#20603D" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Rozpoznawanie Flag" description="Czy potrafisz rozpoznać kraje po flagach?" color="#999950" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Technologie Przyszłości" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m" color="#403A3A" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Ciekawostki Naukowe" description="Zaskakujące fakty o świecie" color="#C7B446" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Test Ortograficzny" description="Mistrzostwo w poprawnej pisowni" color="#D53032" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Gdzie na Świecie To Znajdziesz?" description="Test geograficzny" color="#3B83BD" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement title="Quiz Kolorów" description="Rozpoznawanie kolorów na ekranie" color="#CDA434" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={1} title="Wielka Bitwa Mózgów" description="Tajny test na największe umysły" color="#C93C20" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={2} title="Tajemnice Kosmosu" description="Czy znasz sekrety wszechświata?" color="#6C4675" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={3} title="Światowe Smaki" description="Test Twojej kulinarności" color="#35682D" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={4} title="Historia Muzycznych Rewolucji" description="Przeżyj historię muzyki" color="#20603D" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={5} title="Rozpoznawanie Flag" description="Czy potrafisz rozpoznać kraje po flagach?" color="#999950" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={6} title="Technologie Przyszłości" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m" color="#403A3A" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={7} title="Ciekawostki Naukowe" description="Zaskakujące fakty o świecie" color="#C7B446" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={8} title="Test Ortograficzny" description="Mistrzostwo w poprawnej pisowni" color="#D53032" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={9} title="Gdzie na Świecie To Znajdziesz?" description="Test geograficzny" color="#3B83BD" author="admin" finished={1395138} liked={21784612} />,
+        <QuizzListElement id={10} title="Quiz Kolorów" description="Rozpoznawanie kolorów na ekranie" color="#CDA434" author="admin" finished={1395138} liked={21784612} />,
 
     ]
 
