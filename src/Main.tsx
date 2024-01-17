@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import EmailConfirmed from './public/email-confirmed/EmailConfirmed';
 import "./i18n";
-import QuizzList from './pages/Quizz/QuizzList';
+import QuizzList from './pages/QuizzList/QuizzList';
 
 const Main = () => {
     return (

@@ -14,9 +14,9 @@ const LanguageSelect = () => {
             placeholder={t('language')}
             defaultValue='en'
             data={[
-                { value: 'en', label: t('english') },
-                { value: 'fr', label: t('french') },
-                { value: 'pl', label: t('polish') },
+                { value: 'en', label: 'English' },
+                { value: 'fr', label: 'Français' },
+                { value: 'pl', label: 'Polski' },
             ]}
             classNames={{
                 input: styles.languageSelect,

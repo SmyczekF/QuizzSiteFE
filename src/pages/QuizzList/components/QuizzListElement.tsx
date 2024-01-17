@@ -70,7 +70,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
                         </p>
                         <p className={styles.modalStatistics}>
                             <i className={`pi pi-user ${styles.quizzListElementInfoIcon}`} style={{color: 'var(--primary)'}}></i>
-                            Quizz authored by {author}
+                            Quizz created by {author}
                         </p>
                     </div>
                 </div>
