@@ -17,11 +17,11 @@ const getShortenedNumberData = (number: number) => {
 const QuizzListElement = (props: QuizzListElementProps) => {
     
     const [opened, { open, close }] = useDisclosure(false);
-    const { id, title, description, color, author, finished, liked } = props;
+    const { id, title, description, color, author, finished, liked, img } = props;
     
     return (
         <>
-            <div className={styles.quizzListElement} style={{background: color}} onClick={open}>
+            <div className={styles.quizzListElement} style={img? {backgroundImage: URL.createObjectURL(img)}: {background: color}} onClick={open}>
                 <h2 className={styles.quizzListElementTitle}>{title}</h2>
                 {/* <p className={styles.quizzListElementDescription}>{description}</p> */}
                 <div className={styles.quizzListElementAuthorSection}>

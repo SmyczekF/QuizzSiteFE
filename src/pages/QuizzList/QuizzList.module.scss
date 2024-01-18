@@ -46,7 +46,6 @@
 .quizzListElement{
     position: relative;
     border: 1px solid var(--primary);
-    background-color: var(--accent);
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -54,6 +53,9 @@
     align-items: center;
     transition: transform 0.2s ease-in-out;
     border-radius: var(--mantine-radius-default);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     &::before{
         content: '';
@@ -177,6 +179,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-size: cover;
+    background-position: center;
     gap: 20px;
     padding: 20px;
 

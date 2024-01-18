@@ -23,19 +23,19 @@ const Home = (props: HomeProps) => {
     return (
         <div className={styles.hero}>
             <Image src='/logo-no-background.svg' alt='Quizz World' className={styles.logoMainPage}/>
-            <div className={styles.topicBox} onClick={() => window.location.href = '/quizz/tv-shows'}>
+            <div className={styles.topicBox} onClick={() => window.location.href = '/quizz-list/tv-shows'}>
                 <h2 className={styles.topicTitle}>{t("tvShows")}</h2>
             </div>
-            <div className={styles.topicBoxTwo} onClick={() => window.location.href = '/quizz/music'}>
+            <div className={styles.topicBoxTwo} onClick={() => window.location.href = '/quizz-list/music'}>
                 <h2 className={styles.topicTitle}>{t("music")}</h2>
             </div>
-            <div className={styles.topicBoxThree} onClick={() => window.location.href = '/quizz/movies'}>
+            <div className={styles.topicBoxThree} onClick={() => window.location.href = '/quizz-list/movies'}>
                 <h2 className={styles.topicTitle}>{t("movies")}</h2>
             </div>
-            <div className={styles.topicBoxFour} onClick={() => window.location.href = '/quizz/games'}>
+            <div className={styles.topicBoxFour} onClick={() => window.location.href = '/quizz-list/games'}>
                 <h2 className={styles.topicTitle}>{t("games")}</h2>
             </div>
-            <div className={styles.topicBoxFive} onClick={() => window.location.href = '/quizz/other'}>
+            <div className={styles.topicBoxFive} onClick={() => window.location.href = '/quizz-list/other'}>
                 <h2 className={styles.topicTitle}>{t("more")}</h2>
             </div>
         </div>

@@ -10,6 +10,7 @@ export interface QuizzListElementProps {
     author: string;
     finished: number;
     liked: number;
+    img?: Blob;
 }
 
 export interface ListOperationProps {
