@@ -1,33 +1,34 @@
 import { Grid, Group } from '@mantine/core';
 import styles from './QuizzList.module.scss';
-import { QuizzListProps } from './quizzes.types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QuizzListElement from './components/QuizzListElement';
 import ListOperation from './components/ListOperation';
 import Navigation from './components/Navigation';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { QuizzListElementProps } from './quizzes.types';
 
-const QuizzList = (props: QuizzListProps) => {
+const QuizzList = () => {
 
     const [activePage, setPage] = useState(1);
-    const { title } = props;
-    
-    const data = [
-        <QuizzListElement id={1} title="Wielka Bitwa Mózgów" description="Tajny test na największe umysły" color="#C93C20" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={2} title="Tajemnice Kosmosu" description="Czy znasz sekrety wszechświata?" color="#6C4675" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={3} title="Światowe Smaki" description="Test Twojej kulinarności" color="#35682D" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={4} title="Historia Muzycznych Rewolucji" description="Przeżyj historię muzyki" color="#20603D" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={5} title="Rozpoznawanie Flag" description="Czy potrafisz rozpoznać kraje po flagach?" color="#999950" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={6} title="Technologie Przyszłości" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m" color="#403A3A" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={7} title="Ciekawostki Naukowe" description="Zaskakujące fakty o świecie" color="#C7B446" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={8} title="Test Ortograficzny" description="Mistrzostwo w poprawnej pisowni" color="#D53032" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={9} title="Gdzie na Świecie To Znajdziesz?" description="Test geograficzny" color="#3B83BD" author="admin" finished={1395138} liked={21784612} />,
-        <QuizzListElement id={10} title="Quiz Kolorów" description="Rozpoznawanie kolorów na ekranie" color="#CDA434" author="admin" finished={1395138} liked={21784612} />,
+    const [limit, setLimit] = useState(1);
+    const { genre } = useParams();
 
-    ]
+    const { data, isLoading, refetch } = useQuery<{quizzes: QuizzListElementProps[], totalCount: number}>({
+        queryKey: ['quizzList'],
+        queryFn: () => axios.get(`/quizz/get/`, {params: {page: activePage, limit: limit}}).then(res => res.data),
+    })
+
+    useEffect(() => {
+        refetch();
+    }, [activePage, limit])
+
+    if(!data) return null;
 
     const handlePagePicker = (value: number) => {
-        if (value > data.length) {
-            setPage(data.length);
+        if (value > Math.ceil(data.totalCount / limit)) {
+            setPage(Math.ceil(data.totalCount / limit));
         } else if(value === 0) {
             return null;
         } else if (value < 1) {
@@ -39,11 +40,11 @@ const QuizzList = (props: QuizzListProps) => {
 
     return(
         <div className={styles.view}>
-            <h1 className={styles.quizzListTitle}>{title}</h1>
+            <h1 className={styles.quizzListTitle}>{genre?.toUpperCase()}</h1>
             
             <div className={styles.listOperations}>
                 <Navigation
-                    total={data.length}
+                    total={Math.ceil(data.totalCount / limit)}
                     activePage={activePage}
                     setPage={handlePagePicker}
                     noPagination
@@ -65,19 +66,27 @@ const QuizzList = (props: QuizzListProps) => {
                         text='Filter'
                     />
                     <ListOperation
-                        target={<i className={`pi pi-refresh ${styles.listOperation}`}></i>}
+                        target={<i className={`pi pi-refresh ${styles.listOperation}`} onClick={() => refetch()}></i>}
                         text='Refresh'
                     />
                 </Group>
             </div>
             
-            <Grid>
-                {data.map((element, index) => {
-                    return <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>{element}</Grid.Col>;
-                })}
-            </Grid>
+            {
+                // TODO change loading to spinning circle
+                isLoading? <p>Loading...</p>:
+                <Grid>
+                {
+                    data.quizzes?.map((element, index) => {
+                        return <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>{
+                            <QuizzListElement {...element} />
+                        }</Grid.Col>;
+                    })
+                }
+                </Grid>
+            }
             <Navigation
-                total={data.length}
+                total={Math.ceil(data.totalCount / limit)}
                 activePage={activePage}
                 setPage={handlePagePicker}
             />

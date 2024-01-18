@@ -12,14 +12,7 @@ const Main = () => {
                 <Route path="*" element={<Home />} /> {/* TODO: change to 404 page */}
                 <Route path="/" element={<Home />} />
                 <Route path="/email-confirmed" element={<EmailConfirmed />} />
-                <Route path="/quizz-list/popular" element={<QuizzList title={'Popular Quizzes'} />} />
-                <Route path="/quizz-list/tv-shows" element={<QuizzList title={'TV Shows'} />} />
-                <Route path="/quizz-list/music" element={<QuizzList title={'Music'} />} />
-                <Route path="/quizz-list/movies" element={<QuizzList title={'Movies'} />} />
-                <Route path="/quizz-list/games" element={<QuizzList title={'Games'} />} />
-                <Route path="/quizz-list/trivia" element={<QuizzList title={'Trivia'} />} />
-                <Route path="/quizz-list/books" element={<QuizzList title={'Books'} />} />
-                <Route path="/quizz-list/other" element={<QuizzList title={'Other'} />} />
+                <Route path="/quizz-list/:genre" element={<QuizzList />} />
                 <Route path="/quizz/:id" element={<Quizz />} />
             </Routes>
         </Router>

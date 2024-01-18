@@ -1,16 +1,16 @@
-export interface QuizzListProps {
-    title: string;
-}
-
 export interface QuizzListElementProps {
     id: number;
     title: string;
     description: string;
     color: string;
-    author: string;
     finished: number;
     liked: number;
-    img?: Blob;
+    image?: Blob;
+    User: User;
+}
+
+interface User {
+    username: string;
 }
 
 export interface ListOperationProps {

@@ -17,16 +17,16 @@ const getShortenedNumberData = (number: number) => {
 const QuizzListElement = (props: QuizzListElementProps) => {
     
     const [opened, { open, close }] = useDisclosure(false);
-    const { id, title, description, color, author, finished, liked, img } = props;
+    const { id, title, description, color, finished, liked, image, User } = props;
     
     return (
         <>
-            <div className={styles.quizzListElement} style={img? {backgroundImage: URL.createObjectURL(img)}: {background: color}} onClick={open}>
+            <div className={styles.quizzListElement} style={image? {backgroundImage: URL.createObjectURL(image)}: {background: color}} onClick={open}>
                 <h2 className={styles.quizzListElementTitle}>{title}</h2>
                 {/* <p className={styles.quizzListElementDescription}>{description}</p> */}
                 <div className={styles.quizzListElementAuthorSection}>
                     <img src={fr} alt='Flag' className={styles.quizzListElementAuthorAvatar}/>
-                    <p className={styles.quizzListElementAuthorName}>{author}</p>
+                    <p className={styles.quizzListElementAuthorName}>{User.username}</p>
                 </div>
                 <div className={styles.quizzListElementInfoSection}>
                     <div className={styles.quizzListElementInfo}>
@@ -70,7 +70,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
                         </p>
                         <p className={styles.modalStatistics}>
                             <i className={`pi pi-user ${styles.quizzListElementInfoIcon}`} style={{color: 'var(--primary)'}}></i>
-                            Quizz created by {author}
+                            Quizz created by {User.username}
                         </p>
                     </div>
                 </div>

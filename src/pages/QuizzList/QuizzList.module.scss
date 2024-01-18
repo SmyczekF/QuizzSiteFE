@@ -39,9 +39,17 @@
             transform: scale(1.05);
             background-color: var(--mantine-color-yellow-7);
         }
-    }
-}
 
+        &.listOperationDisabled{
+            opacity: 0.4 !important;
+            &:hover{
+                
+                transform: scale(1);
+            }
+        }
+    }
+    
+}
 
 .quizzListElement{
     position: relative;
