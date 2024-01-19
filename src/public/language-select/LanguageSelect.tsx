@@ -5,13 +5,13 @@ import DetermineFlag from "./DetermineFlag";
 
 const LanguageSelect = () => {
 
-    const { i18n, t } = useTranslation('languages');
+    const { i18n } = useTranslation();
 
     return (
         <Select
             value={i18n.language}
             onChange={(value) => i18n.changeLanguage(value || 'en')}
-            placeholder={t('language')}
+            placeholder={'Language'}
             defaultValue='en'
             data={[
                 { value: 'en', label: 'English' },

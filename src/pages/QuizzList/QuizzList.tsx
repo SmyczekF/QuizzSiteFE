@@ -12,12 +12,12 @@ import { QuizzListElementProps } from './quizzes.types';
 const QuizzList = () => {
 
     const [activePage, setPage] = useState(1);
-    const [limit, setLimit] = useState(1);
+    const [limit, setLimit] = useState(30);
     const { genre } = useParams();
 
     const { data, isLoading, refetch } = useQuery<{quizzes: QuizzListElementProps[], totalCount: number}>({
         queryKey: ['quizzList'],
-        queryFn: () => axios.get(`/quizz/get/`, {params: {page: activePage, limit: limit}}).then(res => res.data),
+        queryFn: () => axios.get(`/quizz/get/${genre}`, {params: {page: activePage, limit: limit}}).then(res => res.data),
     })
 
     useEffect(() => {
