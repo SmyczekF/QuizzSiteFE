@@ -2,12 +2,13 @@ import { Grid, Group } from '@mantine/core';
 import styles from './QuizzList.module.scss';
 import { useEffect, useState } from 'react';
 import QuizzListElement from './components/QuizzListElement';
-import ListOperation from './components/ListOperation';
+import ListOperation from './components/ListOperation/ListOperation';
 import Navigation from './components/Navigation';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { QuizzListElementProps } from './quizzes.types';
+import Sort from './components/ListOperation/components/Sort';
 
 const QuizzList = () => {
 
@@ -57,10 +58,7 @@ const QuizzList = () => {
                         target={<i className={`pi pi-sync ${styles.listOperation}`}></i>} 
                         text='Random quizz'
                     />
-                    <ListOperation
-                        target={<i className={`pi pi-sort ${styles.listOperation}`}></i>}
-                        text='Sort'
-                    />
+                    <Sort target={<i className={`pi pi-sort ${styles.listOperation}`}></i>}/>
                     <ListOperation
                         target={<i className={`pi pi-filter ${styles.listOperation}`}></i>}
                         text='Filter'

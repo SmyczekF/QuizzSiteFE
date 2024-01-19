@@ -1,5 +1,5 @@
 import { NumberInput, Pagination, Text } from "@mantine/core";
-import ListOperation from "./ListOperation";
+import ListOperation from "./ListOperation/ListOperation";
 import styles from '../QuizzList.module.scss';
 import { NavigationProps } from "../quizzes.types";
 import { useMediaQuery } from "react-responsive";

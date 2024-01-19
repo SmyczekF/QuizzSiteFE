@@ -1,0 +1,34 @@
+.listOperationDropdown{
+    background: var(--background) !important;
+    border: 1px solid var(--primary) !important;
+}
+
+.listOperationDropdownText{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Staatliches Regular';
+    margin: 0;
+}
+
+.listOperationDropdownPopoverText{
+    text-transform: uppercase;
+    font-family: 'Staatliches Regular';
+}
+
+.listOperationDropdownPopoverTitle{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Staatliches Regular';
+    margin: 0;
+    font-size: 1.2rem !important;
+}
+
+.radioLabel{
+    font-family: 'Staatliches Regular';
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.radioBody{
+    padding: 10px 0 0 0;
+}

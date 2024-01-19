@@ -16,6 +16,7 @@ interface User {
 export interface ListOperationProps {
     target: JSX.Element;
     text: string;
+    openedContent?: JSX.Element;
 }
 
 export interface NavigationProps {
@@ -24,4 +25,8 @@ export interface NavigationProps {
     setPage: (current: number) => void;
     noPagination?: boolean;
     navigationDivStyle?: React.CSSProperties;
+}
+
+export interface SortProps{
+    target: JSX.Element;
 }
