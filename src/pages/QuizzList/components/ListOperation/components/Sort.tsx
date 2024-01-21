@@ -2,16 +2,19 @@ import { useDisclosure } from '@mantine/hooks';
 import { Popover, Text, Button, Grid, Radio } from '@mantine/core';
 import { SortProps } from '../../../quizzes.types';
 import styles from '../ListOperation.module.scss';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ESortType } from './sort.types';
+import { QuizQueryParamsContext } from '../../../../../shared/providers/quizQueryParamsProvider';
 
 const Sort = (props: SortProps) => {
 
-    const [value, setValue] = useState<ESortType>(ESortType.NEWEST); 
+    const quizQueryParams = useContext(QuizQueryParamsContext);
+    const [value, setValue] = useState<ESortType>(ESortType.MOST_POPULAR); 
     const { target } = props;
 
     const handleSort = (value: string) => {
         setValue(value as ESortType);
+        quizQueryParams.handleSetOrder(value as ESortType);
     }
 
     return (
@@ -29,12 +32,12 @@ const Sort = (props: SortProps) => {
                 name="favoriteFramework"
                 withAsterisk
                 >
-                    <Radio size="lg" value={ESortType.NEWEST} label="newest" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
-                    <Radio size="lg" value={ESortType.OLDEST} label="oldest" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
-                    <Radio size="lg" value={ESortType.MOST_POPULAR} label="most popular" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
-                    <Radio size="lg" value={ESortType.LEAST_POPULAR} label="least popular" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
-                    <Radio size="lg" value={ESortType.MOST_LIKED} label="most liked" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
-                    <Radio size="lg" value={ESortType.LEAST_LIKED} label="least liked" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.NEWEST} label="newest" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.OLDEST} label="oldest" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.MOST_POPULAR} label="most popular" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.LEAST_POPULAR} label="least popular" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.MOST_LIKED} label="most liked" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
+                    <Radio value={ESortType.LEAST_LIKED} label="least liked" color='yellow' classNames={{label: styles.radioLabel, body: styles.radioBody}}/>
             </Radio.Group>
 
 

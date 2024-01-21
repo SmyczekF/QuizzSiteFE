@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { CredentialsContextProvider } from './shared/providers/credentialsProvider';
+import { QuizQueryParamsContextProvider } from './shared/providers/quizQueryParamsProvider';
 
 const queryClient = new QueryClient();
 
@@ -21,10 +22,12 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <Notifications />
           <CredentialsContextProvider>
-            {/* TODO Suspense should look normal not just plain loading text */}
-            <Suspense fallback="loading">
-              <App />
-            </Suspense>
+            <QuizQueryParamsContextProvider>
+              {/* TODO Suspense should look normal not just plain loading text */}
+              <Suspense fallback="loading">
+                <App />
+              </Suspense>
+            </QuizQueryParamsContextProvider>
           </CredentialsContextProvider>
         </QueryClientProvider>
     </MantineProvider>

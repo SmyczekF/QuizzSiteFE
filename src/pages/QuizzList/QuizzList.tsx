@@ -1,6 +1,6 @@
 import { Grid, Group } from '@mantine/core';
 import styles from './QuizzList.module.scss';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import QuizzListElement from './components/QuizzListElement';
 import ListOperation from './components/ListOperation/ListOperation';
 import Navigation from './components/Navigation';
@@ -9,21 +9,23 @@ import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { QuizzListElementProps } from './quizzes.types';
 import Sort from './components/ListOperation/components/Sort';
+import { QuizQueryParamsContext } from '../../shared/providers/quizQueryParamsProvider';
 
 const QuizzList = () => {
 
+    const quizQueryParams = useContext(QuizQueryParamsContext);
     const [activePage, setPage] = useState(1);
     const [limit, setLimit] = useState(30);
     const { genre } = useParams();
 
     const { data, isLoading, refetch } = useQuery<{quizzes: QuizzListElementProps[], totalCount: number}>({
         queryKey: ['quizzList'],
-        queryFn: () => axios.get(`/quizz/get/genre/${genre}`, {params: {page: activePage, limit: limit}}).then(res => res.data),
-    })
+        queryFn: () => axios.get(`/quizz/get/genre/${genre}`, {params: {page: activePage, limit: limit, order: quizQueryParams.order}}).then(res => res.data),
+    });
 
     useEffect(() => {
         refetch();
-    }, [activePage, limit])
+    }, [activePage, limit, quizQueryParams.order])
 
     if(!data) return null;
 
