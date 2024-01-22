@@ -1,14 +1,104 @@
 .view{
+    position: relative;
     text-align: center;
     padding: 100px 15% 0 15% ;
     background-color: var(--background-main);
     overflow: auto;
+    overflow-x: hidden;
     height: 100vh;
+
+
+    .content{
+        position: relative;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.671);
+        border-radius: 30px;
+    }
 
     .quizzTitle{
         font-family: 'Underdog Regular';
-        font-size: 7rem;
+        font-size: 5rem;
         color: var(--primary);
         margin: 0;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    .quizzTop{
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+    }
+
+    .quizzTopContent{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+
+    .quizzDescription{
+        font-family: 'Underdog Regular';
+        font-size: 2rem;
+        color: var(--accent);
+        margin: 0;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    .quizzInfo{
+        margin: 50px 0 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .quizzInfoItem{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 0 50px 0;
+    }
+
+    .quizzInfoItemTitle{
+        font-family: 'Underdog Regular';
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin: 0;
+    }
+
+    .quizzInfoItemValue{
+        font-family: 'Underdog Regular';
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin: 0;
+    }
+
+    .quizzInfoItemValueWithIcon{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .quizzInfoItemAuthorImage{
+        width: 32px;
+        height: 32px;
+        
+        font-size: 1.2rem;
+        border-radius: 50%;
+        color: black;
+        background-color: var(--secondary);
+        border: 1px solid var(--primary);
+        color: white;
+        padding: 5px;
+    }
+
+    .quizzInfoItemFinishedImage{
+        @extend .quizzInfoItemAuthorImage;
+    }
+
+    .quizzInfoItemLikedImage{
+        @extend .quizzInfoItemAuthorImage;
     }
 }

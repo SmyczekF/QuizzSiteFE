@@ -6,10 +6,11 @@ import ListOperation from './components/ListOperation/ListOperation';
 import Navigation from './components/Navigation';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { QuizzListElementProps } from './quizzes.types';
 import Sort from './components/ListOperation/components/Sort';
 import { QuizQueryParamsContext } from '../../shared/providers/quizQueryParamsProvider';
+import PageSizePicker from './components/PageSizePicker';
 
 const QuizzList = () => {
 
@@ -25,6 +26,7 @@ const QuizzList = () => {
 
     useEffect(() => {
         refetch();
+        //eslint-disable-next-line
     }, [activePage, limit, quizQueryParams.order])
 
     if(!data) return null;
@@ -55,16 +57,13 @@ const QuizzList = () => {
                         margin: 0,
                     }}
                 />
-                <Group>
-                    <ListOperation 
-                        target={<i className={`pi pi-sync ${styles.listOperation}`}></i>} 
-                        text='Random quizz'
-                    />
+                <Group classNames={{root: styles.listOptionsRoot}}>
                     <Sort target={<i className={`pi pi-sort ${styles.listOperation}`}></i>}/>
+                    {/* TODO ADD FILTERS
                     <ListOperation
                         target={<i className={`pi pi-filter ${styles.listOperation}`}></i>}
                         text='Filter'
-                    />
+                    /> */}
                     <ListOperation
                         target={<i className={`pi pi-refresh ${styles.listOperation}`} onClick={() => refetch()}></i>}
                         text='Refresh'
@@ -85,11 +84,16 @@ const QuizzList = () => {
                 }
                 </Grid>
             }
-            <Navigation
-                total={Math.ceil(data.totalCount / limit)}
-                activePage={activePage}
-                setPage={handlePagePicker}
-            />
+            <div className={styles.bottomNav}>
+                <PageSizePicker pageSize={limit} setPageSize={(limit: number) => setLimit(limit)}/>
+                <Navigation
+                    total={Math.ceil(data.totalCount / limit)}
+                    activePage={activePage}
+                    setPage={handlePagePicker}
+                    pageSize={limit}
+                    setPageSize={(limit: number) => setLimit(limit)}
+                />
+            </div>
         </div>
     )
 }

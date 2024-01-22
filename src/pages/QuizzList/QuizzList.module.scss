@@ -10,6 +10,7 @@
         font-size: 7rem;
         color: var(--primary);
         margin: 0;
+        text-shadow: 2px 2px 2px black;
     }
     
     .quizzList{
@@ -394,6 +395,29 @@
 
 }
 
+.pageSizePickerRoot{
+    text-align: start;
+}
+
+.pageSizePickerLabel{
+    font-family: 'Staatliches Regular';
+    font-size: 1.1rem !important;
+}
+
+.bottomNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pageSizePickerInput{
+    border: 1px solid var(--primary) !important;
+    font-family: 'Staatliches Regular' !important;
+    font-size: 1.1rem !important;
+    width: 100px !important;
+}
+
 @media only screen and (max-width: 780px) {    
     .navigation{
         justify-content: center;
@@ -439,13 +463,31 @@
     .view{
         padding: 100px 7px 0 7px;
 
+        .quizzListTitle{
+            font-size: 4rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .view{
         .listOperations{
-            flex-direction: column-reverse;
+            flex-direction: column;
             gap: 20px;
         }
 
-        .quizzListTitle{
-            font-size: 4rem;
+        .bottomNav{
+            flex-direction: column-reverse;
+        }
+
+        .pageSizePickerRoot{
+            text-align: center;
+        }
+        
+        .listOptionsRoot{
+            width: 100%;
+            align-items: center;
+            justify-content: flex-end;
         }
     }
 }

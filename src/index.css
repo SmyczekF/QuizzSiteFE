@@ -1,6 +1,6 @@
 :root {
   --primary: #FFA96A;
-  --secondary: #CEB700;
+  --secondary: #918000;
   --accent: #CEB700;
   --accent-hover: #bba500;
   --background: #f5ea9f;
@@ -25,6 +25,7 @@ body {
     sans-serif, 'Staatliches Regular', 'Underdog Regular';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {

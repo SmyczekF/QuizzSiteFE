@@ -23,37 +23,40 @@ const Navigation = (props: NavigationProps) => {
         <div className={styles.navigation} style={navigationDivStyle}>
                 {
                     noPagination || !isMd 
-                    ? <ListOperation
-                        target={
-                            <i 
-                                className={`pi pi-chevron-left ${styles.listOperation} ${previousDisabled? styles.listOperationDisabled: ''}`} 
-                                onClick={previousDisabled? () => {}: () => setPage(activePage - 1)}
-                            ></i>
-                        }
-                        text='Last page'
-                    /> 
+                    ? 
+                    <>
+                        <ListOperation
+                            target={
+                                <i 
+                                    className={`pi pi-chevron-left ${styles.listOperation} ${previousDisabled? styles.listOperationDisabled: ''}`} 
+                                    onClick={previousDisabled? () => {}: () => setPage(activePage - 1)}
+                                ></i>
+                            }
+                            text='Last page'
+                        /> 
+                        <div className={styles.pagePicker}>
+                            {/* <Text className={styles.pagePickerText}>Page</Text> */}
+                            <NumberInput
+                                min={1} 
+                                max={total} 
+                                value={activePage} 
+                                onChange={value => setPage(+value)} 
+                                classNames={{
+                                    root: styles.pagePickerRoot,
+                                    input: styles.pagePickerInput,
+                                }} 
+                                w={60}
+                                allowNegative={false}
+                                allowDecimal={false}
+                                size='sm'
+                                rightSection={<></>}
+                                rightSectionWidth={8}
+                            />
+                            <Text className={styles.pagePickerText}> / {total}</Text>
+                        </div>
+                    </>
                     : null
                 }
-                <div className={styles.pagePicker}>
-                    {/* <Text className={styles.pagePickerText}>Page</Text> */}
-                    <NumberInput
-                        min={1} 
-                        max={total} 
-                        value={activePage} 
-                        onChange={value => setPage(+value)} 
-                        classNames={{
-                            root: styles.pagePickerRoot,
-                            input: styles.pagePickerInput,
-                        }} 
-                        w={60}
-                        allowNegative={false}
-                        allowDecimal={false}
-                        size='sm'
-                        rightSection={<></>}
-                        rightSectionWidth={8}
-                    />
-                    <Text className={styles.pagePickerText}> / {total}</Text>
-                </div>
                 {
                     !noPagination && isMd 
                     ? <div className={styles.pagination}>

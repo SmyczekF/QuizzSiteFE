@@ -19,13 +19,32 @@ const QuizzListElement = (props: QuizzListElementProps) => {
     const [opened, { open, close }] = useDisclosure(false);
     const { id, title, description, color, finished, liked, image, User } = props;
     
+    const returnAvatar = () => {
+        if(User.image) {
+            const base64 = btoa(
+                new Uint8Array(User.image.data).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                '',
+                ),
+            );
+            return `data:image/png;base64,${base64}`;
+        }
+        return null;
+    }
+
+    const userAvatar = returnAvatar();
+
     return (
         <>
             <div className={styles.quizzListElement} style={image? {backgroundImage: URL.createObjectURL(image)}: {background: color}} onClick={open}>
                 <h2 className={styles.quizzListElementTitle}>{title}</h2>
                 {/* <p className={styles.quizzListElementDescription}>{description}</p> */}
                 <div className={styles.quizzListElementAuthorSection}>
-                    <img src={fr} alt='Flag' className={styles.quizzListElementAuthorAvatar}/>
+                    {
+                        userAvatar
+                        ? <img src={userAvatar} alt="Author" className={styles.quizzListElementAuthorAvatar} style={{padding: 0}}/>
+                        : <i className={`pi pi-user ${styles.quizzListElementAuthorAvatar}`}></i>
+                    }
                     <p className={styles.quizzListElementAuthorName}>{User.username}</p>
                 </div>
                 <div className={styles.quizzListElementInfoSection}>
@@ -69,7 +88,11 @@ const QuizzListElement = (props: QuizzListElementProps) => {
                             Quizz liked by {getShortenedNumberData(liked)} users 
                         </p>
                         <p className={styles.modalStatistics}>
-                            <i className={`pi pi-user ${styles.quizzListElementInfoIcon}`} style={{color: 'var(--primary)'}}></i>
+                            {
+                                userAvatar
+                                ? <img src={userAvatar} alt="Author" className={styles.quizzListElementInfoIcon} style={{padding: 0, borderRadius: '50%'}}/>
+                                : <i className={`pi pi-user ${styles.quizzListElementInfoIcon}`}></i>
+                            }
                             Quizz created by {User.username}
                         </p>
                     </div>

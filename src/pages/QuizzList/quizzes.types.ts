@@ -11,6 +11,7 @@ export interface QuizzListElementProps {
 
 interface User {
     username: string;
+    image?: {type: string, data: number[]};
 }
 
 export interface ListOperationProps {
@@ -19,14 +20,22 @@ export interface ListOperationProps {
     openedContent?: JSX.Element;
 }
 
-export interface NavigationProps {
+export interface SortProps{
+    target: JSX.Element;
+}
+
+export interface PageSizePickerProps{
+    pageSize: number;
+    setPageSize: (limit: number) => void;
+}
+
+export interface NavigationProps{
     total: number;
     activePage: number;
     setPage: (current: number) => void;
     noPagination?: boolean;
     navigationDivStyle?: React.CSSProperties;
-}
-
-export interface SortProps{
-    target: JSX.Element;
+    noPagePicker?: boolean;
+    pageSize?: number;
+    setPageSize?: (limit: number) => void;
 }
