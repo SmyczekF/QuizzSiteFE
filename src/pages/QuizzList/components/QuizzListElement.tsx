@@ -4,7 +4,7 @@ import fr from '../../../shared/flags/fr.svg';
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-const getShortenedNumberData = (number: number) => {
+export const getShortenedNumberData = (number: number) => {
     if (number >= 1000000) {
         return `${(number / 1000000).toFixed(1)}M`;
     }
@@ -17,7 +17,7 @@ const getShortenedNumberData = (number: number) => {
 const QuizzListElement = (props: QuizzListElementProps) => {
     
     const [opened, { open, close }] = useDisclosure(false);
-    const { id, title, description, color, finished, liked, image, User } = props;
+    const { id, title, description, color, finished, liked, image, User, createdAt } = props;
     
     const returnAvatar = () => {
         if(User.image) {

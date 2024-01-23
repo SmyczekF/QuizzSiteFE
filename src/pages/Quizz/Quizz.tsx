@@ -4,10 +4,12 @@ import { QuizzProps } from './quizz.types';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Question from './components/Question';
+import { getShortenedNumberData } from '../QuizzList/components/QuizzListElement';
+import { Button } from '@mantine/core';
 
 const Quizz = (props: QuizzProps) => {
 
-    const { title, description, color, finished, liked, image, User, Questions } = props;
+    const { title, description, color, finished, liked, image, User, Questions, createdAt } = props;
 
     const returnAvatar = () => {
         if(User.image) {
@@ -49,24 +51,42 @@ const Quizz = (props: QuizzProps) => {
                                 <div className={styles.quizzInfoItemTitle}>Finished</div>
                                 <div className={styles.quizzInfoItemValueWithIcon}>
                                     <i className={`pi pi-check ${styles.quizzInfoItemFinishedImage}`} style={{color: 'lightgreen'}}></i>
-                                    <div className={styles.quizzInfoItemValue}>{finished}</div>
+                                    <div className={styles.quizzInfoItemValue}>{getShortenedNumberData(finished)}</div>
                                 </div>
                             </div>
                             <div className={styles.quizzInfoItem}>
                                 <div className={styles.quizzInfoItemTitle}>Liked</div>
                                 <div className={styles.quizzInfoItemValueWithIcon}>
-                                    <i className={`pi pi-star ${styles.quizzInfoItemLikedImage}`} style={{color: 'lightgreen'}}></i>
-                                    <div className={styles.quizzInfoItemValue}>{liked}</div>
+                                    <i className={`pi pi-star ${styles.quizzInfoItemLikedImage}`} style={{color: 'gold'}}></i>
+                                    <div className={styles.quizzInfoItemValue}>{getShortenedNumberData(liked)}</div>
+                                </div>
+                            </div>
+                            <div className={styles.quizzInfoItem}>
+                                <div className={styles.quizzInfoItemTitle}>Created</div>
+                                <div className={styles.quizzInfoItemValueWithIcon}>
+                                    <i className={`pi pi-calendar ${styles.quizzInfoItemLikedImage}`} style={{color: 'white'}}></i>
+                                    <div className={styles.quizzInfoItemValue}>{new Date(createdAt).toLocaleDateString()}</div>
                                 </div>
                             </div>
                         </div>
                     {/* </div> */}
                 </div>
-                {
+                <h3 className={styles.typeQuizQuestionTitle}>Choose the type of quiz:</h3>
+                <div className={styles.quizzBottomContent}>
+                    <Button size="lg" color='transparent' classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}>
+                        <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
+                        <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
+                    </Button>
+                    <Button size="lg" color='transparent' classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}>
+                        <i className={`pi pi-times-circle ${styles.quizzTypeChooseIcon}`}></i>
+                        <h4 className={styles.quizzTypeChooseText}>No time limit</h4>
+                    </Button>
+                </div>
+                {/* {
                     Questions.map(question => {
                         return <Question {...question} key={`${question.text}_${question.id}`}/>
                     })
-                }
+                } */}
             </div>
         </div>
     )

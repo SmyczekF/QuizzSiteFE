@@ -7,6 +7,7 @@ export interface QuizzListElementProps {
     liked: number;
     image?: Blob;
     User: User;
+    createdAt: string;
 }
 
 interface User {

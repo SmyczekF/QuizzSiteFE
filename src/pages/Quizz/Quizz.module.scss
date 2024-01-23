@@ -38,6 +38,16 @@
         z-index: 1;
     }
 
+    .quizzBottomContent{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        z-index: 1;
+    }
+
     .quizzDescription{
         font-family: 'Underdog Regular';
         font-size: 2rem;
@@ -71,7 +81,7 @@
     .quizzInfoItemValue{
         font-family: 'Underdog Regular';
         font-size: 1.5rem;
-        color: var(--secondary);
+        color: black;
         margin: 0;
     }
 
@@ -101,4 +111,101 @@
     .quizzInfoItemLikedImage{
         @extend .quizzInfoItemAuthorImage;
     }
+}
+
+.question{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+
+}
+
+.questionTitle{
+    font-family: 'Underdog Regular';
+    font-size: 2rem;
+    color: var(--primary);
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
+}
+
+.checkboxOption{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px 0 0 0;
+}
+
+.checkboxOptionLabel{
+    font-family: 'Underdog Regular';
+    font-size: 1.5rem;
+    color: black;
+    margin: 0;
+    margin: 0 0 0 10px;
+}
+
+.checkboxOptionInput{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--primary) !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.checkboxOptionRadio{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--primary) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+}
+
+.quizzTypeChooseRoot{
+    height: 200px !important;
+    width: 45% !important;
+    border: 3px solid var(--primary) !important;
+    border-radius: (var(--mantine-radius-default));
+    background-color: var(--background) !important;
+    color: var(--primary) !important;
+    letter-spacing: .15rem;
+    transition: all 0.2s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        background-color: var(--secondary) !important;
+        color: white !important;
+        transform: scale(1.03);
+    }
+}
+
+.quizzTypeChooseLabel{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.quizzTypeChooseIcon{
+    font-size: 5rem;
+    margin-bottom: 30px;
+}
+
+.quizzTypeChooseText{
+    font-family: 'Underdog Regular';
+    font-size: 2rem;
+    margin: 0;
+}
+
+.typeQuizQuestionTitle{
+    @extend .questionTitle;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
 }
