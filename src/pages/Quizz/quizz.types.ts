@@ -15,11 +15,13 @@ export interface QuestionProps {
     type: string;
     Options: OptionProps[];
     active: boolean;
-    returnAnswer: (quizzId: number, answerId?: number | null, answerIds?: number[] | null) => void;
+    returnAnswer: (quizzId: number, answerId: number | null, answerIds: number[] | null) => void;
 }
 
 export interface Answers {
-    [key: number]: number | number[];
+    questionId: number;
+    answerId: number | null;
+    answerIds: number[] | null;
 }
 
 export interface QuizzProps extends QuizzListElementProps {

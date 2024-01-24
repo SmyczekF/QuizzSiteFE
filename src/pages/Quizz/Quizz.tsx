@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import styles from './Quizz.module.scss';
-import { QuizzProps } from './quizz.types';
+import { Answers, QuizzProps } from './quizz.types';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Question from './components/Question';
@@ -13,6 +13,7 @@ const Quizz = (props: QuizzProps) => {
     const { title, description, finished, liked, image, User, Questions, createdAt } = props;
 
     const [shownQuestion, setShownQuestion] = useState<number>(-1)
+    const [answers, setAnswers] = useState<Answers[]>([]); 
 
     const returnAvatar = () => {
         if(User.image) {
@@ -28,6 +29,25 @@ const Quizz = (props: QuizzProps) => {
     }
 
     const userAvatar = returnAvatar();
+
+    const handleAnswerReturn = (questionId: number, answerId: number | null, answerIds: number[] | null) => {
+        const newAnswers = [...answers];
+        const questionIndex = newAnswers.findIndex(a => a.questionId === questionId);
+        if(questionIndex === -1) {
+            newAnswers.push({
+                questionId,
+                answerId,
+                answerIds
+            })
+        } else {
+            newAnswers[questionIndex] = {
+                questionId,
+                answerId,
+                answerIds
+            }
+        }
+        setAnswers(newAnswers);
+    }
 
     return (
         <div className={styles.view}>
@@ -100,7 +120,7 @@ const Quizz = (props: QuizzProps) => {
             <div className={`${styles.quizzSection} ${shownQuestion !== -1 ? styles.active : ''}`}>
                 {
                     Questions.sort((a, b) => a.order - b.order).map((question, index) => {
-                        return <Question {...question} key={`${question.text}_${question.id}`} active={shownQuestion === index}/>
+                        return <Question {...question} key={`${question.text}_${question.id}`} active={shownQuestion === index} returnAnswer={handleAnswerReturn}/>
                     })
                 }
                 <div className={styles.quizzSectionButtons}>
@@ -128,7 +148,7 @@ const Quizz = (props: QuizzProps) => {
                     size="lg" 
                     color='transparent' 
                     classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                    onClick={() => setShownQuestion(shownQuestion + 1)}
+                    onClick={() => console.log(answers)}
                     >
                         <h4 className={styles.quizzSectionButtonText}>Finish</h4>
                         <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
