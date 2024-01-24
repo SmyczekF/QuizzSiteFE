@@ -6,10 +6,13 @@ import { useParams } from 'react-router-dom';
 import Question from './components/Question';
 import { getShortenedNumberData } from '../QuizzList/components/QuizzListElement';
 import { Button } from '@mantine/core';
+import { useState } from 'react';
 
 const Quizz = (props: QuizzProps) => {
 
-    const { title, description, color, finished, liked, image, User, Questions, createdAt } = props;
+    const { title, description, finished, liked, image, User, Questions, createdAt } = props;
+
+    const [shownQuestion, setShownQuestion] = useState<number>(-1)
 
     const returnAvatar = () => {
         if(User.image) {
@@ -31,7 +34,8 @@ const Quizz = (props: QuizzProps) => {
             {/* <Background/> */}
             {/* Opacity 1A | 33 | 4D | 66 | 80 | 99 | B3 | CC | E6 */}
             {/* <div className={styles.content}> */}
-                <div className={styles.quizzTop}>
+            
+                <div className={`${styles.quizzTop} ${shownQuestion > -1 ? styles.quizzTopAnimation: ''}`}>
                     <div className={styles.quizzTopContent}>
                         <h1 className={styles.quizzTitle}>{title}</h1>
                         <div className={styles.quizzDescription}>{description}</div>
@@ -71,22 +75,66 @@ const Quizz = (props: QuizzProps) => {
                         </div>
                     {/* </div> */}
                 </div>
-                <h3 className={styles.typeQuizQuestionTitle}>Choose the type of quiz:</h3>
+                <h3 className={styles.typeQuizQuestionTitle}>Choose the type of quiz</h3>
                 <div className={styles.quizzBottomContent}>
-                    <Button size="lg" color='transparent' classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}>
+                    <Button 
+                    size="lg" 
+                    color='transparent' 
+                    classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}
+                    onClick={() => setShownQuestion(0)}
+                    >
                         <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
                         <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
                     </Button>
-                    <Button size="lg" color='transparent' classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}>
+                    <Button 
+                    size="lg" 
+                    color='transparent' 
+                    classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}
+                    onClick={() => setShownQuestion(0)}
+                    >
                         <i className={`pi pi-times-circle ${styles.quizzTypeChooseIcon}`}></i>
                         <h4 className={styles.quizzTypeChooseText}>No time limit</h4>
                     </Button>
                 </div>
-                {/* {
-                    Questions.map(question => {
-                        return <Question {...question} key={`${question.text}_${question.id}`}/>
+            </div>
+            <div className={`${styles.quizzSection} ${shownQuestion !== -1 ? styles.active : ''}`}>
+                {
+                    Questions.sort((a, b) => a.order - b.order).map((question, index) => {
+                        return <Question {...question} key={`${question.text}_${question.id}`} active={shownQuestion === index}/>
                     })
-                } */}
+                }
+                <div className={styles.quizzSectionButtons}>
+                    <Button 
+                    size="lg" 
+                    color='transparent' 
+                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                    onClick={() => setShownQuestion(shownQuestion - 1)}
+                    >
+                        <i className={`pi pi-arrow-left ${styles.quizzSectionButtonIcon}`}></i>
+                        <h4 className={styles.quizzSectionButtonText}>Back</h4>
+                    </Button>
+                    {
+                    Questions.length > shownQuestion + 1 
+                    ? <Button 
+                    size="lg" 
+                    color='transparent' 
+                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                    onClick={() => setShownQuestion(shownQuestion + 1)}
+                    >
+                        <h4 className={styles.quizzSectionButtonText}>Next</h4>
+                        <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
+                    </Button>
+                    : <Button 
+                    size="lg" 
+                    color='transparent' 
+                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                    onClick={() => setShownQuestion(shownQuestion + 1)}
+                    >
+                        <h4 className={styles.quizzSectionButtonText}>Finish</h4>
+                        <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
+                    </Button>
+                    }
+                </div>
             </div>
         </div>
     )

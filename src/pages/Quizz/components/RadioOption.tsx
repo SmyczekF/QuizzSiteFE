@@ -13,10 +13,14 @@ const RadioOption = (props: RadioProps & OptionProps) => {
         label={text} 
         value={`${id}`}
         color="yellow"
+        size="lg"
         classNames={{
             root: styles.checkboxOption,
             label: styles.checkboxOptionLabel,
             radio: styles.checkboxOptionRadio,
+            inner: styles.checkboxOptionRadioInner,
+            labelWrapper: styles.checkboxOptionRadioBody,
+            body: styles.checkboxOptionRadioBody,
         }}
         />
     )

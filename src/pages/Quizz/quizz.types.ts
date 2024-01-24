@@ -14,6 +14,12 @@ export interface QuestionProps {
     order: number;
     type: string;
     Options: OptionProps[];
+    active: boolean;
+    returnAnswer: (quizzId: number, answerId?: number | null, answerIds?: number[] | null) => void;
+}
+
+export interface Answers {
+    [key: number]: number | number[];
 }
 
 export interface QuizzProps extends QuizzListElementProps {
