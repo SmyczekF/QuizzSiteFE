@@ -180,6 +180,84 @@
             color: white !important;
         }
     }
+    &.disabled{
+        background-color: var(--mantine-color-gray-6) !important;
+        position: relative;
+        color: white !important;
+        border: 0 !important;
+        &:hover{
+            cursor: default;
+            background-color: var(--mantine-color-gray-6) !important;
+            transform: scale(1);
+            
+        }
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(228, 228, 228, 0.479);
+        }
+        &.correctNotChoosen{
+            position: relative;
+            background-color: var(--mantine-color-green-4) !important;
+            border: 0 !important;
+            color: white !important;
+            &:hover{
+                cursor: default;
+                transform: scale(1);
+            }
+            &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(194, 194, 194, 0.2);
+            }
+        }
+        &.correct{
+            position: relative;
+            background-color: var(--mantine-color-green-6) !important;
+            border: 0 !important;
+            color: white !important;
+            &:hover{
+                cursor: default;
+                transform: scale(1);
+            }
+            &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(194, 194, 194, 0.15);
+            }
+        }
+        &.incorrect{
+            position: relative;
+            background-color: var(--mantine-color-red-7) !important;
+            border: 0 !important;
+            color: white !important;
+            &:hover{
+                cursor: default;
+                transform: scale(1);
+            }
+            &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(194, 194, 194, 0.15);
+            }
+        }
+    }
     &:hover{
         cursor: pointer;
         background-color: var(--backgroud-hover) !important;
@@ -193,6 +271,17 @@
     font-size: 1.5rem !important;
     color: var(--secondary) !important;
     margin: 0 !important;
+
+    &.correct{
+        font-size: 2.5rem !important;
+        color: var(--mantine-color-green-6) !important;
+        text-shadow: 2px 2px 2px black;
+    }
+    &.incorrect{
+        font-size: 2.5rem !important;
+        color: var(--mantine-color-red-7) !important;
+        text-shadow: 2px 2px 2px black;
+    }
 }
 
 .checkboxOptionLabel{

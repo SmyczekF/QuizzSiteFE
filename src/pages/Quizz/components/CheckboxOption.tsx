@@ -1,12 +1,12 @@
-import { Checkbox } from "@mantine/core";
+import { Checkbox, CheckboxProps } from "@mantine/core";
 import { OptionProps } from "../quizz.types";
 import styles from '../Quizz.module.scss';
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 
-const CheckboxOption = (props: OptionProps) => {
+const CheckboxOption = (props: CheckboxProps & OptionProps) => {
 
-    const { id, text, order, image } = props;
+    const { id, text, order, image, disabled, correct, correctNotChoosen} = props;
     const [checked, {toggle}] = useDisclosure(false);
 
     return (
@@ -15,7 +15,7 @@ const CheckboxOption = (props: OptionProps) => {
             value={id} 
             size="lg"
             classNames={{
-                root: `${styles.checkboxOption} ${checked ? styles.checked : ''}`,
+                root: `${styles.checkboxOption} ${checked ? styles.checked : ''} ${disabled ? styles.disabled : ''} ${correct ? styles.correct : ''} ${correct !== undefined && !correct ? styles.incorrect : ''} ${correctNotChoosen ? styles.correctNotChoosen : ''}`,
                 label: styles.checkboxOptionLabel,
                 input: styles.checkboxOptionInput,
                 inner: styles.checkboxOptionRadioInner,

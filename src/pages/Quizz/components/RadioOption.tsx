@@ -4,9 +4,7 @@ import styles from '../Quizz.module.scss';
 
 const RadioOption = (props: RadioProps & OptionProps) => {
 
-    const { id, text, order, image } = props;
-
-    
+    const { id, text, order, image, disabled, correct, correctNotChoosen } = props;
 
     return (
         <Radio 
@@ -15,7 +13,7 @@ const RadioOption = (props: RadioProps & OptionProps) => {
         color="yellow"
         size="lg"
         classNames={{
-            root: styles.checkboxOption,
+            root: `${styles.checkboxOption} ${disabled ? styles.disabled : ''} ${correct ? styles.correct : ''} ${correct === false ? styles.incorrect : ''} ${correctNotChoosen ? styles.correctNotChoosen : ''}`,
             label: styles.checkboxOptionLabel,
             radio: styles.checkboxOptionRadio,
             inner: styles.checkboxOptionRadioInner,

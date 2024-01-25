@@ -6,6 +6,8 @@ export interface OptionProps {
     text: string;
     order: number;
     image?: Blob;
+    correct?: boolean;
+    correctNotChoosen?: boolean;
 }
 
 export interface QuestionProps {
@@ -16,6 +18,11 @@ export interface QuestionProps {
     Options: OptionProps[];
     active: boolean;
     returnAnswer: (quizzId: number, answerId: number | null, answerIds: number[] | null) => void;
+    viewMode: boolean;
+    answers?: Answers;
+    correctAnswers?: Answers;
+    isCorrect?: boolean;
+    notAnswered?: boolean;
 }
 
 export interface Answers {
@@ -23,6 +30,8 @@ export interface Answers {
     answerId: number | null;
     answerIds: number[] | null;
 }
+
+export interface QuizFinishProps {score: number}
 
 export interface QuizzProps extends QuizzListElementProps {
     Questions: QuestionProps[];
@@ -32,4 +41,8 @@ export enum EQuestionTypes {
     SingleChoice = "single_choice",
     MultipleChoice = "multiple_choice",
     Text = "text",
+}
+
+export interface ReplayButtonProps{
+    onClick: () => void;
 }

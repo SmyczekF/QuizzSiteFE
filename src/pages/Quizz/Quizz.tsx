@@ -1,19 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import styles from './Quizz.module.scss';
-import { Answers, QuizzProps } from './quizz.types';
-import axios from 'axios';
+import { Answers, EQuestionTypes, QuizzProps } from './quizz.types';
+import axios, { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import Question from './components/Question';
 import { getShortenedNumberData } from '../QuizzList/components/QuizzListElement';
 import { Button } from '@mantine/core';
 import { useState } from 'react';
+import { showSuccessNotification } from '../../shared/notifications/showSuccessNotification';
+import { showErrorNotification } from '../../shared/notifications/showErrorNotification';
+import QuizFinish from './components/QuizFinish';
+import ReplayButton from './components/ReplayButton';
 
 const Quizz = (props: QuizzProps) => {
 
-    const { title, description, finished, liked, image, User, Questions, createdAt } = props;
+    const { id, title, description, finished, liked, image, User, Questions, createdAt } = props;
 
     const [shownQuestion, setShownQuestion] = useState<number>(-1)
-    const [answers, setAnswers] = useState<Answers[]>([]); 
+    const [answers, setAnswers] = useState<Answers[]>([]);
+    const [finishData, setFinishData] = useState<{correctAnswers: Answers[], score: number} | null>(null);
+    const [finishedQuizz, setFinishedQuizz] = useState<boolean>(false);
 
     const returnAvatar = () => {
         if(User.image) {
@@ -49,12 +55,21 @@ const Quizz = (props: QuizzProps) => {
         setAnswers(newAnswers);
     }
 
+    const finishMutation = useMutation<AxiosResponse>({
+        mutationFn: () => axios.post(`/quizz/finish/${id}`, {answers: answers}),
+        onSuccess: (data) => {
+            showSuccessNotification('Quizz finished successfully')
+            setFinishData(data.data);
+            setFinishedQuizz(true);
+            setShownQuestion(shownQuestion + 1);
+        },
+        onError: () => {
+            showErrorNotification('Quizz finished unsuccessfully')
+        }
+    })
+
     return (
         <div className={styles.view}>
-            {/* <Background/> */}
-            {/* Opacity 1A | 33 | 4D | 66 | 80 | 99 | B3 | CC | E6 */}
-            {/* <div className={styles.content}> */}
-            
                 <div className={`${styles.quizzTop} ${shownQuestion > -1 ? styles.quizzTopAnimation: ''}`}>
                     <div className={styles.quizzTopContent}>
                         <h1 className={styles.quizzTitle}>{title}</h1>
@@ -119,9 +134,31 @@ const Quizz = (props: QuizzProps) => {
             </div>
             <div className={`${styles.quizzSection} ${shownQuestion !== -1 ? styles.active : ''}`}>
                 {
-                    Questions.sort((a, b) => a.order - b.order).map((question, index) => {
-                        return <Question {...question} key={`${question.text}_${question.id}`} active={shownQuestion === index} returnAnswer={handleAnswerReturn}/>
+                    shownQuestion < Questions.length && shownQuestion > -1 
+                    ? Questions.sort((a, b) => a.order - b.order).map((question, index) => {
+                        return (
+                            <Question 
+                                {...question} 
+                                key={`${question.text}_${question.id}`} 
+                                active={shownQuestion === index} 
+                                returnAnswer={handleAnswerReturn}
+                                viewMode={finishedQuizz}
+                                answers={answers.find(a => a.questionId === question.id)}
+                                correctAnswers={finishData?.correctAnswers.find(a => a.questionId === question.id)}
+                                isCorrect={
+                                    question.type === EQuestionTypes.SingleChoice 
+                                    ? finishData?.correctAnswers
+                                        .find(a => a.questionId === question.id)?.answerId === answers
+                                        .find(a => a.questionId === question.id)?.answerId
+                                    : finishData?.correctAnswers
+                                        .find(a => a.questionId === question.id)?.answerIds?.sort().join('') === answers
+                                        .find(a => a.questionId === question.id)?.answerIds?.sort().join('')
+                                }
+                                notAnswered={answers.find(a => a.questionId === question.id) === undefined}
+                            />
+                        )
                     })
+                    : finishData ? <QuizFinish score={finishData.score}/> : null
                 }
                 <div className={styles.quizzSectionButtons}>
                     <Button 
@@ -134,25 +171,32 @@ const Quizz = (props: QuizzProps) => {
                         <h4 className={styles.quizzSectionButtonText}>Back</h4>
                     </Button>
                     {
-                    Questions.length > shownQuestion + 1 
-                    ? <Button 
-                    size="lg" 
-                    color='transparent' 
-                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                    onClick={() => setShownQuestion(shownQuestion + 1)}
-                    >
-                        <h4 className={styles.quizzSectionButtonText}>Next</h4>
-                        <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
-                    </Button>
-                    : <Button 
-                    size="lg" 
-                    color='transparent' 
-                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                    onClick={() => console.log(answers)}
-                    >
-                        <h4 className={styles.quizzSectionButtonText}>Finish</h4>
-                        <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
-                    </Button>
+                        finishedQuizz && shownQuestion !== Questions.length
+                        ? <ReplayButton onClick={() => window.location.reload()}/>
+                        : null
+                    }
+                    {
+                        Questions.length > shownQuestion + 1 
+                        ? <Button 
+                            size="lg" 
+                            color='transparent' 
+                            classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                            onClick={() => setShownQuestion(shownQuestion + 1)}
+                            >
+                                <h4 className={styles.quizzSectionButtonText}>Next</h4>
+                                <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
+                            </Button>
+                        : shownQuestion === Questions.length 
+                        ? <ReplayButton onClick={() => window.location.reload()}/>
+                        : <Button 
+                            size="lg" 
+                            color='transparent' 
+                            classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                            onClick={() => {finishedQuizz ? setShownQuestion(shownQuestion + 1): finishMutation.mutate()}}
+                            >
+                                <h4 className={styles.quizzSectionButtonText}>Finish</h4>
+                                <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
+                            </Button>
                     }
                 </div>
             </div>
@@ -168,8 +212,6 @@ const QuizzProvider = () => {
         queryKey: ['quizz'],
         queryFn: () => axios.get(`/quizz/get/${id}`).then(res => res.data),
     })
-
-    console.log(data);
 
     //TODO ADD LOADING SCREEN
     return (
