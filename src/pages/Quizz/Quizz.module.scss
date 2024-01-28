@@ -148,6 +148,7 @@
     font-size: 3.5rem;
     color: var(--primary);
     margin: 0;
+    margin-bottom: 10px;
     text-shadow: 2px 2px 2px black;
 }
 
@@ -375,12 +376,12 @@
 }
 
 .quizzSection{
-    height: 100%;
-    padding-bottom: 50px;
+    min-height: 100%;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 30px;
+    gap: 10px;
     display: none;
     animation-duration: 1000ms;
     animation-fill-mode: forwards;
@@ -426,6 +427,13 @@
         justify-content: center;
         gap: 10px;
     }
+}
+
+.quizzImage{
+    width: 150px;
+    height: auto;
+    object-fit: fill;
+    transform: scale(1) rotate(0deg);
 }
 
 @keyframes dissapear{

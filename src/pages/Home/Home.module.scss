@@ -36,7 +36,7 @@
         border: 1px solid black;
         transform: skew(-30deg) translate(100vw, 0);
         animation-delay: 1.5s;
-        background-image: url("../../../public/Home/shows.jpg");
+        background-image: url("../../shared/images/Home/shows.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -71,7 +71,7 @@
         animation: topicBoxAnimationTwo 2s;
         animation-delay: 2.5s;
         animation-fill-mode: forwards;
-        background-image: url("../../../public/Home/music.jpg")
+        background-image: url("../../shared/images/Home/music.jpg")
     }
 
     .topicBoxThree{
@@ -79,7 +79,7 @@
         animation: topicBoxAnimationThree 2s;
         animation-delay: 3.5s;
         animation-fill-mode: forwards;
-        background-image: url("../../../public/Home/movies.jpg")
+        background-image: url("../../shared/images/Home/movies.jpg")
     }
 
     .topicBoxFour{
@@ -87,7 +87,7 @@
         animation: topicBoxAnimationFour 2s;
         animation-delay: 4.5s;
         animation-fill-mode: forwards;
-        background-image: url("../../../public/Home/games.jpg")
+        background-image: url("../../shared/images/Home/games.jpg")
     }
 
     .topicBoxFive{
@@ -95,7 +95,7 @@
         animation: topicBoxAnimationFive 2s;
         animation-delay: 5.5s;
         animation-fill-mode: forwards;
-        background-image: url("../../../public/Home/adventure.jpg")
+        background-image: url("../../shared/images/Home/adventure.jpg")
     }
 }
 

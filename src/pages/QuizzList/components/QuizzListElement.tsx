@@ -3,6 +3,7 @@ import styles from '../QuizzList.module.scss';
 import fr from '../../../shared/flags/fr.svg';
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { returnImage } from "../../../shared/images/ImageReader";
 
 export const getShortenedNumberData = (number: number) => {
     if (number >= 1000000) {
@@ -18,25 +19,13 @@ const QuizzListElement = (props: QuizzListElementProps) => {
     
     const [opened, { open, close }] = useDisclosure(false);
     const { id, title, description, color, finished, liked, image, User, createdAt } = props;
-    
-    const returnAvatar = () => {
-        if(User.image) {
-            const base64 = btoa(
-                new Uint8Array(User.image.data).reduce(
-                (data, byte) => data + String.fromCharCode(byte),
-                '',
-                ),
-            );
-            return `data:image/png;base64,${base64}`;
-        }
-        return null;
-    }
 
-    const userAvatar = returnAvatar();
+    const userAvatar = returnImage(User.image);
+    const quizzImage = returnImage(image);
 
     return (
         <>
-            <div className={styles.quizzListElement} style={image? {backgroundImage: URL.createObjectURL(image)}: {background: color}} onClick={open}>
+            <div className={styles.quizzListElement} style={quizzImage? {backgroundImage: quizzImage}: {background: color}} onClick={open}>
                 <h2 className={styles.quizzListElementTitle}>{title}</h2>
                 {/* <p className={styles.quizzListElementDescription}>{description}</p> */}
                 <div className={styles.quizzListElementAuthorSection}>

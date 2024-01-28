@@ -11,6 +11,7 @@ import { showSuccessNotification } from '../../shared/notifications/showSuccessN
 import { showErrorNotification } from '../../shared/notifications/showErrorNotification';
 import QuizFinish from './components/QuizFinish';
 import ReplayButton from './components/ReplayButton';
+import QuizzNavigation from './components/QuizzNavigation/QuizzNavigation';
 
 const Quizz = (props: QuizzProps) => {
 
@@ -170,11 +171,27 @@ const Quizz = (props: QuizzProps) => {
                         <i className={`pi pi-arrow-left ${styles.quizzSectionButtonIcon}`}></i>
                         <h4 className={styles.quizzSectionButtonText}>Back</h4>
                     </Button>
-                    {
-                        finishedQuizz && shownQuestion !== Questions.length
-                        ? <ReplayButton onClick={() => window.location.reload()}/>
-                        : null
-                    }
+                    <QuizzNavigation 
+                        activePage={shownQuestion + 1}
+                        setPage={setShownQuestion}
+                        pages={
+                            Questions.map((question, index) => {
+                                return {
+                                    pageNumber: question.order,
+                                    isCorrect: question.type === EQuestionTypes.SingleChoice 
+                                        ? finishData?.correctAnswers
+                                            .find(a => a.questionId === question.id)?.answerId === answers
+                                            .find(a => a.questionId === question.id)?.answerId
+                                        : finishData?.correctAnswers
+                                            .find(a => a.questionId === question.id)?.answerIds?.sort().join('') === answers
+                                            .find(a => a.questionId === question.id)?.answerIds?.sort().join('')
+                                    ,
+                                    isFilled: answers.find(a => a.questionId === question.id) !== undefined,
+                                }
+                            })
+                        }
+                        isFinished={finishedQuizz}
+                    />
                     {
                         Questions.length > shownQuestion + 1 
                         ? <Button 

@@ -4,12 +4,31 @@ import CheckboxOption from "./CheckboxOption";
 import styles from '../Quizz.module.scss';
 import { Checkbox, Grid, Group, Radio, Text, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
+import questionMark from '../../../shared/images/Quizz/questionMark.png';
+import { useMediaQuery } from "react-responsive";
 
 const Question = (props: QuestionProps) => {
     
-    const { id, text, type, Options, active, returnAnswer, viewMode, answers, correctAnswers, isCorrect, notAnswered } = props;
+    const { id, text, type, Options, active, returnAnswer, viewMode, answers, correctAnswers, isCorrect, notAnswered, image } = props;
     const [value, setValue] = useState<string>('0');
     const [values, setValues] = useState<string[]>([]);
+    const isLg = useMediaQuery({query: '(min-width: 1100px)'});
+    const isXs = useMediaQuery({query: '(max-width: 490px)'}); 
+
+    const returnImage = () => {
+        if(image) {
+            const base64 = btoa(
+                new Uint8Array(image.data).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                '',
+                ),
+            );
+            return `data:image/png;base64,${base64}`;
+        }
+        return null;
+    }
+
+    const quizzImage = returnImage();
 
     const determineOptionType = (optionProps: OptionProps) => {
         switch (type) {
@@ -34,6 +53,7 @@ const Question = (props: QuestionProps) => {
     return (
         <div className={`${styles.question} ${active ? styles.active : ''}`}>
             <h3 className={styles.questionTitle}>{text}</h3>
+            
             <Radio.Group
             value={value}
             onChange={setValue}
@@ -45,6 +65,20 @@ const Question = (props: QuestionProps) => {
             style={{width: '100%'}}
             >
             <Grid classNames={{col: styles.answerContainer}}>
+                <Grid.Col span={12}>
+                    {
+                        quizzImage
+                        ? <img src={quizzImage} alt="quizz_image" className={styles.quizzImage}/>
+                        : <>
+                            {isLg && <img src={questionMark} alt="quizz_image" className={styles.quizzImage} style={{transform: 'scale(0.55) rotate(-20deg)'}}/>}
+                            {!isXs && <img src={questionMark} alt="quizz_image" className={styles.quizzImage} style={{transform: 'scale(0.75) rotate(-10deg)'}}/>}
+                            <img src={questionMark} alt="quizz_image" className={styles.quizzImage} style={{transform: 'scale(1) rotate(0deg)'}}/>
+                            {!isXs && <img src={questionMark} alt="quizz_image" className={styles.quizzImage} style={{transform: 'scale(0.75) rotate(10deg)'}}/>}
+                            {isLg && <img src={questionMark} alt="quizz_image" className={styles.quizzImage} style={{transform: 'scale(0.55) rotate(20deg)'}}/>}
+                        </>
+                        
+                    }
+                </Grid.Col>
                 <Grid.Col span={12}>
                     <Text classNames={{root: `${styles.answersDescription} ${isCorrect && viewMode ? styles.correct : ''} ${isCorrect !== undefined && !isCorrect && viewMode ? styles.incorrect : ''}`}}>
                         {
@@ -70,6 +104,18 @@ const Question = (props: QuestionProps) => {
                             if(answers.answerIds?.includes(+option.id))
                                 option.correct = correctAnswers.answerIds?.includes(+option.id);
                             else if(correctAnswers.answerIds?.includes(+option.id))
+                                option.correctNotChoosen = true;
+                            else
+                                option.correct = undefined;
+                    }
+                    if(viewMode && correctAnswers && !answers) {
+                        if(type === EQuestionTypes.SingleChoice) 
+                            if(+option.id === correctAnswers.answerId)
+                                option.correctNotChoosen = true;
+                            else
+                                option.correct = undefined;
+                        else
+                            if(correctAnswers.answerIds?.includes(+option.id))
                                 option.correctNotChoosen = true;
                             else
                                 option.correct = undefined;

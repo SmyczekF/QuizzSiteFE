@@ -5,7 +5,7 @@ export interface OptionProps {
     id: string;
     text: string;
     order: number;
-    image?: Blob;
+    image?: {type: string, data: number[]};
     correct?: boolean;
     correctNotChoosen?: boolean;
 }
@@ -15,6 +15,7 @@ export interface QuestionProps {
     text: string;
     order: number;
     type: string;
+    image?: {type: string, data: number[]};
     Options: OptionProps[];
     active: boolean;
     returnAnswer: (quizzId: number, answerId: number | null, answerIds: number[] | null) => void;
@@ -45,4 +46,17 @@ export enum EQuestionTypes {
 
 export interface ReplayButtonProps{
     onClick: () => void;
+}
+
+export interface QuizzNavigationPageProps{
+    isFilled?: boolean;
+    isCorrect?: boolean;
+    pageNumber: number;
+}
+
+export interface QuizzNavigationProps{
+    activePage: number;
+    setPage: (current: number) => void;
+    pages: QuizzNavigationPageProps[];
+    isFinished: boolean;
 }

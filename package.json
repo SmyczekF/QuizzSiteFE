@@ -2,6 +2,7 @@
   "name": "quizz_site",
   "version": "0.1.0",
   "private": true,
+  "homepage": "",
   "dependencies": {
     "@mantine/core": "^7.3.2",
     "@mantine/form": "^7.3.2",
