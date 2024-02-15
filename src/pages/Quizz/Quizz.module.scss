@@ -145,8 +145,8 @@
 
 .questionTitle{
     font-family: 'Underdog Regular';
-    font-size: 3.5rem;
-    color: var(--primary);
+    font-size: 2.5rem;
+    color: var(--primary-darker);
     margin: 0;
     margin-bottom: 10px;
     text-shadow: 2px 2px 2px black;
@@ -274,14 +274,14 @@
     margin: 0 !important;
 
     &.correct{
-        font-size: 2.5rem !important;
+        font-size: 2rem !important;
         color: var(--mantine-color-green-6) !important;
-        text-shadow: 2px 2px 2px black;
+        text-shadow: 1px 1px 1px black;
     }
     &.incorrect{
-        font-size: 2.5rem !important;
+        font-size: 2rem !important;
         color: var(--mantine-color-red-7) !important;
-        text-shadow: 2px 2px 2px black;
+        text-shadow: 1px 1px 1px black;
     }
 }
 
@@ -430,10 +430,11 @@
 }
 
 .quizzImage{
-    width: 150px;
+    width: 120px;
     height: auto;
     object-fit: fill;
     transform: scale(1) rotate(0deg);
+    margin: 20px 0;
 }
 
 @keyframes dissapear{

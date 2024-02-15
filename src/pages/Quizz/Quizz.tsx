@@ -9,7 +9,7 @@ import { Button } from '@mantine/core';
 import { useState } from 'react';
 import { showSuccessNotification } from '../../shared/notifications/showSuccessNotification';
 import { showErrorNotification } from '../../shared/notifications/showErrorNotification';
-import QuizFinish from './components/QuizFinish';
+import QuizFinish from './components/QuizFinish/QuizFinish';
 import ReplayButton from './components/ReplayButton';
 import QuizzNavigation from './components/QuizzNavigation/QuizzNavigation';
 
@@ -58,7 +58,7 @@ const Quizz = (props: QuizzProps) => {
 
     const finishMutation = useMutation<AxiosResponse>({
         mutationFn: () => axios.post(`/quizz/finish/${id}`, {answers: answers}),
-        onSuccess: (data) => {
+        onSuccess: (data: AxiosResponse) => {
             showSuccessNotification('Quizz finished successfully')
             setFinishData(data.data);
             setFinishedQuizz(true);

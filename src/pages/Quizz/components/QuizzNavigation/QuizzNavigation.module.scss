@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    max-width: 40%;
 }
 
 .quizzNavigationElement{
@@ -33,6 +34,7 @@
     }
     &.notFilled{
         background-color: var(--mantine-color-gray-2);
+        border: 1px solid var(--primary);
     }
     &.filled{
         background-color: var(--mantine-color-yellow-3);

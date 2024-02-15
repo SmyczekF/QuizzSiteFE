@@ -1,0 +1,66 @@
+.title{
+    font-family: 'Underdog Regular';
+    font-size: 4rem;
+    color: var(--primary);
+    margin: 10px 0;
+    text-shadow: 2px 2px 2px black;
+    overflow-y: auto;
+}
+
+.quizzDescription{
+    font-family: 'Underdog Regular';
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
+}
+
+.pieChartWrapper{
+    position: relative;
+    margin: 20px 0;
+    &::before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        z-index: 1;
+    }
+}
+
+.quizzDescriptionPercentage{
+    @extend .quizzDescription;
+    font-size: 6rem;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    &.animate{ 
+        animation: percentageAnimation 2s;
+        animation-fill-mode: forwards;
+    }
+}
+
+.quizzFinalResult{
+    font-family: 'Underdog Regular';
+    font-size: 2rem;
+    color: var(--secondary);
+    margin: 0;
+}
+
+@keyframes percentageAnimation{
+    0%{
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50%{
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
