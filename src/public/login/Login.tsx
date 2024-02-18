@@ -21,6 +21,8 @@ const Login = () => {
         open();
     }
 
+    console.log(credentialsContext.user)
+
     return (
         <>
             <Modal opened={opened} onClose={close} classNames={{root: styles.loginModal}}>
@@ -33,7 +35,7 @@ const Login = () => {
             {
                 credentialsContext.isLoading
                 ? null
-                : !credentialsContext.username 
+                : !credentialsContext.user?.username 
                 ? <Button color="yellow" onClick={handleModalOpen}>{t('login')}</Button>
                 : <LoggedUser />   
             }

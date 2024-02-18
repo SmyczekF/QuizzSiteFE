@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { createContext, useState, ReactNode } from 'react';
+import { User } from './credentials.types';
 
 interface CredentialsContextProps {
-    username: string;
+    user: User | undefined;
     isLoading?: boolean;
     isFetched?: boolean;
     refetch?: () => void;
 }
 
 export const CredentialsContext = createContext<CredentialsContextProps>({
-    username: '',
+    user: { username: '', email: '' },
     isLoading: false,
     refetch: () => {},
     isFetched: false,
@@ -20,11 +21,11 @@ export const CredentialsContextProvider = ({ children }: { children: ReactNode }
 
     const [enabled, setEnabled] = useState(!!localStorage.getItem('loggedIn'));
 
-    const { data: username, isLoading, refetch, isFetched} = useQuery({
+    const { data: user, isLoading, refetch, isFetched} = useQuery<User>({
         queryKey: ['credentials'],
         queryFn: () => 
             axios.get(`/auth/getLoggedUser`)
-            .then((res) => res.data?.username || '').catch((err) => {
+            .then((res) => res.data || '').catch((err) => {
                 setEnabled(false);
                 return '';
             }),
@@ -33,7 +34,7 @@ export const CredentialsContextProvider = ({ children }: { children: ReactNode }
     
 
     return (
-        <CredentialsContext.Provider value={{ username, isLoading, refetch, isFetched }}>
+        <CredentialsContext.Provider value={{ user, isLoading, refetch, isFetched }}>
             {children}
         </CredentialsContext.Provider>
     );

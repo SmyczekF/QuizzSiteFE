@@ -4,6 +4,7 @@ import EmailConfirmed from './public/email-confirmed/EmailConfirmed';
 import "./i18n";
 import QuizzList from './pages/QuizzList/QuizzList';
 import Quizz from './pages/Quizz/Quizz';
+import Account from './pages/Account/Account';
 
 const Main = () => {
     return (
@@ -14,6 +15,7 @@ const Main = () => {
                 <Route path="/email-confirmed" element={<EmailConfirmed />} />
                 <Route path="/quizz-list/:genre" element={<QuizzList />} />
                 <Route path="/quizz/:id" element={<Quizz />} />
+                <Route path="profile" element={<Account />} />
             </Routes>
         </Router>
         

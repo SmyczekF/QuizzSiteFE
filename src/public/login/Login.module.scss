@@ -41,3 +41,12 @@
     background-color: var(--background-light) !important;
     border: 1px solid var(--primary) !important;
 }
+
+.userIcon{
+    width: 16px;
+    height: 16px;
+    color: white;
+    z-index: 11;
+    text-shadow: 2px 2px 2px black;
+    border: 1px solid var(--primary);
+}

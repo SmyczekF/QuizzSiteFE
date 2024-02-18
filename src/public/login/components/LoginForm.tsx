@@ -34,7 +34,7 @@ const LoginForm = (props: LoginFormProps) => {
         mutationFn: (values: LoginValues) => {
             return axios.post(`/auth/login`, values, {withCredentials: true})
         },
-        onSuccess: (data) => {
+        onSuccess: () => {
             showSuccessNotification('You have logged in successfully');
             localStorage.setItem('loggedIn', JSON.stringify(true));
             if (credentialsContext.refetch) {

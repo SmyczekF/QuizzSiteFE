@@ -1,0 +1,20 @@
+.view{
+    text-align: center;
+    padding: 100px 15% 0 15% ;
+    background-color: var(--background-main);
+    overflow: auto;
+    height: 100vh;
+}
+
+@media only screen and (max-width: 700px) {
+
+    .view{
+        padding: 100px 7px 0 7px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .view{
+        padding: 100px 7px 0 7px;
+    }
+}
