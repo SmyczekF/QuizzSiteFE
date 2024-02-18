@@ -416,6 +416,17 @@
             background-color: var(--backgroud-hover) !important;
             transform: scale(1.03);
         }
+
+        &.disabled{
+            background-color: rgba(128, 128, 128, 0.397) !important;
+            position: relative;
+            color: rgba(255, 255, 255, 0.493) !important;
+            border: 0 !important;
+            &:hover{
+                cursor: not-allowed;
+                transform: scale(1);
+            }
+        }
     }
 
     .quizzSectionButtonLabel{

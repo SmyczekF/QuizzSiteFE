@@ -2,18 +2,33 @@ import { EQuestionTypes, OptionProps, QuestionProps } from "../quizz.types"
 import RadioOption from "./RadioOption";
 import CheckboxOption from "./CheckboxOption";
 import styles from '../Quizz.module.scss';
-import { Checkbox, Grid, Group, Radio, Text, TextInput } from "@mantine/core";
+import { Checkbox, Grid, Group, Progress, Radio, Text, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 import questionMark from '../../../shared/images/Quizz/questionMark.png';
 import { useMediaQuery } from "react-responsive";
 
 const Question = (props: QuestionProps) => {
     
-    const { id, text, type, Options, active, returnAnswer, viewMode, answers, correctAnswers, isCorrect, notAnswered, image } = props;
+    const { id, text, type, Options, active, returnAnswer, viewMode, answers, correctAnswers, isCorrect, notAnswered, image, timeLimit, setNoTimeLeft } = props;
     const [value, setValue] = useState<string>('0');
     const [values, setValues] = useState<string[]>([]);
+    const [timeLeft, setTimeLeft] = useState<number>(timeLimit || 0);
     const isLg = useMediaQuery({query: '(min-width: 1100px)'});
     const isXs = useMediaQuery({query: '(max-width: 490px)'}); 
+
+    useEffect(() => {
+        if(timeLimit && active) {
+            const interval = setInterval(() => {
+                if(timeLeft > 0) {
+                    setTimeLeft(timeLeft - 1);
+                }
+                else {
+                    setNoTimeLeft && setNoTimeLeft();
+                }
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [timeLeft, timeLimit, active])
 
     const returnImage = () => {
         if(image) {
@@ -90,6 +105,26 @@ const Question = (props: QuestionProps) => {
                         }
                     </Text>
                 </Grid.Col>
+                {
+                    timeLimit && active
+                    ? <Grid.Col span={12}>
+                        <Progress.Root
+                            display={viewMode ? 'none' : 'block'}
+                            size={30} 
+                            style={{margin: '10px'}}
+                            
+                        >
+                            <Progress.Section
+                                value={timeLeft/timeLimit * 100}
+                                color={'yellow'} 
+                                animated
+                            >
+                                <Progress.Label>{timeLeft}s</Progress.Label>
+                            </Progress.Section>
+                        </Progress.Root>
+                    </Grid.Col>
+                    : null
+                }
             {
                 Options.sort((a, b) => a.order - b.order).map(option => {
                     if(viewMode && answers && correctAnswers) {
@@ -130,6 +165,7 @@ const Question = (props: QuestionProps) => {
             </Grid>
             </Checkbox.Group>
             </Radio.Group>
+            
         </div>
     )
 }

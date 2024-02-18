@@ -21,6 +21,8 @@ const Quizz = (props: QuizzProps) => {
     const [answers, setAnswers] = useState<Answers[]>([]);
     const [finishData, setFinishData] = useState<{correctAnswers: Answers[], score: number} | null>(null);
     const [finishedQuizz, setFinishedQuizz] = useState<boolean>(false);
+    const [timeLimit, setTimeLimit] = useState<number>(0);
+    const [blockedQuestions, setBlockedQuestions] = useState<number[]>([])
 
     const returnAvatar = () => {
         if(User.image) {
@@ -68,6 +70,65 @@ const Quizz = (props: QuizzProps) => {
             showErrorNotification('Quizz finished unsuccessfully')
         }
     })
+
+    const handleSetShownQuestion = (to: number) => {
+        if(blockedQuestions.includes(to)) return null;
+        if(to === -1) window.location.reload();
+        else setShownQuestion(to);
+    }
+
+    const checkIfBackNotBlockedQuestion = (to: number): boolean => {
+        if(blockedQuestions.includes(to)) {
+            if(to - 1 >= 0) {
+                return checkIfBackNotBlockedQuestion(to - 1)
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    const checkIfNextNotBlockedQuestion = (to: number): boolean => {
+        if(blockedQuestions.includes(to)) {
+            if(to + 1 < Questions.length) {
+                return checkIfNextNotBlockedQuestion(to + 1)
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    const setNextNotBlockedQuestion = (to: number) => {
+        if(blockedQuestions.includes(to)) {
+            if(to + 1 < Questions.length) {
+                setNextNotBlockedQuestion(to + 1)
+            }
+            else {
+                setShownQuestion(to + 1)
+            }
+        }
+        else {
+            handleSetShownQuestion(to);
+        }
+    }
+
+    const setBackNotBlockedQuestion = (to: number) => {
+        if(blockedQuestions.includes(to)) {
+            if(to - 1 >= 0) {
+                setBackNotBlockedQuestion(to - 1)
+            }
+        }
+        else {
+            handleSetShownQuestion(to);
+        }
+    }
 
     return (
         <div className={styles.view}>
@@ -117,7 +178,10 @@ const Quizz = (props: QuizzProps) => {
                     size="lg" 
                     color='transparent' 
                     classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}
-                    onClick={() => setShownQuestion(0)}
+                    onClick={() => {
+                        setShownQuestion(0)
+                        setTimeLimit(10)
+                    }}
                     >
                         <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
                         <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
@@ -146,6 +210,11 @@ const Quizz = (props: QuizzProps) => {
                                 viewMode={finishedQuizz}
                                 answers={answers.find(a => a.questionId === question.id)}
                                 correctAnswers={finishData?.correctAnswers.find(a => a.questionId === question.id)}
+                                timeLimit={timeLimit}
+                                setNoTimeLeft={() => {
+                                    setBlockedQuestions([...blockedQuestions, index])
+                                    setNextNotBlockedQuestion(shownQuestion + 1)
+                                }}
                                 isCorrect={
                                     question.type === EQuestionTypes.SingleChoice 
                                     ? finishData?.correctAnswers
@@ -165,15 +234,15 @@ const Quizz = (props: QuizzProps) => {
                     <Button 
                     size="lg" 
                     color='transparent' 
-                    classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                    onClick={() => setShownQuestion(shownQuestion - 1)}
+                    classNames={{root: `${styles.quizzSectionButtonRoot} ${checkIfBackNotBlockedQuestion(shownQuestion - 1) ? '' : styles.disabled}`, label: styles.quizzSectionButtonLabel}}
+                    onClick={() => checkIfBackNotBlockedQuestion(shownQuestion - 1) ? setBackNotBlockedQuestion(shownQuestion - 1) : null}
                     >
                         <i className={`pi pi-arrow-left ${styles.quizzSectionButtonIcon}`}></i>
                         <h4 className={styles.quizzSectionButtonText}>Back</h4>
                     </Button>
                     <QuizzNavigation 
                         activePage={shownQuestion + 1}
-                        setPage={setShownQuestion}
+                        setPage={handleSetShownQuestion}
                         pages={
                             Questions.map((question, index) => {
                                 return {
@@ -190,6 +259,7 @@ const Quizz = (props: QuizzProps) => {
                                 }
                             })
                         }
+                        blockedQuestions={blockedQuestions}
                         isFinished={finishedQuizz}
                     />
                     {
@@ -197,8 +267,8 @@ const Quizz = (props: QuizzProps) => {
                         ? <Button 
                             size="lg" 
                             color='transparent' 
-                            classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                            onClick={() => setShownQuestion(shownQuestion + 1)}
+                            classNames={{root:  `${styles.quizzSectionButtonRoot} ${checkIfNextNotBlockedQuestion(shownQuestion + 1) ? '' : styles.disabled}`, label: styles.quizzSectionButtonLabel}}
+                            onClick={() => checkIfNextNotBlockedQuestion(shownQuestion + 1) ? setNextNotBlockedQuestion(shownQuestion + 1) : null}
                             >
                                 <h4 className={styles.quizzSectionButtonText}>Next</h4>
                                 <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>

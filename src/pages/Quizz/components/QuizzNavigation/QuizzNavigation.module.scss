@@ -25,6 +25,16 @@
         transform: scale(1.1);
         background-color: var(--backgroud-hover);
     }
+    &.disabled{
+        background-color: var(--mantine-color-gray-2);
+        color: var(--mantine-color-gray-6);
+        border: 1px solid var(--mantine-color-gray-4);
+        &:hover{
+            cursor: not-allowed;
+            transform: scale(1);
+            background-color: var(--mantine-color-gray-2);
+        }
+    }
     &.correct{
         background-color: var(--mantine-color-green-4);
     }
@@ -38,6 +48,13 @@
     }
     &.filled{
         background-color: var(--mantine-color-yellow-3);
+        &.disabled{
+            &:hover{
+                cursor: not-allowed;
+                transform: scale(1);
+                background-color: var(--mantine-color-yellow-3);
+            }
+        }
     }
     &.active{
         background-color: var(--accent);

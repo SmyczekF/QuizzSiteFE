@@ -3,10 +3,7 @@ import styles from './QuizzNavigation.module.scss';
 
 const QuizzNavigation = (props: QuizzNavigationProps) => {
 
-    const { activePage, setPage, pages, isFinished } = props;
-
-    console.log(activePage);
-    console.log(pages);
+    const { activePage, setPage, pages, isFinished, blockedQuestions } = props;
 
     const determineIfCorrect = (pageNumber: number) => {
         const page = pages[pageNumber];
@@ -24,7 +21,9 @@ const QuizzNavigation = (props: QuizzNavigationProps) => {
                     return (
                         <div 
                         key={`page_navigator_${page.pageNumber}`}
-                        className={`${styles.quizzNavigationElement} ${(activePage) === page.pageNumber ? styles.active : ''} ${determineIfCorrect(page.pageNumber - 1)}`}
+                        className={
+                            `${styles.quizzNavigationElement} ${(activePage) === page.pageNumber ? styles.active : ''} ${blockedQuestions.includes(page.pageNumber - 1) ? styles.disabled : ''} ${determineIfCorrect(page.pageNumber - 1)}`
+                        }
                         onClick={() => setPage(page.pageNumber - 1)}
                         >
                             {page.pageNumber}

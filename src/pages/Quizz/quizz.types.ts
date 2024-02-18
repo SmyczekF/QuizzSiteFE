@@ -24,6 +24,8 @@ export interface QuestionProps {
     correctAnswers?: Answers;
     isCorrect?: boolean;
     notAnswered?: boolean;
+    timeLimit?: number;
+    setNoTimeLeft?: () => void;
 }
 
 export interface Answers {
@@ -59,4 +61,5 @@ export interface QuizzNavigationProps{
     setPage: (current: number) => void;
     pages: QuizzNavigationPageProps[];
     isFinished: boolean;
+    blockedQuestions: number[];
 }

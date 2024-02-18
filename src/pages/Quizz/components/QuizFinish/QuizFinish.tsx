@@ -44,7 +44,7 @@ const QuizFinish = (props: QuizFinishProps) => {
             {
                 scoreLoaderValue >= score
                     ? scoreLoaderValue < 30 
-                        ? <h3 className={styles.quizzFinalResult}>Your effort in the knowledge quiz is appreciated! Scoring {score}% happens to everyone. Keep learning and try the quiz again when you're ready.</h3> 
+                        ? <h3 className={styles.quizzFinalResult}>Your effort in the knowledge quiz is appreciated! Scoring {scoreLoaderValue}% happens to everyone. Keep learning and try the quiz again when you're ready.</h3> 
                     : scoreLoaderValue < 50
                         ? <h3 className={styles.quizzFinalResult}>Your score is below average. It's okay, you can always try again and improve your score. Keep learning and try the quiz again when you're ready.</h3>
                     : scoreLoaderValue < 70
