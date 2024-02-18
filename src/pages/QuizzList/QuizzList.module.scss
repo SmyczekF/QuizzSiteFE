@@ -57,7 +57,7 @@
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease-in-out;
-    border-radius: var(--mantine-radius-default);
+    border-radius: 15px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,6 +72,7 @@
         opacity: 0.2;
         background-color: black;
         transition: opacity 0.1s ease-in-out;
+        border-radius: 15px;
     }
 
     &:hover{
