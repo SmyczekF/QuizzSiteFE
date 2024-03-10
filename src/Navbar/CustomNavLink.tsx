@@ -7,15 +7,16 @@ interface CustomNavLinkProps {
     leftSection: React.ReactNode;
     children?: React.ReactNode;
     accountLink?: boolean;
+    onClick?: () => void;
 }
 
 const CustomNavLink = (props: CustomNavLinkProps) => {
 
-    const { href, label, leftSection, children, accountLink } = props;
+    const { href, label, leftSection, children, accountLink, onClick } = props;
 
     return (
-        <NavLink 
-          href={href} 
+        <NavLink
+          onClick={onClick || (() => window.location.href = href)}
           label={label}
           leftSection={leftSection} 
           classNames={{

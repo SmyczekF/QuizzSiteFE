@@ -35,9 +35,9 @@ const LoggedUser = () => {
                     } 
                     accountLink={true}
                 />
-                <CustomNavLink href="/profile/quizzes" label="My Quizzes" leftSection={<i className="pi pi-question-circle"></i>} accountLink={true}/>
+                <CustomNavLink href="/profile/my-quizzes" label="My Quizzes" leftSection={<i className="pi pi-list"></i>} accountLink={true}/>
                 <CustomNavLink href="/profile/create-quizz" label="Create Quiz" leftSection={<i className="pi pi-plus"></i>} accountLink={true}/>
-                <CustomNavLink href="/profile/create-quizz" label="Favourites" leftSection={<i className="pi pi-star"></i>} accountLink={true}/>
+                <CustomNavLink href="/profile/favourite-quizzes" label="Favourites" leftSection={<i className="pi pi-star"></i>} accountLink={true}/>
                 <LogoutButton />
             </Popover.Dropdown>
         </Popover>

@@ -17,7 +17,7 @@
 
 .pieChartWrapper{
     position: relative;
-    margin: 20px 0;
+    margin: 80px 0;
     &::before{
         content: '';
         position: absolute;
@@ -51,16 +51,6 @@
     font-size: 2rem;
     color: var(--secondary);
     margin: 0;
-}
-
-.quizFinishLayout{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    gap: 50px;
 }
 
 @keyframes percentageAnimation{

@@ -21,8 +21,6 @@ const Login = () => {
         open();
     }
 
-    console.log(credentialsContext.user)
-
     return (
         <>
             <Modal opened={opened} onClose={close} classNames={{root: styles.loginModal}}>

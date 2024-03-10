@@ -185,7 +185,7 @@ const Quizz = (props: QuizzProps) => {
                     classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}
                     onClick={() => {
                         setShownQuestion(0)
-                        setTimeLimit(10)
+                        setTimeLimit(30)
                     }}
                     >
                         <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
