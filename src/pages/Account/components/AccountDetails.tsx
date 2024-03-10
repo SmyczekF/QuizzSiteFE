@@ -3,18 +3,37 @@ import { useContext, useState } from "react";
 import { CredentialsContext } from "../../../shared/providers/credentialsProvider";
 import TextInputWithEdit from "../../../shared/customInputs/TextInputWithEdit";
 import styles from '../Account.module.scss';
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { showSuccessNotification } from "../../../shared/notifications/showSuccessNotification";
+import { showErrorNotification } from "../../../shared/notifications/showErrorNotification";
 
 const AccountDetails = () => {
 
     const credentialsContext = useContext(CredentialsContext);
+
     const [username, setUsername] = useState(credentialsContext.user?.username || '');
-    
+    const [resetIsEditing, setResetIsEditing] = useState(false);
+
     const privatiseEmail = (email: string | undefined) => {
         if(!email) return ('');
         const [name, domain] = email.split('@');
         const stars = '*'.repeat(name.length - 2);
         return `${name[0]}${stars}${name[name.length - 1]}@${domain}`;
     }
+
+    const changeLoggedUserUsernameMutation = useMutation<AxiosResponse, AxiosError>({
+        mutationFn: () => axios.post('/auth/changeLoggedUserUsername', {username: username}),
+        onSuccess: (data: AxiosResponse) => {
+            showSuccessNotification(`${credentialsContext.user?.username} updated successfully!.`);
+            if(credentialsContext.refetch) credentialsContext.refetch();
+            setResetIsEditing(true);
+            // setResetIsEditing(false);
+        },
+        onError: (error) => {
+            showErrorNotification(error.request.response || `${credentialsContext.user?.username} update failed.`);
+        }
+    })
 
     return (
         <>
@@ -30,6 +49,8 @@ const AccountDetails = () => {
                     <TextInputWithEdit
                         initialValue={credentialsContext.user?.username || ''}
                         onChange={setUsername}
+                        resetIsEditing={resetIsEditing}
+                        startedEditionCallback={() => setResetIsEditing(false)}
                     />
                 </Grid.Col>
                 <Grid.Col span={4} className={styles.row}>
@@ -57,7 +78,7 @@ const AccountDetails = () => {
                 color="yellow" 
                 classNames={{root: styles.saveChangesBtn}} 
                 disabled={username === credentialsContext.user?.username}
-                onClick={() => console.log('Save changes ', username)}
+                onClick={() => changeLoggedUserUsernameMutation.mutate()}
             >
                 Save changes
             </Button>
