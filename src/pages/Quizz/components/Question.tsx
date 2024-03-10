@@ -17,7 +17,7 @@ const Question = (props: QuestionProps) => {
     const isXs = useMediaQuery({query: '(max-width: 490px)'}); 
 
     useEffect(() => {
-        if(timeLimit && active) {
+        if(timeLimit && active && !viewMode) {
             const interval = setInterval(() => {
                 if(timeLeft > 0) {
                     setTimeLeft(timeLeft - 1);

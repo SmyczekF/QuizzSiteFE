@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import Question from './components/Question';
 import { getShortenedNumberData } from '../QuizzList/components/QuizzListElement';
 import { Button } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { showSuccessNotification } from '../../shared/notifications/showSuccessNotification';
 import { showErrorNotification } from '../../shared/notifications/showErrorNotification';
 import QuizFinish from './components/QuizFinish/QuizFinish';
@@ -22,7 +22,7 @@ const Quizz = (props: QuizzProps) => {
     const [finishData, setFinishData] = useState<{correctAnswers: Answers[], score: number} | null>(null);
     const [finishedQuizz, setFinishedQuizz] = useState<boolean>(false);
     const [timeLimit, setTimeLimit] = useState<number>(0);
-    const [blockedQuestions, setBlockedQuestions] = useState<number[]>([])
+    const [blockedQuestions, setBlockedQuestions] = useState<number[]>([-1, Questions.length]);
 
     const returnAvatar = () => {
         if(User.image) {
@@ -36,6 +36,10 @@ const Quizz = (props: QuizzProps) => {
         }
         return null;
     }
+
+    useEffect(() => {
+        if(finishedQuizz) setBlockedQuestions([-1, Questions.length]);
+    }, [finishedQuizz])
 
     const userAvatar = returnAvatar();
 
@@ -64,7 +68,7 @@ const Quizz = (props: QuizzProps) => {
             showSuccessNotification('Quizz finished successfully')
             setFinishData(data.data);
             setFinishedQuizz(true);
-            setShownQuestion(shownQuestion + 1);
+            setShownQuestion(Questions.length);
         },
         onError: () => {
             showErrorNotification('Quizz finished unsuccessfully')
@@ -74,6 +78,7 @@ const Quizz = (props: QuizzProps) => {
     const handleSetShownQuestion = (to: number) => {
         if(blockedQuestions.includes(to)) return null;
         if(to === -1) window.location.reload();
+        if(to === Questions.length) finishMutation.mutate();
         else setShownQuestion(to);
     }
 
@@ -180,7 +185,7 @@ const Quizz = (props: QuizzProps) => {
                     classNames={{root: styles.quizzTypeChooseRoot, label: styles.quizzTypeChooseLabel}}
                     onClick={() => {
                         setShownQuestion(0)
-                        setTimeLimit(30)
+                        setTimeLimit(10)
                     }}
                     >
                         <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
@@ -213,7 +218,11 @@ const Quizz = (props: QuizzProps) => {
                                 timeLimit={timeLimit}
                                 setNoTimeLeft={() => {
                                     setBlockedQuestions([...blockedQuestions, index])
-                                    setNextNotBlockedQuestion(shownQuestion + 1)
+                                    checkIfNextNotBlockedQuestion(shownQuestion + 1) 
+                                    ? setNextNotBlockedQuestion(shownQuestion + 1) 
+                                    : checkIfBackNotBlockedQuestion(shownQuestion - 1)
+                                        ? setBackNotBlockedQuestion(shownQuestion - 1)
+                                        : finishMutation.mutate()
                                 }}
                                 isCorrect={
                                     question.type === EQuestionTypes.SingleChoice 
@@ -263,7 +272,7 @@ const Quizz = (props: QuizzProps) => {
                         isFinished={finishedQuizz}
                     />
                     {
-                        Questions.length > shownQuestion + 1 
+                        checkIfNextNotBlockedQuestion(shownQuestion + 1) && shownQuestion < Questions.length
                         ? <Button 
                             size="lg" 
                             color='transparent' 
@@ -274,15 +283,15 @@ const Quizz = (props: QuizzProps) => {
                                 <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
                             </Button>
                         : shownQuestion === Questions.length 
-                        ? <ReplayButton onClick={() => window.location.reload()}/>
-                        : <Button 
-                            size="lg" 
-                            color='transparent' 
-                            classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
-                            onClick={() => {finishedQuizz ? setShownQuestion(shownQuestion + 1): finishMutation.mutate()}}
-                            >
-                                <h4 className={styles.quizzSectionButtonText}>Finish</h4>
-                                <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
+                            ? <ReplayButton onClick={() => window.location.reload()}/>
+                            : <Button 
+                                size="lg" 
+                                color='transparent' 
+                                classNames={{root: styles.quizzSectionButtonRoot, label: styles.quizzSectionButtonLabel}}
+                                onClick={() => {finishedQuizz ? setShownQuestion(shownQuestion + 1): finishMutation.mutate()}}
+                                >
+                                    <h4 className={styles.quizzSectionButtonText}>Finish</h4>
+                                    <i className={`pi pi-arrow-right ${styles.quizzSectionButtonIcon}`}></i>
                             </Button>
                     }
                 </div>

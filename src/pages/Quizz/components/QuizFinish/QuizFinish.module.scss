@@ -53,6 +53,16 @@
     margin: 0;
 }
 
+.quizFinishLayout{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 50px;
+}
+
 @keyframes percentageAnimation{
     0%{
         transform: translate(-50%, -50%) scale(1);

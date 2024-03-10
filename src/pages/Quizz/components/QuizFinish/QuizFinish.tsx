@@ -26,9 +26,8 @@ const QuizFinish = (props: QuizFinishProps) => {
     }, [scoreLoaderValue, score])
 
     return (
-        <div>
+        <div className={styles.quizFinishLayout}>
             <h2 className={styles.title}>Quizz Finished!</h2>
-            <h3 className={styles.quizzDescription}>Score</h3>
             <div className={styles.pieChartWrapper}>
                 <PieChart
                     data={[

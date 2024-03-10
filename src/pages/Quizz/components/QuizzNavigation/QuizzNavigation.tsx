@@ -22,7 +22,7 @@ const QuizzNavigation = (props: QuizzNavigationProps) => {
                         <div 
                         key={`page_navigator_${page.pageNumber}`}
                         className={
-                            `${styles.quizzNavigationElement} ${(activePage) === page.pageNumber ? styles.active : ''} ${blockedQuestions.includes(page.pageNumber - 1) ? styles.disabled : ''} ${determineIfCorrect(page.pageNumber - 1)}`
+                            `${styles.quizzNavigationElement} ${(activePage) === page.pageNumber ? styles.active : ''} ${blockedQuestions.includes(page.pageNumber - 1) && !isFinished ? styles.disabled : ''} ${determineIfCorrect(page.pageNumber - 1)}`
                         }
                         onClick={() => setPage(page.pageNumber - 1)}
                         >
