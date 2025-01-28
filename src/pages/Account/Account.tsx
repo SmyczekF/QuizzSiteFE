@@ -6,6 +6,7 @@ import CustomNavLink from "../../navbar/CustomNavLink";
 import AccountDetails from "./components/AccountDetails";
 import { useParams } from "react-router-dom";
 import { shownContent } from "./account.types";
+import CreateQuiz from "./components/create-quiz/CreateQuiz";
 
 const Account = () => {
   const credentialsContext = useContext(CredentialsContext);
@@ -60,7 +61,6 @@ const Account = () => {
             leftSection={
               <i className="pi pi-plus" style={{ fontSize: "1.5em" }} />
             }
-            disabled
           />
           <CustomNavLink
             href="/profile/my-quizzes"
@@ -85,6 +85,7 @@ const Account = () => {
           {shownContentName === shownContent.ACCOUNT_DETAILS && (
             <AccountDetails />
           )}
+          {shownContentName === shownContent.CREATE_QUIZZ && <CreateQuiz />}
         </div>
       </div>
     </div>
