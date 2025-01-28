@@ -1,106 +1,105 @@
-.view{
-    padding: 100px 15% 0 15% ;
-    background-color: var(--background-main);
-    overflow: auto;
-    height: 100vh;
+.view {
+  padding: 100px 10% 0 10%;
+  background-color: var(--background-main);
+  overflow: auto;
+  height: 100vh;
 }
 
-.header{
-    font-size: 2rem;
-    font-family: 'Staatliches Regular';
-    padding: 30px;
-    display: flex;
-    gap: 5%;
-    align-items: center;
-    justify-content: flex-start;
-    border-bottom: 1px solid var(--primary);
+.header {
+  font-size: 2rem;
+  font-family: "Staatliches Regular";
+  padding: 30px;
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--primary);
 }
 
-.userIcon{
-    width: 120px;
-    height: 120px;
-    color: white;
-    z-index: 11;
-    text-shadow: 2px 2px 2px black;
-    border: 4px solid var(--primary);
+.userIcon {
+  width: 120px;
+  height: 120px;
+  color: white;
+  z-index: 11;
+  text-shadow: 2px 2px 2px black;
+  border: 4px solid var(--primary);
 }
 
-.layout{
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    margin: 20px 0;
-    height: 60vh;
+.layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  height: 60vh;
 }
 
-.menu{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-right: 20px;
-    border-right: 1px solid var(--primary);
-    width: 270px;
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 20px;
+  border-right: 1px solid var(--primary);
+  width: 270px;
 }
 
-.content{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-left: 20px;
-    width: 100%;
-    height: 100%;
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+  width: 100%;
+  height: 100%;
 }
 
-.contentTitle{
-    font-size: 1.5rem;
-    font-family: 'Staatliches Regular';
-    margin: 0.1rem;
+.contentTitle {
+  font-size: 1.5rem;
+  font-family: "Staatliches Regular";
+  margin: 0.1rem;
 }
 
-.contentDescription{
-    font-size: 1.2rem;
-    font-family: 'Staatliches Regular';
-    color: var(--secondary);
-    margin: 0.1rem;
+.contentDescription {
+  font-size: 1.2rem;
+  font-family: "Staatliches Regular";
+  color: var(--secondary);
+  margin: 0.1rem;
 }
 
-.row{
-    display: flex;
-    gap: 20px;
-    align-items: flex-end;
-    justify-content: flex-start;
+.row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
-.rowText{
-    margin: 0;
-    font-size: 1.2rem;
-    font-family: 'Staatliches Regular';
+.rowText {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: "Staatliches Regular";
 }
 
-.saveChangesBtn{
-    position: absolute !important;
-    bottom: 0;
-    right: 0;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+.saveChangesBtn {
+  position: absolute !important;
+  bottom: 0;
+  right: 0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 @media only screen and (max-width: 700px) {
-
-    .view{
-        padding: 100px 7px 0 7px;
-    }
+  .view {
+    padding: 100px 7px 0 7px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .view{
-        padding: 100px 7px 0 7px;
-    }
+  .view {
+    padding: 100px 7px 0 7px;
+  }
 }

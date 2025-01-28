@@ -59,7 +59,7 @@ const AccountDetails = () => {
         </Grid.Col>
         <Grid.Col span={8}>
           <TextInputWithEdit
-            initialValue={credentialsContext.user?.username || ""}
+            initialValue={username}
             onChange={setUsername}
             resetIsEditing={resetIsEditing}
             startedEditionCallback={() => setResetIsEditing(false)}

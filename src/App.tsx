@@ -169,11 +169,13 @@ function CollapseDesktop() {
           href="/about"
           label={t("about")}
           leftSection={<i className="pi pi-info-circle"></i>}
+          disabled
         ></CustomNavLink>
         <CustomNavLink
           href="/contact"
           label={t("contact")}
           leftSection={<i className="pi pi-envelope"></i>}
+          disabled
         ></CustomNavLink>
       </AppShell.Navbar>
       <AppShell.Main style={{ padding: 0 }}>

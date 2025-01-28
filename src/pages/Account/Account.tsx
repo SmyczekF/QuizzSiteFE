@@ -51,6 +51,7 @@ const Account = () => {
             leftSection={
               <i className="pi pi-chart-bar" style={{ fontSize: "1.5em" }} />
             }
+            disabled
           />
           <CustomNavLink
             href="/profile/create-quizz"
@@ -59,6 +60,7 @@ const Account = () => {
             leftSection={
               <i className="pi pi-plus" style={{ fontSize: "1.5em" }} />
             }
+            disabled
           />
           <CustomNavLink
             href="/profile/my-quizzes"
@@ -67,6 +69,7 @@ const Account = () => {
             leftSection={
               <i className="pi pi-list" style={{ fontSize: "1.5em" }} />
             }
+            disabled
           />
           <CustomNavLink
             href="/profile/statistics"
@@ -75,6 +78,7 @@ const Account = () => {
             leftSection={
               <i className="pi pi-chart-line" style={{ fontSize: "1.5em" }} />
             }
+            disabled
           />
         </div>
         <div className={styles.content}>

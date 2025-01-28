@@ -8,10 +8,12 @@ interface CustomNavLinkProps {
   children?: React.ReactNode;
   accountLink?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const CustomNavLink = (props: CustomNavLinkProps) => {
-  const { href, label, leftSection, children, accountLink, onClick } = props;
+  const { href, label, leftSection, children, accountLink, onClick, disabled } =
+    props;
 
   return (
     <NavLink
@@ -23,6 +25,7 @@ const CustomNavLink = (props: CustomNavLinkProps) => {
         label: accountLink ? styles.navLinkLabelAccount : styles.navLinkLabel,
         section: styles.navLinkSection,
       }}
+      disabled={disabled}
     >
       {children}
     </NavLink>
