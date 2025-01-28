@@ -1,536 +1,529 @@
-.quizzTitle{
-    font-family: 'Underdog Regular';
-    font-size: 4rem;
-    color: var(--primary);
-    margin: 20px 0;
-    text-shadow: 2px 2px 2px black;
-    overflow-y: auto;
+.quizzTitle {
+  font-family: "Underdog Regular";
+  font-size: 4rem;
+  color: var(--primary);
+  margin: 20px 0;
+  text-shadow: 2px 2px 2px black;
+  overflow-y: auto;
 }
 
-.view{
+.view {
+  position: relative;
+  text-align: center;
+  padding: 65px 15% 0 15%;
+  background-color: var(--background-main);
+  overflow: auto;
+  overflow-x: hidden;
+  height: 100vh;
+
+  .content {
     position: relative;
-    text-align: center;
-    padding: 100px 15% 0 15% ;
-    background-color: var(--background-main);
-    overflow: auto;
-    overflow-x: hidden;
-    height: 100vh;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.671);
+    border-radius: 30px;
+  }
 
-
-    .content{
-        position: relative;
-        z-index: 1;
-        background-color: rgba(255, 255, 255, 0.671);
-        border-radius: 30px;
-    }
-
-    
-
-    .quizzTop{
-        position: relative;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        width: 100%;
-        animation-duration: 500ms;
-        animation-fill-mode: forwards;
-        animation-delay: 0ms;
-        animation-timing-function: linear;
-
-        &.quizzTopAnimation{
-            animation-name: dissapear;
-        }
-    }
-
-    .quizzTopContent{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-    }
-
-    .quizzBottomContent{
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        z-index: 1;
-        margin-bottom: 50px;
-    }
-
-    .quizzDescription{
-        font-family: 'Underdog Regular';
-        font-size: 2rem;
-        color: var(--accent);
-        margin: 0;
-        text-shadow: 2px 2px 2px black;
-    }
-
-    .quizzInfo{
-        margin: 50px 0 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .quizzInfoItem{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 0 0 50px 0;
-    }
-
-    .quizzInfoItemTitle{
-        font-family: 'Underdog Regular';
-        font-size: 1.5rem;
-        color: var(--secondary);
-        margin: 0;
-    }
-
-    .quizzInfoItemValue{
-        font-family: 'Underdog Regular';
-        font-size: 1.5rem;
-        color: black;
-        margin: 0;
-    }
-
-    .quizzInfoItemValueWithIcon{
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    .quizzInfoItemAuthorImage{
-        width: 32px;
-        height: 32px;
-        
-        font-size: 1.2rem;
-        border-radius: 50%;
-        color: black;
-        background-color: var(--secondary);
-        border: 1px solid var(--primary);
-        color: white;
-        padding: 5px;
-    }
-
-    .quizzInfoItemFinishedImage{
-        @extend .quizzInfoItemAuthorImage;
-    }
-
-    .quizzInfoItemLikedImage{
-        @extend .quizzInfoItemAuthorImage;
-    }
-}
-
-.question{
+  .quizzTop {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
-    display: none;
-    animation-duration: 1000ms;
+    animation-duration: 500ms;
     animation-fill-mode: forwards;
     animation-delay: 0ms;
     animation-timing-function: linear;
-    &.active{
-        display: flex;
+
+    &.quizzTopAnimation {
+      animation-name: dissapear;
     }
-}
+  }
 
-.questionTitle{
-    font-family: 'Underdog Regular';
-    font-size: 2.5rem;
-    color: var(--primary-darker);
-    margin: 0;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 2px black;
-}
-
-.checkboxOption{
+  .quizzTopContent {
+    position: relative;
     display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  .quizzBottomContent {
+    position: relative;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    transition: all 0.2s ease-in-out;
-    border-radius: var(--mantine-radius-default);
-    background-color: var(--background) !important;
-    color: var(--secondary) !important;
-    border: 3px solid var(--primary) !important;
-    &[data-checked]{
-        background-color: var(--accent) !important;
-        color: white !important;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    z-index: 1;
+    margin-bottom: 50px;
+  }
 
-        &:hover{
-            cursor: pointer;
-            background-color: var(--accent) !important;
-            color: white !important;
-        }
-    }
-    &.checked{
-        background-color: var(--accent) !important;
-        color: white !important;
-
-        &:hover{
-            cursor: pointer;
-            background-color: var(--accent) !important;
-            color: white !important;
-        }
-    }
-    &.disabled{
-        background-color: var(--mantine-color-gray-6) !important;
-        position: relative;
-        color: white !important;
-        border: 0 !important;
-        &:hover{
-            cursor: default;
-            background-color: var(--mantine-color-gray-6) !important;
-            transform: scale(1);
-            
-        }
-        &::before{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(228, 228, 228, 0.479);
-        }
-        &.correctNotChoosen{
-            position: relative;
-            background-color: var(--mantine-color-green-4) !important;
-            border: 0 !important;
-            color: white !important;
-            &:hover{
-                cursor: default;
-                transform: scale(1);
-            }
-            &::before{
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(194, 194, 194, 0.2);
-            }
-        }
-        &.correct{
-            position: relative;
-            background-color: var(--mantine-color-green-6) !important;
-            border: 0 !important;
-            color: white !important;
-            &:hover{
-                cursor: default;
-                transform: scale(1);
-            }
-            &::before{
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(194, 194, 194, 0.15);
-            }
-        }
-        &.incorrect{
-            position: relative;
-            background-color: var(--mantine-color-red-7) !important;
-            border: 0 !important;
-            color: white !important;
-            &:hover{
-                cursor: default;
-                transform: scale(1);
-            }
-            &::before{
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(194, 194, 194, 0.15);
-            }
-        }
-    }
-    &:hover{
-        cursor: pointer;
-        background-color: var(--backgroud-hover) !important;
-        transform: scale(1.03);
-        // color: white !important;
-    }
-}
-
-.answersDescription{
-    font-family: 'Underdog Regular';
-    font-size: 1.5rem !important;
-    color: var(--secondary) !important;
-    margin: 0 !important;
-
-    &.correct{
-        font-size: 2rem !important;
-        color: var(--mantine-color-green-6) !important;
-        text-shadow: 1px 1px 1px black;
-    }
-    &.incorrect{
-        font-size: 2rem !important;
-        color: var(--mantine-color-red-7) !important;
-        text-shadow: 1px 1px 1px black;
-    }
-}
-
-.checkboxOptionLabel{
-    font-family: 'Underdog Regular';
+  .quizzDescription {
+    font-family: "Underdog Regular";
     font-size: 2rem;
-    margin: 0 !important;
-    width: 100%;
-    height: 100%;
-    padding: 20px 10px !important;
-    &:hover{
-        cursor: pointer;
-    }
-}
-
-.checkboxOptionInput{
-    display: none !important;
-    width: 20px;
-    height: 20px;
+    color: var(--accent);
     margin: 0;
-    padding: 0;
-    border: 1px solid var(--primary) !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-}
+    text-shadow: 2px 2px 2px black;
+  }
 
-.checkboxOptionRadio{
-    display: none !important;
-    width: 20px;
-    height: 20px;
+  .quizzInfo {
+    margin: 50px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .quizzInfoItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 50px 0;
+  }
+
+  .quizzInfoItemTitle {
+    font-family: "Underdog Regular";
+    font-size: 1.5rem;
+    color: var(--secondary);
     margin: 0;
-    padding: 0;
-    border: 1px solid var(--primary) !important;
-    border-radius: 50% !important;
-    cursor: pointer !important;
+  }
+
+  .quizzInfoItemValue {
+    font-family: "Underdog Regular";
+    font-size: 1.5rem;
+    color: black;
+    margin: 0;
+  }
+
+  .quizzInfoItemValueWithIcon {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .quizzInfoItemAuthorImage {
+    width: 32px;
+    height: 32px;
+
+    font-size: 1.2rem;
+    border-radius: 50%;
+    color: black;
+    background-color: var(--secondary);
+    border: 1px solid var(--primary);
+    color: white;
+    padding: 5px;
+  }
+
+  .quizzInfoItemFinishedImage {
+    @extend .quizzInfoItemAuthorImage;
+  }
+
+  .quizzInfoItemLikedImage {
+    @extend .quizzInfoItemAuthorImage;
+  }
 }
 
-.checkboxOptionRadioInner{
-    display: none !important;
+.question {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  display: none;
+  animation-duration: 1000ms;
+  animation-fill-mode: forwards;
+  animation-delay: 0ms;
+  animation-timing-function: linear;
+  &.active {
+    display: flex;
+  }
 }
 
-.checkboxOptionRadioBody{
-    width: 100%;
-    height: 100%;
-    &:hover{
-        cursor: pointer;
+.questionTitle {
+  font-family: "Underdog Regular";
+  font-size: 2.5rem;
+  color: var(--primary-darker);
+  margin: 0;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 2px black;
+}
+
+.checkboxOption {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.2s ease-in-out;
+  border-radius: var(--mantine-radius-default);
+  background-color: var(--background) !important;
+  color: var(--secondary) !important;
+  border: 3px solid var(--primary) !important;
+  &[data-checked] {
+    background-color: var(--accent) !important;
+    color: white !important;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--accent) !important;
+      color: white !important;
     }
+  }
+  &.checked {
+    background-color: var(--accent) !important;
+    color: white !important;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--accent) !important;
+      color: white !important;
+    }
+  }
+  &.disabled {
+    background-color: var(--mantine-color-gray-6) !important;
+    position: relative;
+    color: white !important;
+    border: 0 !important;
+    &:hover {
+      cursor: default;
+      background-color: var(--mantine-color-gray-6) !important;
+      transform: scale(1);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(228, 228, 228, 0.479);
+    }
+    &.correctNotChoosen {
+      position: relative;
+      background-color: var(--mantine-color-green-4) !important;
+      border: 0 !important;
+      color: white !important;
+      &:hover {
+        cursor: default;
+        transform: scale(1);
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(194, 194, 194, 0.2);
+      }
+    }
+    &.correct {
+      position: relative;
+      background-color: var(--mantine-color-green-6) !important;
+      border: 0 !important;
+      color: white !important;
+      &:hover {
+        cursor: default;
+        transform: scale(1);
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(194, 194, 194, 0.15);
+      }
+    }
+    &.incorrect {
+      position: relative;
+      background-color: var(--mantine-color-red-7) !important;
+      border: 0 !important;
+      color: white !important;
+      &:hover {
+        cursor: default;
+        transform: scale(1);
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(194, 194, 194, 0.15);
+      }
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: var(--backgroud-hover) !important;
+    transform: scale(1.03);
+    // color: white !important;
+  }
 }
 
-.quizzTypeChooseRoot{
-    height: 200px !important;
-    width: 45% !important;
+.answersDescription {
+  font-family: "Underdog Regular";
+  font-size: 1.5rem !important;
+  color: var(--secondary) !important;
+  margin: 0 !important;
+
+  &.correct {
+    font-size: 2rem !important;
+    color: var(--mantine-color-green-6) !important;
+    text-shadow: 1px 1px 1px black;
+  }
+  &.incorrect {
+    font-size: 2rem !important;
+    color: var(--mantine-color-red-7) !important;
+    text-shadow: 1px 1px 1px black;
+  }
+}
+
+.checkboxOptionLabel {
+  font-family: "Underdog Regular";
+  font-size: 2rem;
+  margin: 0 !important;
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px !important;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.checkboxOptionInput {
+  display: none !important;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--primary) !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+}
+
+.checkboxOptionRadio {
+  display: none !important;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--primary) !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+}
+
+.checkboxOptionRadioInner {
+  display: none !important;
+}
+
+.checkboxOptionRadioBody {
+  width: 100%;
+  height: 100%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.quizzTypeChooseRoot {
+  height: 200px !important;
+  width: 45% !important;
+  border: 3px solid var(--primary) !important;
+  border-radius: (var(--mantine-radius-default));
+  background-color: var(--background) !important;
+  color: var(--primary) !important;
+  letter-spacing: 0.15rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary) !important;
+    color: white !important;
+    transform: scale(1.03);
+  }
+}
+
+.quizzTypeChooseLabel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quizzTypeChooseIcon {
+  font-size: 5rem;
+  margin-bottom: 30px;
+}
+
+.quizzTypeChooseText {
+  font-family: "Underdog Regular";
+  font-size: 2rem;
+  margin: 0;
+}
+
+.typeQuizQuestionTitle {
+  @extend .questionTitle;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.quizzSection {
+  min-height: 100%;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  display: none;
+  animation-duration: 1000ms;
+  animation-fill-mode: forwards;
+  animation-delay: 0ms;
+  animation-timing-function: linear;
+  &.active {
+    display: flex;
+    animation-name: appear;
+  }
+
+  .quizzSectionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 30px;
+  }
+
+  .quizzSectionButtonRoot {
+    height: 60px !important;
+    width: 20% !important;
+    min-width: 155px !important;
     border: 3px solid var(--primary) !important;
     border-radius: (var(--mantine-radius-default));
     background-color: var(--background) !important;
-    color: var(--primary) !important;
-    letter-spacing: .15rem;
+    color: var(--secondary) !important;
+    letter-spacing: 0.15rem;
     transition: all 0.2s ease-in-out;
-    &:hover{
-        cursor: pointer;
-        background-color: var(--secondary) !important;
-        color: white !important;
-        transform: scale(1.03);
+    &:hover {
+      cursor: pointer;
+      background-color: var(--backgroud-hover) !important;
+      transform: scale(1.03);
     }
-}
 
-.quizzTypeChooseLabel{
+    &.disabled {
+      background-color: rgba(128, 128, 128, 0.397) !important;
+      position: relative;
+      color: rgba(255, 255, 255, 0.493) !important;
+      border: 0 !important;
+      &:hover {
+        cursor: not-allowed;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .quizzSectionButtonLabel {
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    
-}
-
-.quizzTypeChooseIcon{
-    font-size: 5rem;
-    margin-bottom: 30px;
-}
-
-.quizzTypeChooseText{
-    font-family: 'Underdog Regular';
-    font-size: 2rem;
-    margin: 0;
-}
-
-.typeQuizQuestionTitle{
-    @extend .questionTitle;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-}
-
-.quizzSection{
-    min-height: 100%;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     gap: 10px;
+  }
+}
+
+.quizzImage {
+  width: 120px;
+  height: auto;
+  object-fit: fill;
+  transform: scale(1) rotate(0deg);
+  margin: 20px 0;
+}
+
+@keyframes dissapear {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
     display: none;
-    animation-duration: 1000ms;
-    animation-fill-mode: forwards;
-    animation-delay: 0ms;
-    animation-timing-function: linear;
-    &.active{
-        display: flex;
-        animation-name: appear;
-    }
-
-    .quizzSectionButtons{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        padding-top: 30px;
-    }
-
-    .quizzSectionButtonRoot{
-        height: 60px !important;
-        width: 20% !important;
-        min-width: 155px !important;
-        border: 3px solid var(--primary) !important;
-        border-radius: (var(--mantine-radius-default));
-        background-color: var(--background) !important;
-        color: var(--secondary) !important;
-        letter-spacing: .15rem;
-        transition: all 0.2s ease-in-out;
-        &:hover{
-            cursor: pointer;
-            background-color: var(--backgroud-hover) !important;
-            transform: scale(1.03);
-        }
-
-        &.disabled{
-            background-color: rgba(128, 128, 128, 0.397) !important;
-            position: relative;
-            color: rgba(255, 255, 255, 0.493) !important;
-            border: 0 !important;
-            &:hover{
-                cursor: not-allowed;
-                transform: scale(1);
-            }
-        }
-    }
-
-    .quizzSectionButtonLabel{
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
+    opacity: 0;
+  }
 }
 
-.quizzImage{
-    width: 120px;
-    height: auto;
-    object-fit: fill;
-    transform: scale(1) rotate(0deg);
-    margin: 20px 0;
-}
-
-@keyframes dissapear{
-    0%{
-      opacity: 1;
-    }
-    50%{
-      opacity: 0.5;
-    }
-    100%{
-      display: none;
-      opacity: 0;
-    }
-}
-
-@keyframes appear{
-    0%{
-        display: none;
-        opacity: 0;
-    }
-    50%{
-        display: none;
-        opacity: 0.5;
-    }
-    100%{
-        display: flex;
-        opacity: 1;
-    }
+@keyframes appear {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  50% {
+    display: none;
+    opacity: 0.5;
+  }
+  100% {
+    display: flex;
+    opacity: 1;
+  }
 }
 
 @media only screen and (max-width: 750px) {
-    .view{
-        padding: 100px 7px 0 7px;
-    }
-    .quizzTitle{
-        font-size: 3rem;
-    }
+  .view {
+    padding: 100px 7px 0 7px;
+  }
+  .quizzTitle {
+    font-size: 3rem;
+  }
 
-    .quizzTypeChooseText{
-        font-size: 1.5rem;
-    }
+  .quizzTypeChooseText {
+    font-size: 1.5rem;
+  }
 
-    .quizzTypeChooseIcon{
-        font-size: 3.5rem;
-        margin-bottom: 10px;
-    }
+  .quizzTypeChooseIcon {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .quizzTitle{
-        font-size: 2.5rem;
+  .quizzTitle {
+    font-size: 2.5rem;
+  }
+
+  .view {
+    .quizzInfo {
+      flex-direction: column;
+      margin: 30px;
     }
 
-    .view{
-
-        .quizzInfo{
-            flex-direction: column;
-            margin: 30px;
-        }
-
-        .quizzInfoItem{
-            margin: 0 0 20px 0;
-        }
-
-        .quizzDescription{
-            font-size: 1.5rem;
-        }
-
-        .typeQuizQuestionTitle{
-            font-size: 1.5rem;
-        }
+    .quizzInfoItem {
+      margin: 0 0 20px 0;
     }
 
-    .quizzBottomContent{
-        flex-direction: column;
+    .quizzDescription {
+      font-size: 1.5rem;
     }
 
-    .quizzTypeChooseRoot{
-        width: 100% !important;
-        margin: 10px;
-        height: 150px !important;
+    .typeQuizQuestionTitle {
+      font-size: 1.5rem;
     }
+  }
 
-    .quizzTypeChooseText{
-        font-size: 1.5rem;
-    }
+  .quizzBottomContent {
+    flex-direction: column;
+  }
+
+  .quizzTypeChooseRoot {
+    width: 100% !important;
+    margin: 10px;
+    height: 150px !important;
+  }
+
+  .quizzTypeChooseText {
+    font-size: 1.5rem;
+  }
 }
-
