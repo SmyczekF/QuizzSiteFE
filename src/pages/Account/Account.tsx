@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import styles from "./Account.module.scss";
 import { CredentialsContext } from "../../shared/providers/credentialsProvider";
 import { returnImage } from "../../shared/images/ImageReader";
@@ -14,9 +14,17 @@ const Account = () => {
   const userAvatar = returnImage(credentialsContext.user?.image);
 
   const { content } = useParams<{ content: shownContent }>();
-  const [shownContentName, setShownContentName] = useState<shownContent>(
-    content || shownContent.ACCOUNT_DETAILS
-  );
+
+  const renderContent = useCallback(() => {
+    switch (content) {
+      case shownContent.ACCOUNT_DETAILS:
+        return <AccountDetails />;
+      case shownContent.CREATE_QUIZZ:
+        return <CreateQuiz />;
+      default:
+        return <AccountDetails />;
+    }
+  }, [content]);
 
   return (
     <div className={styles.view}>
@@ -39,7 +47,6 @@ const Account = () => {
         <div className={styles.menu}>
           <CustomNavLink
             href="/profile/account-details"
-            onClick={() => setShownContentName(shownContent.ACCOUNT_DETAILS)}
             label="Account Details"
             leftSection={
               <i className="pi pi-user" style={{ fontSize: "1.5em" }} />
@@ -47,7 +54,6 @@ const Account = () => {
           />
           <CustomNavLink
             href="/profile/qiuz-history"
-            onClick={() => setShownContentName(shownContent.QUIZZ_HISTORY)}
             label="Quizz History"
             leftSection={
               <i className="pi pi-chart-bar" style={{ fontSize: "1.5em" }} />
@@ -56,7 +62,6 @@ const Account = () => {
           />
           <CustomNavLink
             href="/profile/create-quizz"
-            onClick={() => setShownContentName(shownContent.CREATE_QUIZZ)}
             label="Create Quizz"
             leftSection={
               <i className="pi pi-plus" style={{ fontSize: "1.5em" }} />
@@ -64,7 +69,6 @@ const Account = () => {
           />
           <CustomNavLink
             href="/profile/my-quizzes"
-            onClick={() => setShownContentName(shownContent.MY_QUIZZES)}
             label="My Quizzes"
             leftSection={
               <i className="pi pi-list" style={{ fontSize: "1.5em" }} />
@@ -73,7 +77,6 @@ const Account = () => {
           />
           <CustomNavLink
             href="/profile/statistics"
-            onClick={() => setShownContentName(shownContent.STATISTICS)}
             label="Statistics"
             leftSection={
               <i className="pi pi-chart-line" style={{ fontSize: "1.5em" }} />
@@ -81,12 +84,7 @@ const Account = () => {
             disabled
           />
         </div>
-        <div className={styles.content}>
-          {shownContentName === shownContent.ACCOUNT_DETAILS && (
-            <AccountDetails />
-          )}
-          {shownContentName === shownContent.CREATE_QUIZZ && <CreateQuiz />}
-        </div>
+        <div className={styles.content}>{renderContent()}</div>
       </div>
     </div>
   );

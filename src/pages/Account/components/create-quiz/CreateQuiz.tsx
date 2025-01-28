@@ -50,15 +50,14 @@ const CreateQuiz = () => {
     mutate();
   };
 
-  const handleFormReset = () => {
+  const handleFormReset = useCallback(() => {
     localStorage.removeItem("notFinishedQuizCreation");
     form.reset();
-  };
+  }, [form]);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess) handleFormReset();
-  }, [isSuccess]);
+  }, [isSuccess, handleFormReset]);
 
   useEffect(() => {
     localStorage.setItem(
@@ -165,34 +164,36 @@ const CreateQuiz = () => {
                 }
               />
             </Grid.Col>
-            <Grid.Col span={8} key={`question_${index}_options_header`}>
+            <Grid.Col span={7} key={`question_${index}_options_header`}>
               <p className={styles.rowText}>Option</p>
             </Grid.Col>
             <Grid.Col span={3} key={`question_${index}_correct_header`}>
               <p className={styles.rowText}>Is correct?</p>
             </Grid.Col>
-            <Grid.Col span={1} key={`question_${index}_add_option`}>
-              <Button
-                style={{ fontSize: "1em" }}
-                size="xs"
-                onClick={() =>
-                  form.setFieldValue(`questions.${index}.options`, [
-                    ...question.options,
-                    {
-                      text: "",
-                      isCorrect: false,
-                      order: question.options.length + 1,
-                    },
-                  ])
-                }
-              >
-                <i className="pi pi-plus" />
-              </Button>
+            <Grid.Col span={2} key={`question_${index}_add_option`}>
+              <Flex justify="flex-end">
+                <Button
+                  style={{ fontSize: "1em" }}
+                  size="xs"
+                  onClick={() =>
+                    form.setFieldValue(`questions.${index}.options`, [
+                      ...question.options,
+                      {
+                        text: "",
+                        isCorrect: false,
+                        order: question.options.length + 1,
+                      },
+                    ])
+                  }
+                >
+                  <i className="pi pi-plus" />
+                </Button>
+              </Flex>
             </Grid.Col>
             {question.options.map((option, optionIndex) => (
               <>
                 <Grid.Col
-                  span={8}
+                  span={7}
                   key={`question_${index}_option_${optionIndex}_text_input`}
                 >
                   <TextInput
@@ -223,24 +224,26 @@ const CreateQuiz = () => {
                   />
                 </Grid.Col>
                 <Grid.Col
-                  span={1}
+                  span={2}
                   key={`question_${index}_option_${optionIndex}`}
                 >
-                  <Button
-                    color="red"
-                    size="xs"
-                    style={{ fontSize: "1em" }}
-                    onClick={() =>
-                      form.setFieldValue(
-                        `questions.${index}.options`,
-                        form.values.questions[index].options.filter(
-                          (_, i) => i !== optionIndex
+                  <Flex justify="flex-end">
+                    <Button
+                      color="red"
+                      size="xs"
+                      style={{ fontSize: "1em" }}
+                      onClick={() =>
+                        form.setFieldValue(
+                          `questions.${index}.options`,
+                          form.values.questions[index].options.filter(
+                            (_, i) => i !== optionIndex
+                          )
                         )
-                      )
-                    }
-                  >
-                    <i className="pi pi-trash" />
-                  </Button>
+                      }
+                    >
+                      <i className="pi pi-trash" />
+                    </Button>
+                  </Flex>
                 </Grid.Col>
               </>
             ))}
@@ -269,7 +272,7 @@ const CreateQuiz = () => {
           </Button>
         </Grid.Col>
       </Grid>
-      <Flex justify="end" gap={20} mt={20}>
+      <Flex justify="end" gap={20} mt={20} mb={50}>
         <Button color="red" onClick={handleFormReset}>
           Cancel
         </Button>
