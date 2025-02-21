@@ -13,6 +13,7 @@ import { EQuizCategories } from "../../../Quizz/quizz.types";
 import { FormEvent, useCallback, useEffect, useMemo } from "react";
 import { QuestionType, Quiz } from "./create-quiz.types";
 import { useCreateQuizMutation } from "./components/useCreateQuiz";
+import React from "react";
 
 const CreateQuiz = () => {
   const notFinishedQuizCreation: Quiz = useMemo(() => {
@@ -54,6 +55,35 @@ const CreateQuiz = () => {
     localStorage.removeItem("notFinishedQuizCreation");
     form.reset();
   }, [form]);
+
+  const handleAddOption = (questionIndex: number) => {
+    form.setFieldValue(`questions.${questionIndex}.options`, [
+      ...form.values.questions[questionIndex].options,
+      {
+        text: "",
+        isCorrect: false,
+        order: form.values.questions[questionIndex].options.length + 1,
+      },
+    ]);
+  };
+
+  const handleAddQuestion = () => {
+    form.setFieldValue("questions", [
+      ...form.values.questions,
+      {
+        text: "",
+        type: QuestionType.SINGLE_CHOICE,
+        order: form.values.questions.length + 1,
+        options: [
+          {
+            text: "",
+            isCorrect: false,
+            order: 1,
+          },
+        ],
+      },
+    ]);
+  };
 
   useEffect(() => {
     if (isSuccess) handleFormReset();
@@ -103,6 +133,7 @@ const CreateQuiz = () => {
             required
             placeholder="Select genres"
             data={Object.values(EQuizCategories).map((genre) => ({
+              key: genre,
               value: genre,
               label: genre,
             }))}
@@ -110,8 +141,8 @@ const CreateQuiz = () => {
           />
         </Grid.Col>
         {form.values.questions.map((question, index) => (
-          <>
-            <Grid.Col span={12} key={`question_${index}_header`}>
+          <React.Fragment key={`question_${index}_header`}>
+            <Grid.Col span={12}>
               <div className={styles.questionHeader}>
                 <h2 className={styles.questionHeaderText}>
                   Question {index + 1}
@@ -155,6 +186,7 @@ const CreateQuiz = () => {
                 required
                 placeholder="Select question type"
                 data={Object.values(QuestionType).map((type) => ({
+                  key: type,
                   value: type,
                   label: type,
                 }))}
@@ -175,27 +207,15 @@ const CreateQuiz = () => {
                 <Button
                   style={{ fontSize: "1em" }}
                   size="xs"
-                  onClick={() =>
-                    form.setFieldValue(`questions.${index}.options`, [
-                      ...question.options,
-                      {
-                        text: "",
-                        isCorrect: false,
-                        order: question.options.length + 1,
-                      },
-                    ])
-                  }
+                  onClick={() => handleAddOption(index)}
                 >
                   <i className="pi pi-plus" />
                 </Button>
               </Flex>
             </Grid.Col>
             {question.options.map((option, optionIndex) => (
-              <>
-                <Grid.Col
-                  span={7}
-                  key={`question_${index}_option_${optionIndex}_text_input`}
-                >
+              <React.Fragment key={`question_${index}_option_${optionIndex}`}>
+                <Grid.Col span={7}>
                   <TextInput
                     required
                     placeholder={`Option ${optionIndex + 1}`}
@@ -245,25 +265,12 @@ const CreateQuiz = () => {
                     </Button>
                   </Flex>
                 </Grid.Col>
-              </>
+              </React.Fragment>
             ))}
-          </>
+          </React.Fragment>
         ))}
         <Grid.Col span={12}>
-          <Button
-            fullWidth
-            onClick={() =>
-              form.setFieldValue("questions", [
-                ...form.values.questions,
-                {
-                  text: "",
-                  type: QuestionType.SINGLE_CHOICE,
-                  order: form.values.questions.length + 1,
-                  options: [],
-                },
-              ])
-            }
-          >
+          <Button fullWidth onClick={handleAddQuestion}>
             <i
               className="pi pi-plus"
               style={{ fontSize: "1em", marginRight: "5px" }}
