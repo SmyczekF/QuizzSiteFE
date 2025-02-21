@@ -1,8 +1,8 @@
 :root {
-  --primary: #FFA96A;
+  --primary: #ffa96a;
   --primary-darker: #ff9e5a;
   --secondary: #918000;
-  --accent: #CEB700;
+  --accent: #ceb700;
   --accent-hover: #bba500;
   --background: #f5ea9f;
   --backgroud-hover: #f5e08f;
@@ -11,26 +11,26 @@
 }
 
 @font-face {
-  font-family: 'Staatliches Regular';
-  src: url('\\styles\\fonts\\StaatlichesRegular.ttf') format('truetype');
+  font-family: "Staatliches Regular";
+  src: url("\\styles\\fonts\\StaatlichesRegular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Underdog Regular';
-  src: url('\\styles\\fonts\\UnderdogRegular.ttf') format('truetype');
+  font-family: "Underdog Regular";
+  src: url("\\styles\\fonts\\UnderdogRegular.ttf") format("truetype");
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif, 'Staatliches Regular', 'Underdog Regular';
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif, "Staatliches Regular", "Underdog Regular";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

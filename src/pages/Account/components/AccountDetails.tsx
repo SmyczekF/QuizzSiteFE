@@ -47,7 +47,7 @@ const AccountDetails = () => {
     <>
       <Grid gutter={"xl"}>
         <Grid.Col span={12}>
-          <h1 className={styles.contentTitle}>Account Details</h1>
+          <h3 className={styles.contentTitle}>Account Details</h3>
           <p className={styles.contentDescription}>
             Here you can see your account details and change your password.
           </p>

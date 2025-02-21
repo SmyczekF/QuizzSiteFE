@@ -94,7 +94,7 @@ const QuizzList = () => {
         isLoading ? (
           <p>Loading...</p>
         ) : (
-          <Grid>
+          <Grid gutter="sm">
             {data.quizzes?.map((element, index) => {
               return (
                 <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>

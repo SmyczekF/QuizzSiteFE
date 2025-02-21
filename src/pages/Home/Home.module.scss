@@ -1,298 +1,296 @@
-.hero{
-    position: relative;
-    height: 100vh;
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  color: white;
+  font-family: "Staatliches Regular";
+  font-size: 3.5rem;
+  font-weight: 500;
+  background-color: var(--background-main);
+  align-items: center;
+  overflow: hidden;
+
+  .logoMainPage {
+    padding-top: 120px;
+    width: 80%;
+    height: auto;
+    max-height: 100%;
+    animation: mainLogoAnimationComputer 2s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .topicBox {
+    position: absolute;
+    width: 11vw;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
     justify-content: center;
-    color: white;
-    font-family: 'Staatliches Regular';
-    font-size: 3.5rem;
-    font-weight: 500;
-    background-color: var(--background-main);
     align-items: center;
-    overflow: hidden;
-
-    .logoMainPage{
-        padding-top: 120px;
-        width: 80%;
-        height: auto;
-        max-height: 100%;
-        animation: mainLogoAnimationComputer 2s;
-        animation-delay: 1s;
-        animation-fill-mode: forwards;
+    animation: topicBoxAnimation 2s;
+    animation-fill-mode: forwards;
+    border: 1px solid black;
+    transform: skew(-30deg) translate(100vw, 0);
+    animation-delay: 1.5s;
+    background-image: url("../../shared/images/Home/shows.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: color 0.3s ease-in-out;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      transition: background-color 0.3s ease-in-out;
+    }
+    &:hover {
+      cursor: pointer;
+      color: var(--accent);
+      &::before {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
     }
 
-    .topicBox{
-        position: absolute;
-        width: 11vw;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        animation: topicBoxAnimation 2s;
-        animation-fill-mode: forwards;
-        border: 1px solid black;
-        transform: skew(-30deg) translate(100vw, 0);
-        animation-delay: 1.5s;
-        background-image: url("../../shared/images/Home/shows.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: color 0.3s ease-in-out;
-        &::before{
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            transition: background-color 0.3s ease-in-out;
-        }
-        &:hover{
-            cursor: pointer;
-            color: var(--accent);
-            &::before{
-                background-color: rgba(0,0,0,0.3);
-            }
-        }
-        
-        .topicTitle{
-            writing-mode:vertical-rl;
-            transform: skew(30deg) rotate(210deg);
-            letter-spacing: 0;
-            font-family: 'Underdog Regular';
-            text-shadow: black 0.1em 0.1em 0.2em;
-        }
+    .topicTitle {
+      writing-mode: vertical-rl;
+      transform: skew(30deg) rotate(210deg);
+      letter-spacing: 0;
+      font-family: "Underdog Regular";
+      text-shadow: black 0.1em 0.1em 0.2em;
     }
+  }
 
-    .topicBoxTwo{
-        @extend .topicBox;
-        animation: topicBoxAnimationTwo 2s;
-        animation-delay: 2.5s;
-        animation-fill-mode: forwards;
-        background-image: url("../../shared/images/Home/music.jpg")
-    }
+  .topicBoxTwo {
+    @extend .topicBox;
+    animation: topicBoxAnimationTwo 2s;
+    animation-delay: 2.5s;
+    animation-fill-mode: forwards;
+    background-image: url("../../shared/images/Home/music.jpg");
+  }
 
-    .topicBoxThree{
-        @extend .topicBox;
-        animation: topicBoxAnimationThree 2s;
-        animation-delay: 3.5s;
-        animation-fill-mode: forwards;
-        background-image: url("../../shared/images/Home/movies.jpg")
-    }
+  .topicBoxThree {
+    @extend .topicBox;
+    animation: topicBoxAnimationThree 2s;
+    animation-delay: 3.5s;
+    animation-fill-mode: forwards;
+    background-image: url("../../shared/images/Home/movies.jpg");
+  }
 
-    .topicBoxFour{
-        @extend .topicBox;
-        animation: topicBoxAnimationFour 2s;
-        animation-delay: 4.5s;
-        animation-fill-mode: forwards;
-        background-image: url("../../shared/images/Home/games.jpg")
-    }
+  .topicBoxFour {
+    @extend .topicBox;
+    animation: topicBoxAnimationFour 2s;
+    animation-delay: 4.5s;
+    animation-fill-mode: forwards;
+    background-image: url("../../shared/images/Home/games.jpg");
+  }
 
-    .topicBoxFive{
-        @extend .topicBox;
-        animation: topicBoxAnimationFive 2s;
-        animation-delay: 5.5s;
-        animation-fill-mode: forwards;
-        background-image: url("../../shared/images/Home/adventure.jpg")
-    }
+  .topicBoxFive {
+    @extend .topicBox;
+    animation: topicBoxAnimationFive 2s;
+    animation-delay: 5.5s;
+    animation-fill-mode: forwards;
+    background-image: url("../../shared/images/Home/adventure.jpg");
+  }
 }
 
 @keyframes mainLogoAnimationComputer {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.5);
-    }
-    100% {
-        transform: scale(0.5) translate( -57vw, 0);
-    }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(0.5) translate(-57vw, 0);
+  }
 }
 
 @keyframes topicBoxAnimation {
-    0% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    50% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    100% {
-        transform: skew(-30deg) translate(1vw, 0);
-    }
+  0% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  50% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  100% {
+    transform: skew(-30deg) translate(1vw, 0);
+  }
 }
 
 @keyframes topicBoxAnimationTwo {
-    0% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    50% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    100% {
-        transform: skew(-30deg) translate(11vw, 0);
-    }
+  0% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  50% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  100% {
+    transform: skew(-30deg) translate(11vw, 0);
+  }
 }
 
 @keyframes topicBoxAnimationThree {
-    0% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    50% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    100% {
-        transform: skew(-30deg) translate(21vw, 0);
-    }
+  0% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  50% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  100% {
+    transform: skew(-30deg) translate(21vw, 0);
+  }
 }
 
 @keyframes topicBoxAnimationFour {
-    0% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    50% {
-        transform: skew(-30deg) translate(100vw, 0);
-    }
-    100% {
-        transform: skew(-30deg) translate(31vw, 0);
-    }
+  0% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  50% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  100% {
+    transform: skew(-30deg) translate(31vw, 0);
+  }
 }
 
 @keyframes topicBoxAnimationFive {
+  0% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  50% {
+    transform: skew(-30deg) translate(100vw, 0);
+  }
+  100% {
+    transform: skew(-30deg) translate(41vw, 0);
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .hero {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .hero {
+    overflow-y: auto;
+
+    .logoMainPage {
+      max-height: 65vh;
+    }
+
+    .topicBox {
+      width: 100%;
+      height: 16vh;
+      transform: skew(0) translate(100vw, 0);
+
+      .topicTitle {
+        writing-mode: horizontal-tb;
+        transform: skew(0) rotate(0);
+        letter-spacing: 0;
+        font-family: "Underdog Regular";
+        text-shadow: black 0.1em 0.1em 0.2em;
+      }
+    }
+  }
+  @keyframes mainLogoAnimationComputer {
     0% {
-        transform: skew(-30deg) translate(100vw, 0);
+      transform: scale(1);
     }
     50% {
-        transform: skew(-30deg) translate(100vw, 0);
+      transform: scale(0.7);
     }
     100% {
-        transform: skew(-30deg) translate(41vw, 0);
+      transform: scale(0.7) translate(0, -43vh);
     }
+  }
+
+  @keyframes topicBoxAnimation {
+    0% {
+      transform: translate(100vw, 0);
+    }
+    50% {
+      transform: translate(100vw, 0);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes topicBoxAnimationTwo {
+    0% {
+      transform: translate(100vw, 15vh);
+    }
+    50% {
+      transform: translate(100vw, 15vh);
+    }
+    100% {
+      transform: translate(0, 15vh);
+    }
+  }
+
+  @keyframes topicBoxAnimationThree {
+    0% {
+      transform: translate(100vw, 30vh);
+    }
+    50% {
+      transform: translate(100vw, 30vh);
+    }
+    100% {
+      transform: translate(0, 30vh);
+    }
+  }
+
+  @keyframes topicBoxAnimationFour {
+    0% {
+      transform: translate(100vw, 45vh);
+    }
+    50% {
+      transform: translate(100vw, 45vh);
+    }
+    100% {
+      transform: translate(0, 45vh);
+    }
+  }
+
+  @keyframes topicBoxAnimationFive {
+    0% {
+      transform: translate(100vw, 60vh);
+    }
+    50% {
+      transform: translate(100vw, 60vh);
+    }
+    100% {
+      transform: translate(0, 60vh);
+    }
+  }
 }
 
-@media screen and (max-width: 1100px){
-    .hero{
-        font-size: 3rem;
-    }
-}
+@media screen and (max-width: 600px) {
+  .hero {
+    font-size: 2rem;
 
-@media screen and (max-width: 900px){
+    .logoMainPage {
+      max-height: 55vh;
+      width: 100%;
+    }
+  }
 
-    .hero{
-
-        overflow-y: auto;
-
-        .logoMainPage{
-            max-height:  65vh;
-        }
-
-        .topicBox{
-            width: 100%;
-            height: 16vh;
-            transform: skew(0) translate(100vw, 0);
-
-            .topicTitle{
-                writing-mode: horizontal-tb;
-                transform: skew(0) rotate(0);
-                letter-spacing: 0;
-                font-family: 'Underdog Regular';
-                text-shadow: black 0.1em 0.1em 0.2em;
-            }
-        }
+  @keyframes mainLogoAnimationComputer {
+    0% {
+      transform: scale(1);
     }
-    @keyframes mainLogoAnimationComputer {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(0.7);
-        }
-        100% {
-            transform: scale(0.7) translate( 0, -43vh);
-        }
+    50% {
+      transform: scale(0.9);
     }
-    
-    @keyframes topicBoxAnimation {
-        0% {
-            transform: translate(100vw, 0);
-        }
-        50% {
-            transform: translate(100vw, 0);
-        }
-        100% {
-            transform: translate(0, 0);
-        }
+    100% {
+      transform: scale(0.9) translate(0, -38vh);
     }
-    
-    @keyframes topicBoxAnimationTwo {
-        0% {
-            transform: translate(100vw, 15vh);
-        }
-        50% {
-            transform: translate(100vw, 15vh);
-        }
-        100% {
-            transform: translate(0, 15vh);
-        }
-    }
-    
-    @keyframes topicBoxAnimationThree {
-        0% {
-            transform: translate(100vw, 30vh);
-        }
-        50% {
-            transform: translate(100vw, 30vh);
-        }
-        100% {
-            transform: translate(0, 30vh);
-        }
-    }
-    
-    @keyframes topicBoxAnimationFour {
-        0% {
-            transform: translate(100vw, 45vh);
-        }
-        50% {
-            transform: translate(100vw, 45vh);
-        }
-        100% {
-            transform: translate(0, 45vh);
-        }
-    }
-    
-    @keyframes topicBoxAnimationFive {
-        0% {
-            transform: translate(100vw, 60vh);
-        }
-        50% {
-            transform: translate(100vw, 60vh);
-        }
-        100% {
-            transform: translate(0, 60vh);
-        }
-    }
-}
-
-@media screen and (max-width: 600px){
-    .hero{
-        font-size: 2rem;
-
-        .logoMainPage{
-            max-height: 55vh;
-            width: 100%;
-        }
-    }
-
-    @keyframes mainLogoAnimationComputer {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(0.9);
-        }
-        100% {
-            transform: scale(0.9) translate( 0, -38vh);
-        }
-    }
+  }
 }
