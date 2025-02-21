@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { showSuccessNotification } from "../../../shared/notifications/showSuccessNotification";
 import { showErrorNotification } from "../../../shared/notifications/showErrorNotification";
+import ChangePasswordModal from "./changePassword/ChangePasswordModal";
 
 const AccountDetails = () => {
   const credentialsContext = useContext(CredentialsContext);
@@ -15,6 +16,7 @@ const AccountDetails = () => {
     credentialsContext.user?.username || ""
   );
   const [resetIsEditing, setResetIsEditing] = useState(false);
+  const [changePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
 
   const privatiseEmail = (email: string | undefined) => {
     if (!email) return "";
@@ -29,18 +31,14 @@ const AccountDetails = () => {
   >({
     mutationFn: () =>
       axios.post("/auth/changeLoggedUserUsername", { username: username }),
-    onSuccess: (data: AxiosResponse) => {
-      showSuccessNotification(
-        `${credentialsContext.user?.username} updated successfully!.`
-      );
+    onSuccess: () => {
+      showSuccessNotification(`Username updated successfully!.`);
       if (credentialsContext.refetch) credentialsContext.refetch();
       setResetIsEditing(true);
-      // setResetIsEditing(false);
     },
     onError: (error) => {
       showErrorNotification(
-        error.request.response ||
-          `${credentialsContext.user?.username} update failed.`
+        error.request.response || `Username update failed.`
       );
     },
   });
@@ -82,7 +80,7 @@ const AccountDetails = () => {
           <TextInputWithEdit
             initialValue="*******************"
             onChange={(value) => console.log(value)}
-            editAction={() => console.log("Edit action")}
+            editAction={() => setChangePasswordModalOpen(true)}
           />
         </Grid.Col>
       </Grid>
@@ -94,6 +92,10 @@ const AccountDetails = () => {
       >
         Save changes
       </Button>
+      <ChangePasswordModal
+        opened={changePasswordModalOpen}
+        onClose={() => setChangePasswordModalOpen(false)}
+      />
     </>
   );
 };

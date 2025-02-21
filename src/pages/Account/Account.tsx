@@ -1,15 +1,21 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import styles from "./Account.module.scss";
 import { CredentialsContext } from "../../shared/providers/credentialsProvider";
 import { returnImage } from "../../shared/images/ImageReader";
 import CustomNavLink from "../../navbar/CustomNavLink";
 import AccountDetails from "./components/AccountDetails";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { shownContent } from "./account.types";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
 
 const Account = () => {
   const credentialsContext = useContext(CredentialsContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!credentialsContext.user) {
+      navigate("/");
+    }
+  }, [credentialsContext, navigate]);
 
   const userAvatar = returnImage(credentialsContext.user?.image);
 
