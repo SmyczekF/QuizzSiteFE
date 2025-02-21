@@ -9,16 +9,45 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "./public/language-select/LanguageSelect";
 import { useMediaQuery } from "react-responsive";
+import { useCallback, useEffect, useRef } from "react";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
 function CollapseDesktop() {
   const { t } = useTranslation("app");
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
+  const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
+    useDisclosure(false);
+  const [desktopOpened, { toggle: toggleDesktop, close: closeDesktop }] =
+    useDisclosure(false);
   const [searchBarVisible, { toggle: toggleSearchBar }] = useDisclosure(false);
   const isXS = useMediaQuery({ query: "(max-width: 450px)" });
+  const mainRef = useRef<HTMLElement>(null);
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        mainRef.current &&
+        mainRef.current.contains(event.target as Node) &&
+        desktopOpened
+      ) {
+        closeDesktop();
+      }
+    },
+    [closeDesktop, desktopOpened]
+  );
+
+  const closeMenu = useCallback(() => {
+    closeDesktop();
+    closeMobile();
+  }, [closeDesktop, closeMobile]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [desktopOpened, handleClickOutside]);
 
   return (
     <AppShell
@@ -119,6 +148,7 @@ function CollapseDesktop() {
           href="/"
           label={t("home")}
           leftSection={<i className="pi pi-home"></i>}
+          closeMenu={closeMenu}
         ></CustomNavLink>
         <CustomNavLink
           label={t("quizzes")}
@@ -128,26 +158,31 @@ function CollapseDesktop() {
             href="/quizz-list/popular"
             label={t("popular")}
             leftSection={<i className="pi pi-star"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/tv-shows"
             label={t("tvShows")}
             leftSection={<i className="pi pi-desktop"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/music"
             label={t("music")}
             leftSection={<i className="pi pi-volume-up"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/movies"
             label={t("movies")}
             leftSection={<i className="pi pi-ticket"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/games"
             label={t("games")}
             leftSection={<i className="pi pi-prime"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/trivia"
@@ -158,27 +193,31 @@ function CollapseDesktop() {
             href="/quizz-list/books"
             label={t("books")}
             leftSection={<i className="pi pi-book"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
           <CustomNavLink
             href="/quizz-list/other"
             label={t("other")}
             leftSection={<i className="pi pi-ellipsis-h"></i>}
+            closeMenu={closeMenu}
           ></CustomNavLink>
         </CustomNavLink>
         <CustomNavLink
           href="/about"
           label={t("about")}
           leftSection={<i className="pi pi-info-circle"></i>}
+          closeMenu={closeMenu}
           disabled
         ></CustomNavLink>
         <CustomNavLink
           href="/contact"
           label={t("contact")}
           leftSection={<i className="pi pi-envelope"></i>}
+          closeMenu={closeMenu}
           disabled
         ></CustomNavLink>
       </AppShell.Navbar>
-      <AppShell.Main style={{ padding: 0 }}>
+      <AppShell.Main style={{ padding: 0 }} ref={mainRef}>
         <Main />
       </AppShell.Main>
     </AppShell>

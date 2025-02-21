@@ -10,17 +10,35 @@ interface CustomNavLinkProps {
   accountLink?: boolean;
   onClick?: () => void;
   disabled?: boolean;
+  closeMenu?: () => void;
 }
 
 const CustomNavLink = (props: CustomNavLinkProps) => {
-  const { href, label, leftSection, children, accountLink, onClick, disabled } =
-    props;
+  const {
+    href,
+    label,
+    leftSection,
+    children,
+    accountLink,
+    onClick,
+    disabled,
+    closeMenu,
+  } = props;
 
   const navigate = useNavigate();
 
+  const handleOnclick = () => {
+    if (onClick) {
+      onClick();
+    } else if (href) {
+      closeMenu && closeMenu();
+      navigate(href);
+    }
+  };
+
   return (
     <NavLink
-      onClick={onClick || (() => (href ? navigate(href) : null))}
+      onClick={handleOnclick}
       label={label}
       leftSection={leftSection}
       classNames={{
