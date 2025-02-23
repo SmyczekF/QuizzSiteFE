@@ -11,7 +11,6 @@ interface MyQuizzesData {
   color: string;
   description: string;
   liked: number;
-  finished: number;
   title: string;
   createdAt: string;
   updatedAt: string;

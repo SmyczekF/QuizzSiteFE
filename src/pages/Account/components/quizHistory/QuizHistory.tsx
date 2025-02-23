@@ -13,8 +13,6 @@ interface QuizHistoryData {
   Quiz: {
     title: string;
     description: string;
-    liked: number;
-    finished: number;
     color: string;
     User: {
       username: string;

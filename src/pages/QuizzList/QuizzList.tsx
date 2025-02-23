@@ -29,7 +29,8 @@ const QuizzList = () => {
           params: {
             page: activePage,
             limit: limit,
-            order: quizQueryParams.order,
+            order: quizQueryParams.order[0],
+            orderDir: quizQueryParams.order[1],
           },
         })
         .then((res) => res.data),
