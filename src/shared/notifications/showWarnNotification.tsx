@@ -7,7 +7,7 @@ export const showWarnNotification = (message: string, title?: string) => {
     message: message,
     color: "yellow",
     icon: <i className="pi pi-exclamation-triangle"></i>,
-    autoClose: 2500,
+    autoClose: 3500,
     classNames: {
       description: styles.notification,
       title: styles.notification,
