@@ -119,6 +119,21 @@
   }
 }
 
+.deleteIcon {
+  font-size: 1rem;
+  color: red;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.3s ease;
+    transform: scale(1.2);
+  }
+}
+
+.editIcon {
+  @extend .deleteIcon;
+  color: var(--primary);
+}
+
 @media only screen and (max-width: 700px) {
   .view {
     padding: 100px 7px 0 7px;

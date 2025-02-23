@@ -16,6 +16,9 @@ interface QuizHistoryData {
     liked: number;
     finished: number;
     color: string;
+    User: {
+      username: string;
+    };
   };
 }
 
@@ -40,6 +43,7 @@ const QuizHistory = () => {
         <Table.Td>{quiz.Quiz.title}</Table.Td>
         <Table.Td>{quiz.score}%</Table.Td>
         <Table.Td>{new Date(quiz.finishedOn).toLocaleDateString()}</Table.Td>
+        <Table.Td>{quiz.Quiz.User.username}</Table.Td>
       </Table.Tr>
     ));
   }, [data, navigate]);
@@ -60,6 +64,7 @@ const QuizHistory = () => {
               <Table.Th>Quiz</Table.Th>
               <Table.Th>Score</Table.Th>
               <Table.Th>Finished on</Table.Th>
+              <Table.Th>Author</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>{quizHistory}</Table.Tbody>

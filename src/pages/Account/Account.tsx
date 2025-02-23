@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { shownContent } from "./account.types";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
 import QuizHistory from "./components/quizHistory/QuizHistory";
+import MyQuizzes from "./components/myQuizzes/MyQuizzes";
 
 const Account = () => {
   const credentialsContext = useContext(CredentialsContext);
@@ -30,6 +31,8 @@ const Account = () => {
         return <CreateQuiz />;
       case shownContent.QUIZZ_HISTORY:
         return <QuizHistory />;
+      case shownContent.MY_QUIZZES:
+        return <MyQuizzes />;
       default:
         return <AccountDetails />;
     }
@@ -81,7 +84,6 @@ const Account = () => {
             leftSection={
               <i className="pi pi-list" style={{ fontSize: "1.5em" }} />
             }
-            disabled
           />
           <CustomNavLink
             href="/profile/statistics"
