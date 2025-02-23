@@ -108,6 +108,17 @@
   font-family: "Staatliches Regular";
 }
 
+.playIcon {
+  font-size: 1rem;
+  color: var(--primary);
+  cursor: pointer;
+  &:hover {
+    color: var(--secondary);
+    transition: all 0.3s ease;
+    transform: scale(1.2);
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .view {
     padding: 100px 7px 0 7px;
