@@ -3,6 +3,7 @@ import styles from "../QuizzList.module.scss";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { returnImage } from "../../../shared/images/ImageReader";
+import useLikeQuizMutation from "./useLikeQuizMutation";
 
 export const getShortenedNumberData = (number: number) => {
   if (number >= 1000000) {
@@ -15,6 +16,8 @@ export const getShortenedNumberData = (number: number) => {
 };
 
 const QuizzListElement = (props: QuizzListElementProps) => {
+  const { mutate: like } = useLikeQuizMutation(["quizzList"]);
+
   const [opened, { open, close }] = useDisclosure(false);
   const {
     id,
@@ -25,6 +28,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
     likeCount,
     image,
     Author,
+    liked,
     createdAt,
   } = props;
 
@@ -69,7 +73,9 @@ const QuizzListElement = (props: QuizzListElementProps) => {
           </div>
           <div className={styles.quizzListElementInfo}>
             <i
-              className={`pi pi-star ${styles.quizzListElementInfoIcon}`}
+              className={`pi ${liked ? "pi-star-fill" : "pi-star"}  ${
+                styles.quizzListElementInfoIcon
+              }`}
               style={{ color: "gold" }}
             ></i>
             <p className={styles.quizzListElementInfoData}>
@@ -108,7 +114,9 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             </p>
             <p className={styles.modalStatistics}>
               <i
-                className={`pi pi-star ${styles.quizzListElementInfoIcon}`}
+                className={`pi ${liked ? "pi-star-fill" : "pi-star"} ${
+                  styles.quizzListElementInfoIcon
+                }`}
                 style={{ color: "gold" }}
               ></i>
               Quizz liked by {getShortenedNumberData(likeCount)} users
@@ -152,8 +160,11 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             style={{ color: "lightblue" }}
           ></i>
           <i
-            className={`pi pi-star ${styles.modalAdditionalOperationsIcon}`}
+            className={`pi ${liked ? "pi-star-fill" : "pi-star"} ${
+              styles.modalAdditionalOperationsIcon
+            }`}
             style={{ color: "gold" }}
+            onClick={() => like(id)}
           ></i>
         </div>
         <div className={styles.modalReturnButton}>

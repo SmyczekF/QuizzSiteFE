@@ -14,7 +14,7 @@ interface QuizHistoryData {
     title: string;
     description: string;
     color: string;
-    User: {
+    Author: {
       username: string;
     };
   };
@@ -41,7 +41,7 @@ const QuizHistory = () => {
         <Table.Td>{quiz.Quiz.title}</Table.Td>
         <Table.Td>{quiz.score}%</Table.Td>
         <Table.Td>{new Date(quiz.finishedOn).toLocaleDateString()}</Table.Td>
-        <Table.Td>{quiz.Quiz.User.username}</Table.Td>
+        <Table.Td>{quiz.Quiz.Author.username}</Table.Td>
       </Table.Tr>
     ));
   }, [data, navigate]);

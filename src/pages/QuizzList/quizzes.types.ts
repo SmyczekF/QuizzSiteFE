@@ -5,6 +5,7 @@ export interface QuizzListElementProps {
   color: string;
   finishCount: number;
   likeCount: number;
+  liked: boolean;
   image?: { type: string; data: number[] };
   Author: User;
   createdAt: string;
