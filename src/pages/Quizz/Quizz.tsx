@@ -12,6 +12,7 @@ import { showErrorNotification } from "../../shared/notifications/showErrorNotif
 import QuizFinish from "./components/QuizFinish/QuizFinish";
 import ReplayButton from "./components/ReplayButton";
 import QuizzNavigation from "./components/QuizzNavigation/QuizzNavigation";
+import TimeLimitModal from "./components/TimeLimitModal/TimeLimitModal";
 
 const Quizz = (props: QuizzProps) => {
   const {
@@ -38,6 +39,8 @@ const Quizz = (props: QuizzProps) => {
     -1,
     Questions.length,
   ]);
+  const [timeLimitModalOpenend, setTimeLimitModalOpened] =
+    useState<boolean>(false);
 
   const returnAvatar = () => {
     if (Author.image) {
@@ -50,6 +53,12 @@ const Quizz = (props: QuizzProps) => {
       return `data:image/png;base64,${base64}`;
     }
     return null;
+  };
+
+  const handleTimeLimitSubmit = (timeLimit: number) => {
+    setTimeLimit(timeLimit);
+    setShownQuestion(0);
+    setTimeLimitModalOpened(false);
   };
 
   useEffect(() => {
@@ -230,10 +239,7 @@ const Quizz = (props: QuizzProps) => {
               root: styles.quizzTypeChooseRoot,
               label: styles.quizzTypeChooseLabel,
             }}
-            onClick={() => {
-              setShownQuestion(0);
-              setTimeLimit(30);
-            }}
+            onClick={() => setTimeLimitModalOpened(true)}
           >
             <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
             <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
@@ -254,6 +260,12 @@ const Quizz = (props: QuizzProps) => {
           </Button>
         </div>
       </div>
+      <TimeLimitModal
+        timeLimit={timeLimit}
+        setTimeLimit={handleTimeLimitSubmit}
+        opened={timeLimitModalOpenend}
+        onClose={() => setTimeLimitModalOpened(false)}
+      />
       <div
         className={`${styles.quizzSection} ${
           shownQuestion !== -1 ? styles.active : ""
@@ -418,6 +430,8 @@ const QuizzProvider = () => {
     queryKey: ["quizz"],
     queryFn: () => axios.get(`/quizz/get/${id}`).then((res) => res.data),
   });
+
+  console.log(data);
 
   //TODO ADD LOADING SCREEN
   return <>{data ? <Quizz {...data} /> : null}</>;

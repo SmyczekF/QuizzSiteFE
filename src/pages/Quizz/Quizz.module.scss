@@ -68,7 +68,7 @@
   .quizzInfo {
     margin: 50px 0 0 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
   }
@@ -496,7 +496,9 @@
 
   .view {
     .quizzInfo {
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
       margin: 30px;
     }
 
