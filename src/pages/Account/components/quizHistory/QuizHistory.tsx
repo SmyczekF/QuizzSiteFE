@@ -35,7 +35,7 @@ const QuizHistory = () => {
         <Table.Td>
           <span
             className={`pi pi-play ${styles.playIcon}`}
-            onClick={() => navigate(`/quizz/${quiz.QuizId}}`)}
+            onClick={() => navigate(`/quizz/${quiz.QuizId}`)}
           ></span>
         </Table.Td>
         <Table.Td>{quiz.Quiz.title}</Table.Td>

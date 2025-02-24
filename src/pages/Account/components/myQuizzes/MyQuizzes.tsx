@@ -60,9 +60,9 @@ const MyQuizzes = () => {
   return (
     <Grid gutter={"xl"}>
       <Grid.Col span={12}>
-        <h3 className={styles.contentTitle}>Quizz History</h3>
+        <h3 className={styles.contentTitle}>My Quizzes</h3>
         <p className={styles.contentDescription}>
-          Here you can see your previously finished quizzes.
+          Here you can see all the quizzes you have created.
         </p>
       </Grid.Col>
       <Grid.Col span={12}>
