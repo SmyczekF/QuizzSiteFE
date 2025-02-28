@@ -2,10 +2,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import styles from "./Quizz.module.scss";
 import { Answers, EQuestionTypes, QuizzProps } from "./quizz.types";
 import axios, { AxiosResponse } from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Question from "./components/Question";
 import { Button } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { showSuccessNotification } from "../../shared/notifications/showSuccessNotification";
 import { showErrorNotification } from "../../shared/notifications/showErrorNotification";
 import QuizFinish from "./components/QuizFinish/QuizFinish";
@@ -13,7 +13,7 @@ import ReplayButton from "./components/ReplayButton";
 import QuizzNavigation from "./components/QuizzNavigation/QuizzNavigation";
 
 const Quizz = (props: QuizzProps) => {
-  const { id, timeLimit, Author, Questions } = props;
+  const { id, Author, Questions } = props;
 
   const [shownQuestion, setShownQuestion] = useState<number>(0);
   const [answers, setAnswers] = useState<Answers[]>([]);
@@ -27,18 +27,19 @@ const Quizz = (props: QuizzProps) => {
     Questions.length,
   ]);
 
-  const returnAvatar = () => {
-    if (Author.image) {
-      const base64 = btoa(
-        new Uint8Array(Author.image.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ""
-        )
-      );
-      return `data:image/png;base64,${base64}`;
+  const [searchParams] = useSearchParams();
+
+  const paramTimeLimit = searchParams.get("timeLimit");
+
+  const timeLimit = useMemo(() => {
+    if (paramTimeLimit) {
+      return parseInt(paramTimeLimit);
+    } else {
+      return undefined;
     }
-    return null;
-  };
+  }, [paramTimeLimit]);
+
+  console.log(timeLimit);
 
   useEffect(() => {
     if (finishedQuizz) setBlockedQuestions([-1, Questions.length]);

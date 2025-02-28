@@ -251,6 +251,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  margin-bottom: 25px;
   gap: 20px;
 }
 
@@ -268,12 +269,13 @@
 }
 
 .modalButton {
-  height: 80px !important;
-  border: 3px solid var(--primary);
+  height: 50px !important;
+  border: 1px solid var(--primary);
+  margin: auto;
   border-radius: (var(--mantine-radius-default));
   background-color: var(--background) !important;
   color: var(--primary) !important;
-  font-size: 2rem !important;
+  font-size: 1.5rem !important;
   font-family: "Underdog Regular";
   letter-spacing: 0.15rem;
   transition: all 0.2s ease-in-out;
@@ -283,6 +285,10 @@
     color: white !important;
     transform: scale(1.03);
   }
+}
+
+.playButton {
+  margin: 0 25px;
 }
 
 .modalAdditionalOperations {
@@ -414,9 +420,8 @@
 }
 
 .quizzTypeChooseRoot {
-  min-height: 80px;
-  width: 45% !important;
-  border: 3px solid var(--primary) !important;
+  min-width: 45% !important;
+  border: 1px solid var(--primary) !important;
   border-radius: (var(--mantine-radius-default));
   background-color: var(--background) !important;
   color: var(--primary) !important;
@@ -427,16 +432,57 @@
     color: white !important;
     transform: scale(1.03);
   }
+
+  &.active {
+    position: relative;
+    border: 1px solid var(--secondary) !important;
+    background-color: var(--secondary-selected) !important;
+    color: white !important;
+    transform: none;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.quizzTimeChooseRoot {
+  @extend .quizzTypeChooseRoot;
+  height: 32px !important;
+  width: 100% !important;
+  border: 1px solid var(--primary) !important;
+  padding: 0 !important;
 }
 
 .quizzTypeChooseLabel {
   height: 100%;
   width: 100%;
-  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.modalTimeLimitSection {
+  padding: 0 25px 25px 25px;
+}
+
+.modalNumberInput {
+  border: 1px solid var(--primary);
+  font-family: "Staatliches Regular";
+  font-size: 1.1rem;
+  background-color: var(--background);
+  border-radius: var(--mantine-radius-default);
+  padding-left: 10px;
+  color: var(--primary);
+  width: 100px !important;
+}
+
+.modalNumberInputWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-radius: var(--mantine-radius-default);
+  color: var(--primary);
 }
 
 @media only screen and (max-width: 780px) {

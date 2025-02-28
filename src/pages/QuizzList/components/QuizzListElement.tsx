@@ -1,10 +1,11 @@
 import { QuizzListElementProps } from "../quizzes.types";
 import styles from "../QuizzList.module.scss";
-import { Button, Modal } from "@mantine/core";
+import { Button, Grid, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { returnImage } from "../../../shared/images/ImageReader";
 import useLikeQuizMutation from "./useLikeQuizMutation";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const getShortenedNumberData = (number: number) => {
   if (number >= 1000000) {
@@ -36,6 +37,13 @@ const QuizzListElement = (props: QuizzListElementProps) => {
   const userAvatar = returnImage(Author.image);
   const quizzImage = returnImage(image);
   const navigate = useNavigate();
+  const [timeMode, setTimeMode] = useState<boolean | undefined>();
+  const [timeLimit, setTimeLimit] = useState<number | undefined>();
+
+  useEffect(() => {
+    setTimeMode(undefined);
+    setTimeLimit(undefined);
+  }, [opened]);
 
   return (
     <>
@@ -145,10 +153,12 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             size="lg"
             color="transparent"
             classNames={{
-              root: styles.quizzTypeChooseRoot,
+              root: `${styles.quizzTypeChooseRoot} ${
+                timeMode ? styles.active : ""
+              }`,
               label: styles.quizzTypeChooseLabel,
             }}
-            onClick={() => console.log("Time limit")}
+            onClick={() => setTimeMode(true)}
           >
             <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
             <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
@@ -157,10 +167,12 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             size="lg"
             color="transparent"
             classNames={{
-              root: styles.quizzTypeChooseRoot,
+              root: `${styles.quizzTypeChooseRoot} ${
+                timeMode === false ? styles.active : ""
+              }`,
               label: styles.quizzTypeChooseLabel,
             }}
-            onClick={() => navigate(`/quizz/${id}`)}
+            onClick={() => setTimeMode(false)}
           >
             <i
               className={`pi pi-times-circle ${styles.quizzTypeChooseIcon}`}
@@ -168,6 +180,154 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             <h4 className={styles.quizzTypeChooseText}>No time limit</h4>
           </Button>
         </div>
+        {timeMode && (
+          <div className={styles.modalTimeLimitSection}>
+            <Grid gutter={"xs"} grow>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 10 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(10)}
+                >
+                  10s
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 30 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(30)}
+                >
+                  30s
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 60 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(60)}
+                >
+                  1m
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 120 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(120)}
+                >
+                  3m
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 300 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(300)}
+                >
+                  5m
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 600 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(600)}
+                >
+                  10m
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 900 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(900)}
+                >
+                  15m
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={1.5}>
+                <Button
+                  size="lg"
+                  color="transparent"
+                  classNames={{
+                    root: `${styles.quizzTimeChooseRoot} ${
+                      timeLimit === 1800 ? styles.active : ""
+                    }`,
+                  }}
+                  onClick={() => setTimeLimit(1800)}
+                >
+                  30m
+                </Button>
+              </Grid.Col>
+            </Grid>
+            {/* <NumberInput
+              unstyled
+              allowDecimal={false}
+              allowLeadingZeros={false}
+              allowNegative={false}
+              max={3600} // 1 hour
+              suffix="s"
+              value={timeLimit}
+              onChange={(value) => setTimeLimit(+value)}
+              classNames={{
+                input: styles.modalNumberInput,
+                wrapper: styles.modalNumberInputWrapper,
+                label: styles.modalNumberInputLabel,
+                root: styles.modalNumberInputRoot,
+              }}
+              onFocus={(e) => e.target.classList.add(styles.active)}
+              onBlur={(e) => e.target.classList.remove(styles.active)}
+            /> */}
+          </div>
+        )}
+        {timeMode !== undefined && (
+          <div className={styles.playButton}>
+            <Button
+              color="yellow"
+              fullWidth
+              className={styles.modalButton}
+              onClick={() => navigate(`/quizz/${id}?timeLimit=${timeLimit}`)}
+            >
+              Play
+            </Button>
+          </div>
+        )}
         <div className={styles.modalAdditionalOperations}>
           <i
             className={`pi pi-flag ${styles.modalAdditionalOperationsIcon}`}
