@@ -4,6 +4,7 @@ import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { returnImage } from "../../../shared/images/ImageReader";
 import useLikeQuizMutation from "./useLikeQuizMutation";
+import { useNavigate } from "react-router-dom";
 
 export const getShortenedNumberData = (number: number) => {
   if (number >= 1000000) {
@@ -34,6 +35,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
 
   const userAvatar = returnImage(Author.image);
   const quizzImage = returnImage(image);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -140,12 +142,30 @@ const QuizzListElement = (props: QuizzListElementProps) => {
         </div>
         <div className={styles.modalButtonSection}>
           <Button
-            color="yellow"
-            fullWidth
-            className={styles.modalButton}
-            onClick={() => (window.location.href = `/quizz/${id}`)}
+            size="lg"
+            color="transparent"
+            classNames={{
+              root: styles.quizzTypeChooseRoot,
+              label: styles.quizzTypeChooseLabel,
+            }}
+            onClick={() => console.log("Time limit")}
           >
-            Play
+            <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
+            <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
+          </Button>
+          <Button
+            size="lg"
+            color="transparent"
+            classNames={{
+              root: styles.quizzTypeChooseRoot,
+              label: styles.quizzTypeChooseLabel,
+            }}
+            onClick={() => navigate(`/quizz/${id}`)}
+          >
+            <i
+              className={`pi pi-times-circle ${styles.quizzTypeChooseIcon}`}
+            ></i>
+            <h4 className={styles.quizzTypeChooseText}>No time limit</h4>
           </Button>
         </div>
         <div className={styles.modalAdditionalOperations}>

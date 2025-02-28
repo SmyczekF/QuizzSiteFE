@@ -9,6 +9,7 @@ export interface QuizzListElementProps {
   image?: { type: string; data: number[] };
   Author: User;
   createdAt: string;
+  timeLimit?: number;
 }
 
 interface User {

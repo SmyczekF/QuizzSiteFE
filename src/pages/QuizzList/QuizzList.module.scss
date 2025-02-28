@@ -413,6 +413,32 @@
   width: 100px !important;
 }
 
+.quizzTypeChooseRoot {
+  min-height: 80px;
+  width: 45% !important;
+  border: 3px solid var(--primary) !important;
+  border-radius: (var(--mantine-radius-default));
+  background-color: var(--background) !important;
+  color: var(--primary) !important;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary) !important;
+    color: white !important;
+    transform: scale(1.03);
+  }
+}
+
+.quizzTypeChooseLabel {
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 @media only screen and (max-width: 780px) {
   .navigation {
     justify-content: center;

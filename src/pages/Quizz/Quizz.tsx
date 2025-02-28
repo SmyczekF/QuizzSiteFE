@@ -4,7 +4,6 @@ import { Answers, EQuestionTypes, QuizzProps } from "./quizz.types";
 import axios, { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
 import Question from "./components/Question";
-import { getShortenedNumberData } from "../QuizzList/components/QuizzListElement";
 import { Button } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { showSuccessNotification } from "../../shared/notifications/showSuccessNotification";
@@ -12,35 +11,21 @@ import { showErrorNotification } from "../../shared/notifications/showErrorNotif
 import QuizFinish from "./components/QuizFinish/QuizFinish";
 import ReplayButton from "./components/ReplayButton";
 import QuizzNavigation from "./components/QuizzNavigation/QuizzNavigation";
-import TimeLimitModal from "./components/TimeLimitModal/TimeLimitModal";
 
 const Quizz = (props: QuizzProps) => {
-  const {
-    id,
-    title,
-    description,
-    finishCount,
-    likeCount,
-    image,
-    Author,
-    Questions,
-    createdAt,
-  } = props;
+  const { id, timeLimit, Author, Questions } = props;
 
-  const [shownQuestion, setShownQuestion] = useState<number>(-1);
+  const [shownQuestion, setShownQuestion] = useState<number>(0);
   const [answers, setAnswers] = useState<Answers[]>([]);
   const [finishData, setFinishData] = useState<{
     correctAnswers: Answers[];
     score: number;
   } | null>(null);
   const [finishedQuizz, setFinishedQuizz] = useState<boolean>(false);
-  const [timeLimit, setTimeLimit] = useState<number>(0);
   const [blockedQuestions, setBlockedQuestions] = useState<number[]>([
     -1,
     Questions.length,
   ]);
-  const [timeLimitModalOpenend, setTimeLimitModalOpened] =
-    useState<boolean>(false);
 
   const returnAvatar = () => {
     if (Author.image) {
@@ -55,17 +40,9 @@ const Quizz = (props: QuizzProps) => {
     return null;
   };
 
-  const handleTimeLimitSubmit = (timeLimit: number) => {
-    setTimeLimit(timeLimit);
-    setShownQuestion(0);
-    setTimeLimitModalOpened(false);
-  };
-
   useEffect(() => {
     if (finishedQuizz) setBlockedQuestions([-1, Questions.length]);
-  }, [finishedQuizz]);
-
-  const userAvatar = returnAvatar();
+  }, [Questions.length, finishedQuizz]);
 
   const handleAnswerReturn = (
     questionId: number,
@@ -160,118 +137,8 @@ const Quizz = (props: QuizzProps) => {
 
   return (
     <div className={styles.view}>
-      <div
-        className={`${styles.quizzTop} ${
-          shownQuestion > -1 ? styles.quizzTopAnimation : ""
-        }`}
-      >
-        <div className={styles.quizzTopContent}>
-          <h1 className={styles.quizzTitle}>{title}</h1>
-          <div className={styles.quizzDescription}>{description}</div>
-          <div className={styles.quizzInfo}>
-            <div className={styles.quizzInfoItem}>
-              <div className={styles.quizzInfoItemTitle}>Author</div>
-              <div className={styles.quizzInfoItemValueWithIcon}>
-                {userAvatar ? (
-                  <img
-                    src={userAvatar}
-                    alt="Author"
-                    className={styles.quizzInfoItemAuthorImage}
-                    style={{ padding: 0 }}
-                  />
-                ) : (
-                  <i
-                    className={`pi pi-user ${styles.quizzInfoItemAuthorImage}`}
-                  ></i>
-                )}
-                <div className={styles.quizzInfoItemValue}>
-                  {Author.username}
-                </div>
-              </div>
-            </div>
-            <div className={styles.quizzInfoItem}>
-              <div className={styles.quizzInfoItemTitle}>Finished</div>
-              <div className={styles.quizzInfoItemValueWithIcon}>
-                <i
-                  className={`pi pi-check ${styles.quizzInfoItemFinishedImage}`}
-                  style={{ color: "lightgreen" }}
-                ></i>
-                <div className={styles.quizzInfoItemValue}>
-                  {getShortenedNumberData(finishCount)}
-                </div>
-              </div>
-            </div>
-            <div className={styles.quizzInfoItem}>
-              <div className={styles.quizzInfoItemTitle}>Liked</div>
-              <div className={styles.quizzInfoItemValueWithIcon}>
-                <i
-                  className={`pi pi-star ${styles.quizzInfoItemLikedImage}`}
-                  style={{ color: "gold" }}
-                ></i>
-                <div className={styles.quizzInfoItemValue}>
-                  {getShortenedNumberData(likeCount)}
-                </div>
-              </div>
-            </div>
-            <div className={styles.quizzInfoItem}>
-              <div className={styles.quizzInfoItemTitle}>Created</div>
-              <div className={styles.quizzInfoItemValueWithIcon}>
-                <i
-                  className={`pi pi-calendar ${styles.quizzInfoItemLikedImage}`}
-                  style={{ color: "white" }}
-                ></i>
-                <div className={styles.quizzInfoItemValue}>
-                  {new Date(createdAt).toLocaleDateString()}
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* </div> */}
-        </div>
-        <h3 className={styles.typeQuizQuestionTitle}>
-          Choose the type of quiz
-        </h3>
-        <div className={styles.quizzBottomContent}>
-          <Button
-            size="lg"
-            color="transparent"
-            classNames={{
-              root: styles.quizzTypeChooseRoot,
-              label: styles.quizzTypeChooseLabel,
-            }}
-            onClick={() => setTimeLimitModalOpened(true)}
-          >
-            <i className={`pi pi-stopwatch ${styles.quizzTypeChooseIcon}`}></i>
-            <h4 className={styles.quizzTypeChooseText}>Time limit</h4>
-          </Button>
-          <Button
-            size="lg"
-            color="transparent"
-            classNames={{
-              root: styles.quizzTypeChooseRoot,
-              label: styles.quizzTypeChooseLabel,
-            }}
-            onClick={() => setShownQuestion(0)}
-          >
-            <i
-              className={`pi pi-times-circle ${styles.quizzTypeChooseIcon}`}
-            ></i>
-            <h4 className={styles.quizzTypeChooseText}>No time limit</h4>
-          </Button>
-        </div>
-      </div>
-      <TimeLimitModal
-        timeLimit={timeLimit}
-        setTimeLimit={handleTimeLimitSubmit}
-        opened={timeLimitModalOpenend}
-        onClose={() => setTimeLimitModalOpened(false)}
-      />
-      <div
-        className={`${styles.quizzSection} ${
-          shownQuestion !== -1 ? styles.active : ""
-        }`}
-      >
-        {shownQuestion < Questions.length && shownQuestion > -1 ? (
+      <div className={`${styles.quizzSection} ${styles.active}`}>
+        {shownQuestion < Questions.length ? (
           Questions.sort((a, b) => a.order - b.order).map((question, index) => {
             return (
               <Question
