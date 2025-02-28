@@ -190,8 +190,8 @@ function CollapseDesktop() {
             leftSection={<i className="pi pi-question"></i>}
           ></CustomNavLink>
           <CustomNavLink
-            href="/quizz-list/books"
-            label={t("books")}
+            href="/quizz-list/literature"
+            label={t("literature")}
             leftSection={<i className="pi pi-book"></i>}
             closeMenu={closeMenu}
           ></CustomNavLink>

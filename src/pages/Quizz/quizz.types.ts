@@ -76,6 +76,6 @@ export enum EQuizCategories {
   MOVIES = "movies",
   GAMES = "games",
   TRIVIA = "trivia",
-  BOOKS = "books",
+  LITERATURE = "literature",
   OTHER = "other",
 }

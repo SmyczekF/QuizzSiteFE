@@ -6,6 +6,7 @@ import { returnImage } from "../../../shared/images/ImageReader";
 import useLikeQuizMutation from "./useLikeQuizMutation";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { showSuccessNotification } from "../../../shared/notifications/showSuccessNotification";
 
 export const getShortenedNumberData = (number: number) => {
   if (number >= 1000000) {
@@ -338,6 +339,14 @@ const QuizzListElement = (props: QuizzListElementProps) => {
           <i
             className={`pi pi-share-alt ${styles.modalAdditionalOperationsIcon}`}
             style={{ color: "lightblue" }}
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `http://localhost:3000/quizz/${id}${
+                  timeMode && timeLimit ? `?timeLimit=${timeLimit}` : ""
+                }`
+              );
+              showSuccessNotification("Link to the quizz copied to clipboard");
+            }}
           ></i>
           <i
             className={`pi ${liked ? "pi-star-fill" : "pi-star"} ${

@@ -34,7 +34,7 @@ const MyQuizzes = () => {
         <Table.Td>
           <span
             className={`pi pi-play ${styles.playIcon}`}
-            onClick={() => navigate(`/quizz/${quiz.id}}`)}
+            onClick={() => navigate(`/quizz/${quiz.id}`)}
           ></span>
         </Table.Td>
         <Table.Td>{quiz.title}</Table.Td>
