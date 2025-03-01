@@ -33,6 +33,8 @@ const Account = () => {
         return <QuizHistory />;
       case shownContent.MY_QUIZZES:
         return <MyQuizzes />;
+      case shownContent.EDIT_QUIZZ:
+        return <CreateQuiz />;
       default:
         return <AccountDetails />;
     }

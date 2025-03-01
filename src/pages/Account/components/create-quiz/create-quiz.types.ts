@@ -1,5 +1,3 @@
-import { EQuizCategories } from "../../../Quizz/quizz.types";
-
 export enum QuestionType {
   SINGLE_CHOICE = "single_choice",
   MULTIPLE_CHOICE = "multiple_choice",
@@ -19,6 +17,10 @@ export type Question = {
 export type Quiz = {
   title: string;
   description: string;
-  genres: EQuizCategories[];
+  genres: string[];
   questions: Question[];
 };
+
+export type QuizUpdate = {
+  id: string;
+} & Quiz;

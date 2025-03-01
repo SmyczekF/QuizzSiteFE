@@ -16,6 +16,7 @@ const Main = () => {
       <Route path="/quizz/:id" element={<Quizz />} />
       <Route path="/profile" element={<Account />} />
       <Route path="/profile/:content" element={<Account />} />
+      <Route path="/profile/:content/:id" element={<Account />} />
     </Routes>
   );
 };

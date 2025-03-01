@@ -45,7 +45,7 @@ const MyQuizzes = () => {
           <Flex gap={"sm"}>
             <span
               className={`pi pi-pencil ${styles.editIcon}`}
-              onClick={() => navigate(`/quizz/edit/${quiz.id}`)}
+              onClick={() => navigate(`/profile/edit-quizz/${quiz.id}`)}
             ></span>
             <span
               className={`pi pi-trash ${styles.deleteIcon}`}

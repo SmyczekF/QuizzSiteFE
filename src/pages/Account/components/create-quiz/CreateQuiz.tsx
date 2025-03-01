@@ -9,14 +9,49 @@ import {
 } from "@mantine/core";
 import styles from "../../Account.module.scss";
 import { useForm } from "@mantine/form";
-import { EQuizCategories } from "../../../Quizz/quizz.types";
+import { EQuizCategories, QuizzProps } from "../../../Quizz/quizz.types";
 import { FormEvent, useCallback, useEffect, useMemo } from "react";
 import { QuestionType, Quiz } from "./create-quiz.types";
 import { useCreateQuizMutation } from "./components/useCreateQuiz";
 import React from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { useUpdateQuizMutation } from "./components/useUpdateQuiz";
+
+const quizDataFormMapper = (quizData: QuizzProps): Quiz => ({
+  title: quizData.title,
+  description: quizData.description,
+  genres: quizData.Genres.map((genre) => genre.name),
+  questions: quizData.Questions.map((question) => ({
+    text: question.text,
+    type: question.type as QuestionType,
+    order: question.order,
+    options: question.Options.map((option) => ({
+      text: option.text,
+      isCorrect: !!option.correct,
+      order: option.order,
+    })),
+  })),
+});
 
 const CreateQuiz = () => {
+  const { id } = useParams<{ id: string }>();
+  const [type, setType] = React.useState<"create" | "edit">(
+    id ? "edit" : "create"
+  );
+
+  // Fetch quiz data if editing
+  const { data: quizData } = useQuery<QuizzProps>({
+    queryKey: ["getQuiz", id],
+    queryFn: () => axios.get(`/quizz/get/${id}/edit`).then((res) => res.data),
+    enabled: !!id, // Only run query if id exists
+  });
+
   const notFinishedQuizCreation: Quiz = useMemo(() => {
+    // If editing, don't use localStorage data
+    if (id) return null;
+
     const quiz = localStorage.getItem("notFinishedQuizCreation");
     try {
       return quiz ? JSON.parse(quiz) : null;
@@ -24,15 +59,19 @@ const CreateQuiz = () => {
       console.error(e);
       return null;
     }
-  }, []);
+  }, [id]);
 
+  // Set form initial values based on whether we're editing or creating
   const form = useForm<Quiz>({
-    initialValues: notFinishedQuizCreation || {
-      title: "",
-      description: "",
-      genres: [],
-      questions: [],
-    },
+    initialValues:
+      id && quizData
+        ? quizDataFormMapper(quizData)
+        : notFinishedQuizCreation || {
+            title: "",
+            description: "",
+            genres: [],
+            questions: [],
+          },
     validate: {
       title: (value) => (/^\w{3,}$/.test(value) ? null : "Title is too short"),
       description: (value) =>
@@ -44,17 +83,51 @@ const CreateQuiz = () => {
     },
   });
 
-  const { mutate, isSuccess } = useCreateQuizMutation(form.values);
+  const { mutate: createMutate, isSuccess: createSuccess } =
+    useCreateQuizMutation(form.values);
+  const { mutate: updateMutate, isSuccess: updateSuccess } =
+    useUpdateQuizMutation({ id: id || "", ...form.values });
+
+  // Update type when id changes
+  useEffect(() => {
+    setType(id ? "edit" : "create");
+  }, [id]);
+
+  useEffect(() => {
+    if (id && quizData) {
+      form.setValues(quizData);
+    }
+  }, [id, quizData]);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate();
+    if (type === "edit") {
+      updateMutate();
+    } else {
+      createMutate();
+    }
   };
 
   const handleFormReset = useCallback(() => {
-    localStorage.removeItem("notFinishedQuizCreation");
+    if (!id) {
+      localStorage.removeItem("notFinishedQuizCreation");
+    }
     form.reset();
-  }, [form]);
+  }, [form, id]);
+
+  useEffect(() => {
+    if (createSuccess || updateSuccess) handleFormReset();
+  }, [createSuccess, updateSuccess, handleFormReset]);
+
+  // Only save to localStorage when creating
+  useEffect(() => {
+    if (!id) {
+      localStorage.setItem(
+        "notFinishedQuizCreation",
+        JSON.stringify(form.values)
+      );
+    }
+  }, [form.values, id]);
 
   const handleAddOption = (questionIndex: number) => {
     form.setFieldValue(`questions.${questionIndex}.options`, [
@@ -85,24 +158,17 @@ const CreateQuiz = () => {
     ]);
   };
 
-  useEffect(() => {
-    if (isSuccess) handleFormReset();
-  }, [isSuccess, handleFormReset]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "notFinishedQuizCreation",
-      JSON.stringify(form.values)
-    );
-  }, [form.values]);
-
   return (
     <form onSubmit={handleFormSubmit}>
       <Grid gutter={"xl"} align="center">
         <Grid.Col span={12}>
-          <h1 className={styles.contentTitle}>Quiz creation page</h1>
+          <h1 className={styles.contentTitle}>
+            {type === "edit" ? "Edit Quiz" : "Quiz Creation Page"}
+          </h1>
           <p className={styles.contentDescription}>
-            Here you can create your own quiz.
+            {type === "edit"
+              ? "Here you can edit your quiz."
+              : "Here you can create your own quiz."}
           </p>
         </Grid.Col>
         <Grid.Col span={4} className={styles.row}>
@@ -284,7 +350,7 @@ const CreateQuiz = () => {
           Cancel
         </Button>
         <Button type="submit" color="yellow">
-          Create
+          {type === "edit" ? "Update" : "Create"}
         </Button>
       </Flex>
     </form>

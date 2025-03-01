@@ -42,6 +42,9 @@ export interface QuizFinishProps {
 }
 
 export interface QuizzProps extends QuizzListElementProps {
+  title: string;
+  description: string;
+  Genres: { name: string }[];
   Questions: QuestionProps[];
 }
 

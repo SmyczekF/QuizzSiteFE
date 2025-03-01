@@ -4,4 +4,5 @@ export enum shownContent {
   CREATE_QUIZZ = "create-quizz",
   MY_QUIZZES = "my-quizzes",
   STATISTICS = "statistics",
+  EDIT_QUIZZ = "edit-quizz",
 }

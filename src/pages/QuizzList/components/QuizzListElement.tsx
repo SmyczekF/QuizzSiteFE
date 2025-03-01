@@ -341,7 +341,7 @@ const QuizzListElement = (props: QuizzListElementProps) => {
             style={{ color: "lightblue" }}
             onClick={() => {
               navigator.clipboard.writeText(
-                `http://localhost:3000/quizz/${id}${
+                `${window.location.origin}/quizz/${id}${
                   timeMode && timeLimit ? `?timeLimit=${timeLimit}` : ""
                 }`
               );
