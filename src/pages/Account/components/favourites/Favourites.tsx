@@ -1,69 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import QuizzCard from "../../../../common/QuizzCard/QuizzCard";
 import styles from "./Favourites.module.scss";
-import { Container } from "@mantine/core";
+import { QuizzListElementProps } from "../../../QuizzList/quizzes.types";
+import axios from "axios";
 
-//wiem że powinno być gdzieś wspólnie ale na razie jest w obu
-interface QuizzInfo {
-  title: string;
-  imageUrl: string;
-  topResult: string;
-  popularity: number;
-  date: Date;
-  category: string;
-  tags: string[];
-}
-
+// TODO: Add pagination: first we should create a global component for pagination and reuse it for every table. It exists for quiz list
 const Favourites = () => {
-  //TODO napisać normalne pobieranie tych danych
-  const tagsTable: string[] = ["Kimetsu no Yaiba", "Demon Slayer", "Anime"];
-
-  const quizzDataArray: QuizzInfo[] = [
-    {
-      title: "Demon Slayer",
-      imageUrl: "/demon-slayer-dummy.png",
-      topResult: "60.5%",
-      popularity: 100,
-      date: new Date("2025-12-20"),
-      category: "Anime",
-      tags: tagsTable,
-    },
-    {
-      title: "Attack on Titan",
-      imageUrl: "/demon-slayer-dummy.png",
-      topResult: "50.5%",
-      popularity: 100000,
-      date: new Date("2025-12-20"),
-      category: "Anime",
-      tags: tagsTable,
-    },
-    {
-      title: "My Hero Academia",
-      imageUrl: "/demon-slayer-dummy.png",
-      topResult: "100%",
-      popularity: 100123,
-      date: new Date("2025-12-20"),
-      category: "Anime",
-      tags: tagsTable,
-    },
-    {
-      title: "My Hero Academia",
-      imageUrl: "/demon-slayer-dummy.png",
-      topResult: "100%",
-      popularity: 100123,
-      date: new Date("2025-12-20"),
-      category: "Anime",
-      tags: tagsTable,
-    },
-    {
-      title: "My Hero Academia",
-      imageUrl: "/demon-slayer-dummy.png",
-      topResult: "100%",
-      popularity: 100123,
-      date: new Date("2025-12-20"),
-      category: "Anime",
-      tags: tagsTable,
-    },
-  ];
+  const { data, refetch } = useQuery<{
+    quizzes: QuizzListElementProps[];
+    totalCount: number;
+  }>({
+    queryKey: ["userMyQuizzes"],
+    queryFn: () =>
+      axios
+        .get(
+          "/quizz/favourites"
+          //   {
+          //   params: {
+          //     page: activePage,
+          //     limit: limit,
+          //     order: quizQueryParams.order[0],
+          //     orderDir: quizQueryParams.order[1],
+          //   },
+          // }
+        )
+        .then((res) => res.data),
+  });
 
   return (
     <>
@@ -74,7 +36,7 @@ const Favourites = () => {
       </div> */}
 
       <div className={styles.container}>
-        {quizzDataArray.map((quizz, index) => (
+        {data?.quizzes.map((quizz, index) => (
           <QuizzCard key={index} quizzInfo={quizz} />
         ))}
       </div>

@@ -1,20 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./QuizzCard.module.scss";
-import React from "react";
+import { QuizzListElementProps } from "../../pages/QuizzList/quizzes.types";
+import { returnImage } from "../../shared/images/ImageReader";
+import { useNavigate } from "react-router-dom";
 
-interface QuizzInfo {
-  title: string;
-  imageUrl: string;
-  topResult: string;
-  popularity: number;
-  date: Date;
-  category: string;
-  tags: string[];
-}
-
-const QuizzCard = ({ quizzInfo }: { quizzInfo: QuizzInfo }) => {
+const QuizzCard = ({ quizzInfo }: { quizzInfo: QuizzListElementProps }) => {
   const itemRef = useRef<HTMLDivElement>(null); // Określenie typu referencji
   const [className, setClassName] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,47 +24,47 @@ const QuizzCard = ({ quizzInfo }: { quizzInfo: QuizzInfo }) => {
     };
   }, []);
 
+  const image = returnImage(quizzInfo.image);
+
   return (
     <>
       <div
         className={`${styles.quizz} ${className}`}
         ref={itemRef}
         style={{
-          backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1)), url(${quizzInfo.imageUrl})`,
+          backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1)), url(${image})`,
         }}
+        onClick={() => navigate(`/quizz/${quizzInfo.id}`)}
       >
         <div className={styles.textContainer}>
           <div className={styles.info}>
             <div className={styles.text}>
               <i className="pi pi-users"></i>
-              {quizzInfo.popularity}
+              {quizzInfo.finishCount}
             </div>
             <div className={styles.text}>
               <i className="pi pi-check-square"></i>
-              {quizzInfo.topResult}
+              {/* TODO: trzeba dodać najlepszy wynik, na razie nie ma takiego w bazie */}
+              {/* {quizzInfo.topResult} */}
+              90%
             </div>
             <div className={styles.text}>
+              {/* Tutaj trochę nie wiem czy to ma być stworzenie / update / ostatnie zagranie? */}
               <i className="pi pi-calendar"></i>
-              {quizzInfo.date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {new Date(quizzInfo.createdAt).toLocaleDateString()}
             </div>
             <div className={styles.likes}>
               <div className={styles.text}>
                 <i className="pi pi-thumbs-up"></i>
-                10
-              </div>
-              <div className={styles.text}>
-                <i className="pi pi-thumbs-down"></i>1
+                {quizzInfo.likeCount}
               </div>
             </div>
 
             <div className={styles.moreInfo}>
               <div className={`${styles.text}  ${styles.category}`}>
-                Kategoria: Anime
+                Genres: {quizzInfo.Genres.map((genre) => genre.name).join(",")}
               </div>
+              {/* TODO: Dodać tagi - na razie nie ma czegoś takiego - tylko gatunki */}
               <div className={`${styles.text} ${styles.tags}`}>
                 Tagi: Example,Example,Example
               </div>

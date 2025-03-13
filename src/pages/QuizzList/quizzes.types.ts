@@ -8,6 +8,7 @@ export interface QuizzListElementProps {
   liked: boolean;
   image?: { type: string; data: number[] };
   Author: User;
+  Genres: { name: string }[];
   createdAt: string;
 }
 
