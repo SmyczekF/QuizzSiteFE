@@ -13,24 +13,6 @@ interface QuizzInfo {
 }
 
 const QuizzCard = ({ quizzInfo }: { quizzInfo: QuizzInfo }) => {
-  // const itemRef = useRef(null);
-  // useEffect(() => {
-  //   console.log(itemRef.current);
-  //   if (itemRef?.current) {
-  //     const width = parseFloat(window.getComputedStyle(itemRef.current).width);
-  //     console.log(width);
-  //     if (width < 700) {
-  //       const resizeObserver = new ResizeObserver((entries) => {});
-  //       resizeObserver.observe(itemRef.current);
-  //       return () => resizeObserver.disconnect();
-  //     } else {
-  //       const resizeObserver = new ResizeObserver((entries) => {});
-  //       resizeObserver.observe(itemRef.current);
-  //       return () => resizeObserver.disconnect();
-  //     }
-  //   }
-  // }, [itemRef]);
-
   const itemRef = useRef<HTMLDivElement>(null); // Określenie typu referencji
   const [className, setClassName] = useState("");
 
@@ -47,8 +29,6 @@ const QuizzCard = ({ quizzInfo }: { quizzInfo: QuizzInfo }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  console.log("classname", className);
 
   return (
     <>
