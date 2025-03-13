@@ -14,7 +14,7 @@ import { FormEvent, useCallback, useEffect, useMemo } from "react";
 import { QuestionType, Quiz } from "./create-quiz.types";
 import { useCreateQuizMutation } from "./components/useCreateQuiz";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useUpdateQuizMutation } from "./components/useUpdateQuiz";
@@ -43,6 +43,7 @@ const CreateQuiz = () => {
   const [type, setType] = React.useState<"create" | "edit">(
     id ? "edit" : "create"
   );
+  const navigate = useNavigate();
 
   // Fetch quiz data if editing
   const { data: quizData } = useQuery<QuizzProps>({
@@ -131,8 +132,11 @@ const CreateQuiz = () => {
   }, [id]);
 
   useEffect(() => {
-    if (createSuccess || updateSuccess) handleFormReset();
-  }, [createSuccess, updateSuccess, handleFormReset]);
+    if (createSuccess || updateSuccess) {
+      handleFormReset();
+      navigate("/profile/my-quizzes");
+    }
+  }, [createSuccess, updateSuccess, handleFormReset, navigate]);
 
   // Only save to localStorage when creating
   useEffect(() => {
