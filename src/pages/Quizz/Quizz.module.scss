@@ -435,12 +435,17 @@
   }
 }
 
-.quizzImage {
+.questionMark {
   width: 120px;
   height: auto;
   object-fit: fill;
   transform: scale(1) rotate(0deg);
   margin: 20px 0;
+}
+
+.quizzImage {
+  @extend .questionMark;
+  width: 50%;
 }
 
 @keyframes dissapear {

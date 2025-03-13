@@ -5,7 +5,7 @@ export interface OptionProps {
   text: string;
   order: number;
   image?: { type: string; data: number[] };
-  correct?: boolean;
+  isCorrect?: boolean;
   correctNotChoosen?: boolean;
 }
 

@@ -15,7 +15,9 @@ export type Question = {
 };
 
 export type Quiz = {
+  id?: string;
   title: string;
+  image?: string; // base64
   description: string;
   genres: string[];
   questions: Question[];
