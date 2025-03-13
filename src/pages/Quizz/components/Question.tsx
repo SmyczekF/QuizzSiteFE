@@ -114,7 +114,7 @@ const Question = (props: QuestionProps) => {
                     <img
                       src={questionMark}
                       alt="quizz_image"
-                      className={styles.quizzImage}
+                      className={styles.questionMark}
                       style={{ transform: "scale(0.55) rotate(-20deg)" }}
                     />
                   )}
@@ -122,21 +122,21 @@ const Question = (props: QuestionProps) => {
                     <img
                       src={questionMark}
                       alt="quizz_image"
-                      className={styles.quizzImage}
+                      className={styles.questionMark}
                       style={{ transform: "scale(0.75) rotate(-10deg)" }}
                     />
                   )}
                   <img
                     src={questionMark}
                     alt="quizz_image"
-                    className={styles.quizzImage}
+                    className={styles.questionMark}
                     style={{ transform: "scale(1) rotate(0deg)" }}
                   />
                   {!isXs && (
                     <img
                       src={questionMark}
                       alt="quizz_image"
-                      className={styles.quizzImage}
+                      className={styles.questionMark}
                       style={{ transform: "scale(0.75) rotate(10deg)" }}
                     />
                   )}
@@ -144,7 +144,7 @@ const Question = (props: QuestionProps) => {
                     <img
                       src={questionMark}
                       alt="quizz_image"
-                      className={styles.quizzImage}
+                      className={styles.questionMark}
                       style={{ transform: "scale(0.55) rotate(20deg)" }}
                     />
                   )}
