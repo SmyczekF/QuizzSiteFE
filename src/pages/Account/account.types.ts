@@ -5,4 +5,5 @@ export enum shownContent {
   MY_QUIZZES = "my-quizzes",
   STATISTICS = "statistics",
   EDIT_QUIZZ = "edit-quizz",
+  FAVOURITES = "favourite-quizzes",
 }

@@ -1,0 +1,115 @@
+.quizz {
+  display: flex;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.textContainer {
+  display: flex;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  width: 100%;
+  padding: 0px 10px 5px 10px;
+  align-self: end;
+  justify-content: end;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  font-family: "Staatliches Regular";
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.info {
+  padding-left: 10px;
+  width: 100%;
+  display: grid;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  gap: 2px;
+}
+
+.bigQuizz {
+  min-height: 150px;
+  transition: min-height 0.2s linear;
+
+  .textContainer {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .info {
+    grid-template-columns: repeat(4, 1fr);
+    transition: max-height 0.5s linear;
+    max-height: 30px;
+  }
+
+  .likes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .moreInfo {
+    grid-column: span 4;
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
+.bigQuizz:hover {
+  min-height: 200px;
+
+  .info {
+    max-height: 200px;
+  }
+}
+
+.smallQuizz {
+  .textContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .info {
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    transition: max-width 1s linear;
+    max-height: 100%;
+    max-width: 50%;
+    gap: 2px;
+  }
+
+  .moreInfo {
+    grid-column: span 1;
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .text {
+    font-size: medium;
+  }
+}
+
+.smallQuizz:hover {
+  max-height: 200px;
+
+  .info {
+    gap: 5px;
+    max-height: 100%;
+    max-width: 50%;
+  }
+
+  .text {
+    font-size: larger;
+  }
+}

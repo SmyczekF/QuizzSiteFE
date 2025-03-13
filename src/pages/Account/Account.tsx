@@ -9,6 +9,7 @@ import { shownContent } from "./account.types";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
 import QuizHistory from "./components/quizHistory/QuizHistory";
 import MyQuizzes from "./components/myQuizzes/MyQuizzes";
+import Favourites from "./components/favourites/Favourites";
 
 const Account = () => {
   const credentialsContext = useContext(CredentialsContext);
@@ -35,6 +36,8 @@ const Account = () => {
         return <MyQuizzes />;
       case shownContent.EDIT_QUIZZ:
         return <CreateQuiz />;
+      case shownContent.FAVOURITES:
+        return <Favourites />;
       default:
         return <AccountDetails />;
     }
@@ -85,6 +88,13 @@ const Account = () => {
             label="My Quizzes"
             leftSection={
               <i className="pi pi-list" style={{ fontSize: "1.5em" }} />
+            }
+          />
+          <CustomNavLink
+            href="/profile/favourite-quizzes"
+            label="Favourites"
+            leftSection={
+              <i className="pi pi-star" style={{ fontSize: "1.5em" }} />
             }
           />
           <CustomNavLink
