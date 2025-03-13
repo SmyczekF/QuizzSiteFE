@@ -129,14 +129,12 @@ const CreateQuiz = () => {
       questions: [],
     });
     form.reset();
-  }, [id]);
+    if (type === "edit") navigate("/profile/my-quizzes");
+  }, [id, navigate]);
 
   useEffect(() => {
-    if (createSuccess || updateSuccess) {
-      handleFormReset();
-      navigate("/profile/my-quizzes");
-    }
-  }, [createSuccess, updateSuccess, handleFormReset, navigate]);
+    if (createSuccess || updateSuccess) handleFormReset();
+  }, [createSuccess, updateSuccess, handleFormReset]);
 
   // Only save to localStorage when creating
   useEffect(() => {
@@ -178,7 +176,7 @@ const CreateQuiz = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} className={styles.createQuizForm}>
       <Grid gutter={"xl"} align="center">
         <Grid.Col span={12}>
           <h1 className={styles.contentTitle}>
@@ -364,14 +362,16 @@ const CreateQuiz = () => {
           </Button>
         </Grid.Col>
       </Grid>
-      <Flex justify="end" gap={20} mt={20} mb={50}>
-        <Button color="red" onClick={handleFormReset}>
-          Cancel
-        </Button>
-        <Button type="submit" color="yellow">
-          {type === "edit" ? "Update" : "Create"}
-        </Button>
-      </Flex>
+      <div className={styles.createQuizButtonContainer}>
+        <Flex justify="end" gap={20} mt={20} mb={50}>
+          <Button color="red" onClick={handleFormReset}>
+            {type === "edit" ? "Cancel" : "Discard"}
+          </Button>
+          <Button type="submit" color="yellow">
+            {type === "edit" ? "Update" : "Create"}
+          </Button>
+        </Flex>
+      </div>
     </form>
   );
 };

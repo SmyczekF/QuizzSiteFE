@@ -134,6 +134,19 @@
   color: var(--primary);
 }
 
+.createQuizButtonContainer {
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  right: 10%;
+  background-color: var(--background-main);
+  width: 100%;
+}
+
+.createQuizForm {
+  padding-bottom: 150px;
+}
+
 @media only screen and (max-width: 700px) {
   .view {
     padding: 100px 7px 0 7px;
