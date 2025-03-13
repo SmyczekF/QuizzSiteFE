@@ -6,7 +6,7 @@ import { showErrorNotification } from "../../../../../shared/notifications/showE
 
 export const useUpdateQuizMutation = (quiz: QuizUpdate) =>
   useMutation<AxiosResponse, AxiosError>({
-    mutationFn: () => axios.post("/quizz/update", quiz),
+    mutationFn: () => axios.post(`/quizz/update/${quiz.id}`, quiz),
     onSuccess: (data: AxiosResponse) => {
       showSuccessNotification(`Quiz updates successfully!.`);
     },

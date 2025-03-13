@@ -15,6 +15,7 @@ export type Question = {
 };
 
 export type Quiz = {
+  id?: string;
   title: string;
   description: string;
   genres: string[];

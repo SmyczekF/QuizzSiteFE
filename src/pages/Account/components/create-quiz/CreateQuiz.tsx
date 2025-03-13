@@ -20,16 +20,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useUpdateQuizMutation } from "./components/useUpdateQuiz";
 
 const quizDataFormMapper = (quizData: QuizzProps): Quiz => ({
+  id: `${quizData.id}`,
   title: quizData.title,
   description: quizData.description,
   genres: quizData.Genres.map((genre) => genre.name),
   questions: quizData.Questions.map((question) => ({
+    id: question.id,
     text: question.text,
     type: question.type as QuestionType,
     order: question.order,
     options: question.Options.map((option) => ({
+      id: option.id,
       text: option.text,
-      isCorrect: !!option.correct,
+      isCorrect: !!option.isCorrect,
       order: option.order,
     })),
   })),
@@ -48,6 +51,8 @@ const CreateQuiz = () => {
     enabled: !!id, // Only run query if id exists
   });
 
+  console.log("quizData", quizData);
+
   const notFinishedQuizCreation: Quiz = useMemo(() => {
     // If editing, don't use localStorage data
     if (id) return null;
@@ -61,6 +66,10 @@ const CreateQuiz = () => {
     }
   }, [id]);
 
+  // console.log(
+  //   "quizDataFormMapper",
+  //   id && quizData && quizDataFormMapper(quizData)
+  // );
   // Set form initial values based on whether we're editing or creating
   const form = useForm<Quiz>({
     initialValues:
@@ -88,14 +97,14 @@ const CreateQuiz = () => {
   const { mutate: updateMutate, isSuccess: updateSuccess } =
     useUpdateQuizMutation({ id: id || "", ...form.values });
 
-  // Update type when id changes
   useEffect(() => {
     setType(id ? "edit" : "create");
-  }, [id]);
-
-  useEffect(() => {
+    form.reset();
     if (id && quizData) {
-      form.setValues(quizData);
+      form.setValues(quizDataFormMapper(quizData));
+    }
+    if (!id && notFinishedQuizCreation) {
+      form.setValues(notFinishedQuizCreation);
     }
   }, [id, quizData]);
 
@@ -112,8 +121,14 @@ const CreateQuiz = () => {
     if (!id) {
       localStorage.removeItem("notFinishedQuizCreation");
     }
+    form.setInitialValues({
+      title: "",
+      description: "",
+      genres: [],
+      questions: [],
+    });
     form.reset();
-  }, [form, id]);
+  }, [id]);
 
   useEffect(() => {
     if (createSuccess || updateSuccess) handleFormReset();
