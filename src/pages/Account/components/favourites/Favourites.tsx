@@ -29,16 +29,13 @@ const Favourites = () => {
 
   return (
     <>
-      {/* <div className={styles.container}>
-        {quizzDataArray.map((quizz, index) => (
-          <QuizzCard key={index} quizzInfo={quizz} />
-        ))}
-      </div> */}
-
       <div className={styles.container}>
-        {data?.quizzes.map((quizz, index) => (
-          <QuizzCard key={index} quizzInfo={quizz} />
-        ))}
+        {data?.quizzes
+          ? data?.quizzes.map((quizz, index) => (
+              <QuizzCard key={index} quizzInfo={quizz} />
+            ))
+          : // TODO: replace null with loading
+            null}
       </div>
     </>
   );
